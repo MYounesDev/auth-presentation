@@ -1,666 +1,408 @@
 ---
-# try also 'default' to start simple
 theme: seriph
-# random image from a curated Unsplash collection by Anthony
-# like them? see https://unsplash.com/collections/94734566/slidev
-background: https://cover.sli.dev
-# some information about your slides (markdown enabled)
-title: Welcome to Slidev
-info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
-
-  Learn more at [Sli.dev](https://sli.dev)
-# apply UnoCSS classes to the current slide
+background: https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1920
+title: "Authorization (Yetkilendirme) - Güvenliğin Görünmez Kalesi"
 class: text-center
-# https://sli.dev/features/drawing
-drawings:
-  persist: false
-# slide transition: https://sli.dev/guide/animations.html#slide-transitions
 transition: slide-left
-# enable Comark Syntax: https://comark.dev/syntax/markdown
 comark: true
-# duration of the presentation
-duration: 35min
+fonts:
+  sans: Inter
+  serif: Playfair Display
+  mono: Fira Code
 ---
 
-# Welcome to Slidev
+# 🔐 Authorization <span class="text-amber-400">(Yetkilendirme)</span>
 
-Presentation slides for developers
-
-<div @click="$slidev.nav.next" class="mt-12 py-1" hover:bg="white op-10">
-  Press Space for next page <carbon:arrow-right />
+<div class="text-xl text-gray-300 mt-2">
+Güvenliğin Görünmez Kalesi
 </div>
 
-<div class="abs-br m-6 text-xl">
-  <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="slidev-icon-btn">
-    <carbon:edit />
-  </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" class="slidev-icon-btn">
-    <carbon:logo-github />
-  </a>
+<div class="mt-8 text-sm opacity-70">
+Bilgisayar Mühendisliği Öğrencileri İçin Kapsamlı Sunum
 </div>
-
-<!--
-The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
--->
 
 ---
 transition: fade-out
+layout: center
 ---
 
-# What is Slidev?
+<ModernAlert type="danger" title="Bir Soru İle Başlayalım">
+<template #icon><carbon:warning-alt /></template>
+<template #icon-large><carbon:warning-alt /></template>
+<div class="mt-2 text-xl font-bold">
+Test edilen uygulamaların <span class="text-white text-3xl mx-2">%94'ünde</span> erişim kontrolü açığı bulundu.
+</div>
+<div class="mt-2 text-sm opacity-80">— OWASP Top 10, 2021</div>
+</ModernAlert>
 
-Slidev is a slides maker and presenter designed for developers, consist of the following features
-
-- 📝 **Text-based** - focus on the content with Markdown, and then style them later
-- 🎨 **Themable** - themes can be shared and re-used as npm packages
-- 🧑‍💻 **Developer Friendly** - code highlighting, live coding with autocompletion
-- 🤹 **Interactive** - embed Vue components to enhance your expressions
-- 🎥 **Recording** - built-in recording and camera view
-- 📤 **Portable** - export to PDF, PPTX, PNGs, or even a hostable SPA
-- 🛠 **Hackable** - virtually anything that's possible on a webpage is possible in Slidev
-<br>
-<br>
-
-Read more about [Why Slidev?](https://sli.dev/guide/why)
-
-<!--
-You can have `style` tag in markdown to override the style for the current page.
-Learn more: https://sli.dev/features/slide-scope-style
--->
-
-<style>
-h1 {
-  background-color: #2B90B6;
-  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-}
-</style>
-
-<!--
-Here is another comment.
--->
+<div v-click class="mt-12 text-center">
+<h2 class="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-amber-500">
+Broken Access Control
+</h2>
+<div class="text-gray-300 mt-2">Dünyanın 1 Numaralı Güvenlik Açığı</div>
+</div>
 
 ---
 transition: slide-up
-level: 2
 ---
 
-# Navigation
+# <carbon:fingerprint-recognition /> AuthN vs AuthZ
 
-Hover on the bottom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/ui#navigation-bar)
+<div class="grid grid-cols-2 gap-8 mt-8">
+<div v-click>
+<GlassCard title="Authentication (Kimlik Doğrulama)" color="cyan">
+<template #icon><carbon:fingerprint-recognition /></template>
+<div class="text-xl font-bold text-white mb-3">"Sen kimsin?"</div>
+<ul class="space-y-3 mt-4 text-sm leading-relaxed">
+<li class="flex items-start gap-2"><carbon:checkmark class="text-cyan-400 mt-1"/> Kullanıcının kimliğini doğrular.</li>
+<li class="flex items-start gap-2"><carbon:checkmark class="text-cyan-400 mt-1"/> Güvenlik <strong>ve</strong> kişiselleştirme içindir.</li>
+<li class="flex items-start gap-2 text-gray-400 italic"><carbon:information class="mt-1"/> Örn: Şifre ile giriş, Yüz Tanıma, 2FA</li>
+</ul>
+</GlassCard>
+</div>
 
-## Keyboard Shortcuts
-
-|                                                     |                             |
-| --------------------------------------------------- | --------------------------- |
-| <kbd>right</kbd> / <kbd>space</kbd>                 | next animation or slide     |
-| <kbd>left</kbd>  / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd>                                       | previous slide              |
-| <kbd>down</kbd>                                     | next slide                  |
-
-<!-- https://sli.dev/guide/animations.html#click-animation -->
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-  alt=""
-/>
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
-
-<!--
-00000000
--->
+<div v-click>
+<GlassCard title="Authorization (Yetkilendirme)" color="red">
+<template #icon><carbon:security /></template>
+<div class="text-xl font-bold text-white mb-3">"Ne yapabilirsin?"</div>
+<ul class="space-y-3 mt-4 text-sm leading-relaxed">
+<li class="flex items-start gap-2"><carbon:checkmark class="text-red-400 mt-1"/> Kullanıcının yetkisini kontrol eder.</li>
+<li class="flex items-start gap-2"><carbon:checkmark class="text-red-400 mt-1"/> <strong>Sadece ve sadece güvenlik içindir.</strong></li>
+<li class="flex items-start gap-2 text-gray-400 italic"><carbon:information class="mt-1"/> Kullanıcıya yeni bir arayüz/özellik katmaz.</li>
+</ul>
+</GlassCard>
+</div>
+</div>
 
 ---
-layout: two-cols
-layoutClass: gap-16
+transition: slide-left
 ---
 
-# Table of contents
+# <carbon:connect /> AuthN ↔ AuthZ: Kritik İlişki
 
-You can use the `Toc` component to generate a table of contents for your slides:
+<div class="grid grid-cols-3 gap-6 mt-12">
+<div v-click>
+<GlassCard title="1. AuthN Yok → AuthZ Yok" color="purple">
+<template #icon><carbon:close-outline /></template>
+<div class="text-sm">Kullanıcının kim olduğunu bilmiyorsanız yetkisini kontrol edemezsiniz. Anonim sistemlerde Authorization imkansızdır.</div>
+</GlassCard>
+</div>
 
-```html
-<Toc minDepth="1" maxDepth="1" />
+<div v-click>
+<GlassCard title="2. AuthN Var → AuthZ Yok" color="amber">
+<template #icon><carbon:warning /></template>
+<div class="text-sm">Sistem kullanıcıyı tanır ama herkesin yetkisi eşittir. Hiçbir engel yoktur (Örn: Herkese açık wiki veya basit forum).</div>
+</GlassCard>
+</div>
+
+<div v-click>
+<GlassCard title="3. Her Zaman Birlikte" color="green">
+<template #icon><carbon:checkmark-outline /></template>
+<div class="text-sm">Authorization her zaman Authentication üzerine inşa edilir. Sağlam bir güvenlik için AuthZ = AuthN + Yetki Kuralları.</div>
+</GlassCard>
+</div>
+</div>
+
+<div v-click class="mt-12">
+<ModernAlert type="warning" title="Mühendislik Dersi">
+<template #icon><carbon:idea /></template>
+<template #icon-large><carbon:idea /></template>
+<div class="text-sm">Authorization, sisteme yeni bir "özellik" katmadığı için geliştiriciler tarafından sıkça unutulur veya "sonra yaparız" diye ertelenir. Bu hata, mimari açıdan ölümcül sonuçlar doğurur.</div>
+</ModernAlert>
+</div>
+
+---
+transition: slide-left
+---
+
+# <carbon:user-role /> RBAC (Role-Based Access Control)
+
+<div class="grid grid-cols-2 gap-8 mt-8">
+<div v-click>
+<GlassCard title="Rol Tabanlı Yetkilendirme" color="blue">
+<template #icon><carbon:user-role /></template>
+<div class="text-sm">Kullanıcıya doğrudan izin vermek yerine, <strong>bir rol atanır</strong> ve izinler role bağlanır. Günümüzde en yaygın kullanılan authorization modelidir.</div>
+<div class="mt-6 flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<div class="px-3 py-1 bg-red-500/20 text-red-400 rounded-md border border-red-500/30 font-mono text-sm w-24 text-center shadow-[0_0_10px_rgba(239,68,68,0.2)]">Admin</div>
+<span class="text-gray-300 text-xs">→ create, read, update, delete</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="px-3 py-1 bg-amber-500/20 text-amber-400 rounded-md border border-amber-500/30 font-mono text-sm w-24 text-center shadow-[0_0_10px_rgba(245,158,11,0.2)]">Editor</div>
+<span class="text-gray-300 text-xs">→ create, read, update</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="px-3 py-1 bg-green-500/20 text-green-400 rounded-md border border-green-500/30 font-mono text-sm w-24 text-center shadow-[0_0_10px_rgba(34,197,94,0.2)]">Viewer</div>
+<span class="text-gray-300 text-xs">→ read</span>
+</div>
+</div>
+</GlassCard>
+</div>
+
+<div>
+<div v-click>
+<ModernAlert type="info" title="Neden Popüler?">
+<template #icon><carbon:star /></template>
+<template #icon-large><carbon:star /></template>
+<div class="text-sm">Anlaşılması çok kolaydır, yönetimi basittir ve çoğu modern web uygulamasının iş senaryolarına mükemmel uyar.</div>
+</ModernAlert>
+</div>
+
+<div v-click class="mt-6">
+<ModernAlert type="danger" title="Dikkat: Role Explosion">
+<template #icon><carbon:warning /></template>
+<template #icon-large><carbon:warning /></template>
+<div class="text-sm">Sistem büyüdükçe roller çoğalır. <code>admin</code>, <code>super-admin</code>, <code>regional-admin</code>, <code>department-admin</code> gibi onlarca rol oluştuğunda sistem yönetimi imkansızlaşır.</div>
+</ModernAlert>
+</div>
+</div>
+</div>
+
+---
+transition: slide-left
+---
+
+# <carbon:cloud /> AWS IAM (Identity and Access Management)
+
+<div class="grid grid-cols-2 gap-8 mt-6">
+<div v-click>
+<GlassCard title="Endüstri Standardı IAM" color="amber">
+<template #icon><carbon:cloud /></template>
+<div class="text-sm">Amazon Web Services'in yetkilendirme sistemi, modern bulut güvenliğinin temelini oluşturur.</div>
+<ul class="mt-4 space-y-3 text-sm">
+<li class="flex items-center justify-between border-b border-white/5 pb-2">
+<strong class="text-amber-400">Users</strong> <span class="text-gray-400">Gerçek kişiler / Servisler</span>
+</li>
+<li class="flex items-center justify-between border-b border-white/5 pb-2">
+<strong class="text-amber-400">Groups</strong> <span class="text-gray-400">Kullanıcı kümeleri</span>
+</li>
+<li class="flex items-center justify-between border-b border-white/5 pb-2">
+<strong class="text-amber-400">Roles</strong> <span class="text-gray-400">Üstlenilebilen geçici yetkiler</span>
+</li>
+<li class="flex items-center justify-between">
+<strong class="text-amber-400">Policies</strong> <span class="text-gray-400">İzinleri tanımlayan JSON'lar</span>
+</li>
+</ul>
+</GlassCard>
+</div>
+
+<div v-click>
+<div class="p-5 rounded-2xl bg-[#1a232f] border border-[#FF9900]/30 shadow-2xl relative overflow-hidden transition-all duration-300 hover:border-[#FF9900]/50 hover:shadow-[0_0_30px_rgba(255,153,0,0.2)]">
+<div class="absolute top-0 right-0 p-3"><carbon:cloud class="text-[#FF9900] text-3xl opacity-20" /></div>
+<div class="text-[#FF9900] font-bold mb-3 flex items-center gap-2"><carbon:policy /> Örnek Policy JSON</div>
+
+```json
+{
+  "Effect": "Allow",
+  "Action": [
+    "s3:GetObject",
+    "s3:PutObject"
+  ],
+  "Resource": "arn:aws:s3:::my-secure-bucket/*"
+}
 ```
+</div>
+</div>
+</div>
 
-The title will be inferred from your slide content, or you can override it with `title` and `level` in your frontmatter.
-
-::right::
-
-<Toc text-sm minDepth="1" maxDepth="2" />
-
----
-layout: image-right
-image: https://cover.sli.dev
----
-
-# Code
-
-Use code snippets and get the highlighting directly, and even types hover!
-
-```ts [filename-example.ts] {all|4|6|6-7|9|all} twoslash
-// TwoSlash enables TypeScript hover information
-// and errors in markdown code blocks
-// More at https://shiki.style/packages/twoslash
-import { computed, ref } from 'vue'
-
-const count = ref(0)
-const doubled = computed(() => count.value * 2)
-
-doubled.value = 2
-```
-
-<arrow v-click="[4, 5]" x1="350" y1="310" x2="195" y2="342" color="#953" width="2" arrowSize="1" />
-
-<!-- This allow you to embed external code blocks -->
-<<< @/snippets/external.ts#snippet
-
-<!-- Footer -->
-
-[Learn more](https://sli.dev/features/line-highlighting)
-
-<!-- Inline style -->
-<style>
-.footnotes-sep {
-  @apply mt-5 opacity-10;
-}
-.footnotes {
-  @apply text-sm opacity-75;
-}
-.footnote-backref {
-  display: none;
-}
-</style>
-
-<!--
-Notes can also sync with clicks
-
-[click] This will be highlighted after the first click
-
-[click] Highlighted with `count = ref(0)`
-
-[click:3] Last click (skip two clicks)
--->
+<div v-click class="mt-6">
+<ModernAlert type="success" title="Principle of Least Privilege (En Az Yetki Prensibi)">
+<template #icon><carbon:scale /></template>
+<template #icon-large><carbon:scale /></template>
+<div class="text-sm">AWS IAM kullanırken altın kural: Bir kullanıcıya sadece işini yapması için gereken <strong>minimum yetkiyi</strong> verin. Asla gereksiz yere <code>"Action": "*"</code> kullanmayın!</div>
+</ModernAlert>
+</div>
 
 ---
-level: 2
+transition: slide-left
 ---
 
-# Shiki Magic Move
+# <carbon:http /> 401 vs 403
 
-Powered by [shiki-magic-move](https://shiki-magic-move.netlify.app/), Slidev supports animations across multiple code snippets.
+<div class="grid grid-cols-2 gap-8 mt-12">
+<div v-click>
+<GlassCard title="401 Unauthorized" color="cyan">
+<template #icon><carbon:user-identification /></template>
+<div class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-6 drop-shadow-md">"Seni tanımıyorum!"</div>
+<ul class="space-y-3 text-sm">
+<li class="flex items-center gap-2"><carbon:warning-alt class="text-cyan-400"/> <strong>Sorun:</strong> Authentication başarısız</li>
+<li class="flex items-center gap-2 text-gray-300"><carbon:dot-mark /> Token yok, süresi dolmuş veya geçersiz</li>
+<li class="flex items-center gap-2 mt-4"><carbon:idea class="text-green-400"/> <strong>Çözüm:</strong> Tekrar giriş yap</li>
+</ul>
+</GlassCard>
+</div>
 
-Add multiple code blocks and wrap them with <code>````md magic-move</code> (four backticks) to enable the magic move. For example:
+<div v-click>
+<GlassCard title="403 Forbidden" color="red">
+<template #icon><carbon:locked /></template>
+<div class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-pink-500 mb-6 drop-shadow-md">"Buraya giremezsin!"</div>
+<ul class="space-y-3 text-sm">
+<li class="flex items-center gap-2"><carbon:warning-alt class="text-red-400"/> <strong>Sorun:</strong> Authorization başarısız</li>
+<li class="flex items-center gap-2 text-gray-300"><carbon:dot-mark /> Kim olduğunu biliyoruz ama yetkin yok</li>
+<li class="flex items-center gap-2 mt-4"><carbon:idea class="text-green-400"/> <strong>Çözüm:</strong> Yetkili birine danış</li>
+</ul>
+</GlassCard>
+</div>
+</div>
+
+---
+transition: slide-up
+---
+
+# <carbon:code /> Kod ile RBAC (Express.js)
+
+<div class="text-sm opacity-70 mb-4">Basitten gelişmişe doğru 3 aşamalı evrim</div>
 
 ````md magic-move {lines: true}
-```ts {*|2|*}
-// step 1
-const author = reactive({
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-})
-```
-
-```ts {*|1-2|3-4|3-4,8}
-// step 2
-export default {
-  data() {
-    return {
-      author: {
-        name: 'John Doe',
-        books: [
-          'Vue 2 - Advanced Guide',
-          'Vue 3 - Basic Guide',
-          'Vue 4 - The Mystery'
-        ]
-      }
-    }
+```ts {*|4-7|*}
+// ❌ AŞAMA 1: Monolitik (Her şey tek dosyada - KÖTÜ)
+app.get("/admin-dashboard", (req, res) => {
+  const user = getUserFromToken(req);
+  
+  if (user.role !== "admin") {
+    return res.status(403).json({ error: "Yetkiniz yok" });
   }
-}
+  
+  res.json({ message: "Admin paneline hoş geldiniz" });
+});
 ```
 
-```ts
-// step 3
-export default {
-  data: () => ({
-    author: {
-      name: 'John Doe',
-      books: [
-        'Vue 2 - Advanced Guide',
-        'Vue 3 - Basic Guide',
-        'Vue 4 - The Mystery'
-      ]
-    }
-  })
-}
+```ts {*|5-7|11-13|*}
+// ⚠️ AŞAMA 2: Router seviyesi (DAHA İYİ)
+const router = express.Router();
+
+// Bu router'daki TÜM isteklere admin yetkisi gerekir
+router.use((req, res, next) => {
+  if (req.user.role !== "admin") return res.status(403).json({ error: "Yetkiniz yok" });
+  next();
+});
+
+// Artık route'ların içi temiz
+router.get("/dashboard", adminController.getDashboard);
+router.get("/users", adminController.getUsers);
 ```
 
-Non-code blocks are ignored.
+```ts {*|3-8|12-14|*}
+// ✅ AŞAMA 3: Dinamik Middleware (EN İYİSİ)
 
-```vue
-<!-- step 4 -->
-<script setup>
-const author = {
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
+function authorizeRoles(...allowedRoles) {
+  return (req, res, next) => {
+    if (!allowedRoles.includes(req.user.role)) return res.status(403).json({ error: "Yetkisiz erişim" });
+    next();
+  };
 }
-</script>
+
+// Router tanımı inanılmaz derecede okunabilir ve temiz!
+router.get("/admin",     auth, authorizeRoles("admin"), ctrl.admin);
+router.get("/teachers",  auth, authorizeRoles("admin", "manager"), ctrl.teachers);
+router.get("/dashboard", auth, authorizeRoles("admin", "manager", "teacher"), ctrl.dash);
 ```
 ````
 
 ---
+transition: slide-left
+---
 
-# Components
+# <carbon:earth-filled class="text-red-500" /> Gerçek Hayat Felaketleri
 
-<div grid="~ cols-2 gap-4">
-<div>
-
-You can use Vue components directly inside your slides.
-
-We have provided a few built-in components like `<Tweet/>`, `<BlueSky/>`, and `<Youtube/>` that you can use directly. And adding your custom components is also super easy.
-
-```html
-<Counter :count="10" />
-```
-
-<!-- ./components/Counter.vue -->
-<Counter :count="10" m="t-4" />
-
-Check out [the guides](https://sli.dev/builtin/components.html) for more.
-
+<div class="grid grid-cols-2 gap-8 mt-8">
+<div v-click>
+<DisasterCard company="First American Financial" year="2019" vulnerability="IDOR (Insecure Direct Object Reference)" impact="885 Milyon Belge" loss="$1.5M+ Ceza & Dava">
+<template #icon><carbon:building /></template>
+<template #details>Emlak sigortası devi, belgeleri hiçbir yetki doğrulaması olmadan internete açtı. URL'deki ID numarasını (örn: <code>?id=75</code> → <code>?id=76</code>) değiştiren herkes başkalarının banka hesaplarına, ehliyetlerine ve sosyal güvenlik numaralarına ulaştı.</template>
+</DisasterCard>
 </div>
-<div>
-
-```html
-<Tweet id="1390115482657726468" />
-```
-
-<Tweet id="1390115482657726468" scale="0.65" />
-
-</div>
-</div>
-
-<!--
-Presenter note with **bold**, *italic*, and ~~striked~~ text.
-
-Also, HTML elements are valid:
-<div class="flex w-full">
-  <span style="flex-grow: 1;">Left content</span>
-  <span>Right content</span>
-</div>
--->
-
----
-class: px-20
----
-
-# Themes
-
-Slidev comes with powerful theming support. Themes can provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
-
-<div grid="~ cols-2 gap-2" m="t-2">
-
-```yaml
----
-theme: default
----
-```
-
-```yaml
----
-theme: seriph
----
-```
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-default/01.png?raw=true" alt="">
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-seriph/01.png?raw=true" alt="">
-
-</div>
-
-Read more about [How to use a theme](https://sli.dev/guide/theme-addon#use-theme) and
-check out the [Awesome Themes Gallery](https://sli.dev/resources/theme-gallery).
-
----
-
-# Clicks Animations
-
-You can add `v-click` to elements to add a click animation.
 
 <div v-click>
-
-This shows up when you press <kbd>space</kbd> or <kbd>right</kbd>, or click outside the slide on the right.
-
-```html
-<div v-click>This shows up when you trigger a click animation.</div>
-```
-
+<DisasterCard company="Capital One" year="2019" vulnerability="SSRF → Privilege Escalation" impact="106 Milyon Kişi" loss="$300M+ Toplam Zarar">
+<template #icon><carbon:money /></template>
+<template #details>Eski bir AWS mühendisi olan Paige Thompson, WAF'taki açığı kullanarak yüksek yetkili IAM Credentials elde etti. <em>En Az Yetki Prensibi (Least Privilege)</em> uygulanmadığı için tüm müşteri AWS S3 bucket'larına yetkisiz erişim sağladı.</template>
+</DisasterCard>
 </div>
-
-<p v-click>
-You can also add modifiers to change the animation:
-</p>
-
-<div class="grid gap-3 mt-4 text-sm" style="grid-template-columns: repeat(3, 1fr) 1.5fr 1fr">
-  <div v-after.up class="p-3 rounded border border-primary/20 bg-primary/10">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.up</div>
-    <div>Slide from bottom</div>
-  </div>
-  <div v-click.fade-in class="p-3 rounded border border-primary/30 bg-primary/15">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.fade-in</div>
-    <div>Fade in</div>
-  </div>
-  <div v-click.fade class="p-3 rounded border border-primary/40 bg-primary/20">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.fade</div>
-    <div>Dim (0.5 opacity)</div>
-  </div>
-  <div v-click.fade.right.scale class="p-3 rounded border border-primary/50 bg-primary/25">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.fade.right.scale</div>
-    <div>Composed</div>
-  </div>
-  <div v-click.none class="p-3 rounded border border-primary/60 bg-primary/30">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.none</div>
-    <div>No transition</div>
-  </div>
-</div>
-
-<v-click>
-
-The <span v-mark.red="7"><code>v-mark</code> directive</span>
-also allows you to add
-<span v-mark.circle.orange="8">inline marks</span>
-, powered by [Rough Notation](https://roughnotation.com/):
-
-```html
-<span v-mark.underline.orange>inline markers</span>
-```
-
-</v-click>
-
-<div v-click mt-12>
-
-[Learn more](https://sli.dev/guide/animations#click-animation)
-
 </div>
 
 ---
+transition: slide-left
+---
 
-# Motions
+# <carbon:warning-hex /> Gerçek Hayat Felaketleri (Devam)
 
-Motion animations are powered by [@vueuse/motion](https://motion.vueuse.org/), triggered by `v-motion` directive.
-
-```html
-<div
-  v-motion
-  :initial="{ x: -80 }"
-  :enter="{ x: 0 }"
-  :click-3="{ x: 80 }"
-  :leave="{ x: 1000 }"
->
-  Slidev
-</div>
-```
-
-<div class="w-60 relative">
-  <div class="relative w-40 h-40">
-    <img
-      v-motion
-      :initial="{ x: 800, y: -100, scale: 1.5, rotate: -50 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-square.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ y: 500, x: -100, scale: 2 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-circle.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ x: 600, y: 400, scale: 2, rotate: 100 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-triangle.png"
-      alt=""
-    />
-  </div>
-
-  <div
-    class="text-5xl absolute top-14 left-40 text-[#2B90B6] -z-1"
-    v-motion
-    :initial="{ x: -80, opacity: 0}"
-    :enter="{ x: 0, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
-    Slidev
-  </div>
+<div class="grid grid-cols-2 gap-8 mt-8">
+<div v-click>
+<DisasterCard company="Facebook (Meta)" year="2018" vulnerability="Access Token Theft" impact="50 Milyon Hesap" loss="$5 Milyar FTC Cezası">
+<template #icon><carbon:logo-facebook /></template>
+<template #details>"Farklı Gör" (View As) özelliğindeki karmaşık bir hata nedeniyle, saldırganlar başkalarının "yetki" belirteçlerini (Access Tokens) çaldı. Token çalındığında, şifre bilmeden o kişinin hesabına tam yetkili erişim sağlanmış olur.</template>
+</DisasterCard>
 </div>
 
-<!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
-<script setup lang="ts">
-const final = {
-  x: 0,
-  y: 0,
-  rotate: 0,
-  scale: 1,
-  transition: {
-    type: 'spring',
-    damping: 10,
-    stiffness: 20,
-    mass: 2
-  }
-}
-</script>
-
-<div
-  v-motion
-  :initial="{ x:35, y: 30, opacity: 0}"
-  :enter="{ y: 0, opacity: 1, transition: { delay: 3500 } }">
-
-[Learn more](https://sli.dev/guide/animations.html#motion)
-
+<div v-click>
+<DisasterCard company="Parler" year="2021" vulnerability="IDOR + No Rate Limiting" impact="Tüm Platform (70 TB)" loss="Şirketin Kapanması">
+<template #icon><carbon:chat-bot /></template>
+<template #details>Sosyal medya platformu, API'lerinde yetki kontrolü (AuthZ) ve istek sınırı (Rate Limit) kullanmadı. Sıralı URL'ler sayesinde hackerlar GPS koordinatları dahil tüm kullanıcı verilerini sırayla indirdi. AWS hizmeti kesti, şirket battı.</template>
+</DisasterCard>
+</div>
 </div>
 
 ---
-
-# $\LaTeX$
-
-$\LaTeX$ is supported out-of-box. Powered by [$\KaTeX$](https://katex.org/).
-
-<div h-3 />
-
-Inline $\sqrt{3x-1}+(1+x)^2$
-
-Block
-$$ {1|3|all}
-\begin{aligned}
-\nabla \cdot \vec{E} &= \frac{\rho}{\varepsilon_0} \\
-\nabla \cdot \vec{B} &= 0 \\
-\nabla \times \vec{E} &= -\frac{\partial\vec{B}}{\partial t} \\
-\nabla \times \vec{B} &= \mu_0\vec{J} + \mu_0\varepsilon_0\frac{\partial\vec{E}}{\partial t}
-\end{aligned}
-$$
-
-[Learn more](https://sli.dev/features/latex)
-
+transition: slide-up
 ---
 
-# Diagrams
+# <carbon:star-filled /> Altın Kurallar
 
-You can create diagrams / graphs from textual descriptions, directly in your Markdown.
-
-<div class="grid grid-cols-4 gap-5 pt-4 -mb-6">
-
-```mermaid {scale: 0.5, alt: 'A simple sequence diagram'}
-sequenceDiagram
-    Alice->John: Hello John, how are you?
-    Note over Alice,John: A typical interaction
-```
-
-```mermaid {theme: 'neutral', scale: 0.8}
-graph TD
-B[Text] --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
-
-```mermaid
-mindmap
-  root((mindmap))
-    Origins
-      Long history
-      ::icon(fa fa-book)
-      Popularisation
-        British popular psychology author Tony Buzan
-    Research
-      On effectiveness<br/>and features
-      On Automatic creation
-        Uses
-            Creative techniques
-            Strategic planning
-            Argument mapping
-    Tools
-      Pen and paper
-      Mermaid
-```
-
-```plantuml {scale: 0.7}
-@startuml
-
-package "Some Group" {
-  HTTP - [First Component]
-  [Another Component]
-}
-
-node "Other Groups" {
-  FTP - [Second Component]
-  [First Component] --> FTP
-}
-
-cloud {
-  [Example 1]
-}
-
-database "MySql" {
-  folder "This is my folder" {
-    [Folder 3]
-  }
-  frame "Foo" {
-    [Frame 4]
-  }
-}
-
-[Another Component] --> [Example 1]
-[Example 1] --> [Folder 3]
-[Folder 3] --> [Frame 4]
-
-@enduml
-```
-
+<div class="grid grid-cols-2 gap-8 mt-8">
+<div v-click>
+<GlassCard title="Kesinlikle Yapın" color="green">
+<template #icon><carbon:checkmark-outline /></template>
+<ul class="space-y-4 font-medium text-sm mt-4">
+<li class="flex items-center gap-3"><carbon:arrow-right class="text-green-400 text-lg"/> Her endpoint'te Authorization kontrolü yapın</li>
+<li class="flex items-center gap-3"><carbon:arrow-right class="text-green-400 text-lg"/> <strong>Deny-by-default</strong> (Varsayılan reddet) kullanın</li>
+<li class="flex items-center gap-3"><carbon:arrow-right class="text-green-400 text-lg"/> AWS IAM'de Minimum Yetki (Least Privilege) uygulayın</li>
+<li class="flex items-center gap-3"><carbon:arrow-right class="text-green-400 text-lg"/> Yetki kontrolünü Middleware'de merkezi hale getirin</li>
+<li class="flex items-center gap-3"><carbon:arrow-right class="text-green-400 text-lg"/> Tahmin edilemez UUID'ler kullanın</li>
+</ul>
+</GlassCard>
 </div>
 
-Learn more: [Mermaid Diagrams](https://sli.dev/features/mermaid) and [PlantUML Diagrams](https://sli.dev/features/plantuml)
-
----
-foo: bar
-dragPos:
-  square: 691,32,167,_,-16
----
-
-# Draggable Elements
-
-Double-click on the draggable elements to edit their positions.
-
-<br>
-
-###### Directive Usage
-
-```md
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-```
-
-<br>
-
-###### Component Usage
-
-```md
-<v-drag text-3xl>
-  <div class="i-carbon:arrow-up" />
-  Use the `v-drag` component to have a draggable container!
-</v-drag>
-```
-
-<v-drag pos="663,206,261,_,-15">
-  <div text-center text-3xl border border-main rounded>
-    Double-click me!
-  </div>
-</v-drag>
-
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-
-###### Draggable Arrow
-
-```md
-<v-drag-arrow two-way />
-```
-
-<v-drag-arrow pos="67,452,253,46" two-way op70 />
-
----
-src: ./pages/imported-slides.md
-hide: false
----
-
----
-
-# Monaco Editor
-
-Slidev provides built-in Monaco Editor support.
-
-Add `{monaco}` to the code block to turn it into an editor:
-
-```ts {monaco}
-import { ref } from 'vue'
-import { emptyArray } from './external'
-
-const arr = ref(emptyArray(10))
-```
-
-Use `{monaco-run}` to create an editor that can execute the code directly in the slide:
-
-```ts {monaco-run}
-import { version } from 'vue'
-import { emptyArray, sayHello } from './external'
-
-sayHello()
-console.log(`vue ${version}`)
-console.log(emptyArray<number>(10).reduce(fib => [...fib, fib.at(-1)! + fib.at(-2)!], [1, 1]))
-```
+<div v-click>
+<GlassCard title="Asla Yapmayın" color="red">
+<template #icon><carbon:close-outline /></template>
+<ul class="space-y-4 font-medium text-sm mt-4">
+<li class="flex items-center gap-3"><carbon:arrow-right class="text-red-400 text-lg"/> "Authorization'ı sonra ekleriz" demeyin</li>
+<li class="flex items-center gap-3"><carbon:arrow-right class="text-red-400 text-lg"/> Sadece Frontend'de (arayüzde) yetki gizlemeyin</li>
+<li class="flex items-center gap-3"><carbon:arrow-right class="text-red-400 text-lg"/> Sıralı ID kullanmayın (<code>?id=123</code> → <code>?id=124</code>)</li>
+<li class="flex items-center gap-3"><carbon:arrow-right class="text-red-400 text-lg"/> IAM Policies'de <code>Action: "*"</code> bırakmayın</li>
+<li class="flex items-center gap-3"><carbon:arrow-right class="text-red-400 text-lg"/> Role Explosion'a izin vermeyin</li>
+</ul>
+</GlassCard>
+</div>
+</div>
 
 ---
 layout: center
 class: text-center
+transition: fade-out
 ---
 
-# Learn More
+# <carbon:idea /> Kapanış
 
-[Documentation](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/resources/showcases)
+<div v-motion :initial="{ y: 50, opacity: 0 }" :enter="{ y: 0, opacity: 1, transition: { delay: 300, duration: 800 } }" class="text-3xl mt-6 max-w-2xl mx-auto font-medium">
+Authorization, sisteme yeni bir <strong class="text-white">özellik</strong> katmaz.
+</div>
 
-<PoweredBySlidev mt-10 />
+<div v-motion :initial="{ y: 50, opacity: 0 }" :enter="{ y: 0, opacity: 1, transition: { delay: 800, duration: 800 } }" class="text-3xl mt-6 max-w-2xl mx-auto font-medium">
+Ama <span class="text-red-500 font-black drop-shadow-[0_0_15px_rgba(239,68,68,0.5)]">yokluğu</span>, her şeyi yok edebilir.
+</div>
+
+<div v-motion :initial="{ y: 50, opacity: 0 }" :enter="{ y: 0, opacity: 1, transition: { delay: 1500, duration: 800 } }" class="mt-16">
+<GlassCard color="purple" class="inline-block text-center max-w-3xl mx-auto">
+<template #icon><carbon:quotes /></template>
+<div class="text-2xl italic text-white/90 leading-relaxed font-serif px-8">
+"Authorization sadece bir kod parçası değil,<br/>bir mühendisin sistem mimarisinde kurması gereken<br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 font-bold">en kritik savunma hattıdır.</span>"
+</div>
+</GlassCard>
+</div>
+
+<div v-motion :initial="{ y: 30, opacity: 0 }" :enter="{ y: 0, opacity: 1, transition: { delay: 2500, duration: 800 } }" class="mt-16 text-lg opacity-60 flex justify-center items-center gap-2 font-bold tracking-widest uppercase">
+<carbon:help class="text-2xl" /> Sorularınız?
+</div>
