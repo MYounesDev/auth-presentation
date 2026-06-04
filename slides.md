@@ -1,666 +1,1536 @@
 ---
-# try also 'default' to start simple
-theme: seriph
-# random image from a curated Unsplash collection by Anthony
-# like them? see https://unsplash.com/collections/94734566/slidev
-background: https://cover.sli.dev
-# some information about your slides (markdown enabled)
-title: Welcome to Slidev
+theme: default
+title: 'Authorization — Yetkilendirme'
+titleTemplate: '%s · Bilgisayar Mühendisliği'
 info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
-
-  Learn more at [Sli.dev](https://sli.dev)
-# apply UnoCSS classes to the current slide
-class: text-center
-# https://sli.dev/features/drawing
+  ## Authorization (Yetkilendirme)
+  Bilgisayar Mühendisliği öğrencileri için kapsamlı bir teknik sunum.
+  Kavramlar · Modeller · Mimari · Kod · Gerçek olaylar.
+author: Bilgisayar Mühendisliği
+fonts:
+  sans: Inter
+  mono: JetBrains Mono
+  weights: '400,600,700,800'
+mdc: true
 drawings:
   persist: false
-# slide transition: https://sli.dev/guide/animations.html#slide-transitions
 transition: slide-left
-# enable Comark Syntax: https://comark.dev/syntax/markdown
-comark: true
-# duration of the presentation
 duration: 35min
+class: text-center
 ---
 
-# Welcome to Slidev
+<div class="absolute inset-0 flex flex-col items-center justify-center">
 
-Presentation slides for developers
+<div class="chip-neon mb-6 animate-pulse">// SYSTEM SECURITY LAYER · 2026</div>
 
-<div @click="$slidev.nav.next" class="mt-12 py-1" hover:bg="white op-10">
-  Press Space for next page <carbon:arrow-right />
+# <span class="glitch">AUTHORIZATION</span>
+
+<div class="text-2xl text-cyan font-mono mt-2 tracking-widest">Y E T K İ L E N D İ R M E</div>
+
+<div class="scanbar my-8 w-2/3 mx-auto" />
+
+<p class="text-base text-gray-400 max-w-xl mx-auto">
+Bir kod parçası değil — bir mühendisin sistem mimarisinde kurması gereken
+<strong>en kritik savunma hattı.</strong>
+</p>
+
+<div class="mt-10 flex items-center justify-center gap-3 text-sm text-gray-500 font-mono">
+  <span class="i-carbon:circle-solid text-neon text-[8px] animate-ping" />
+  <span>Bilgisayar Mühendisliği · Güvenlik Semineri</span>
 </div>
 
-<div class="abs-br m-6 text-xl">
-  <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="slidev-icon-btn">
-    <carbon:edit />
-  </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" class="slidev-icon-btn">
-    <carbon:logo-github />
-  </a>
+</div>
+
+<div class="abs-br m-6 flex gap-2 text-xl">
+  <span class="i-logos:aws" />
+  <span class="i-logos:google-icon" />
+  <span class="i-logos:facebook" />
+  <span class="i-logos:kubernetes" />
 </div>
 
 <!--
-The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
+Hoş geldiniz. Bugün yazılım dünyasının en çok ihmal edilen ama en çok bedel ödeten konusunu konuşacağız: Authorization.
+Bu sunum boyunca sadece teoriyi değil, gerçekten yaşanmış, milyarlarca dolarlık olayları da göreceğiz.
 -->
 
 ---
 transition: fade-out
+layout: center
+class: text-center
 ---
 
-# What is Slidev?
+<div class="chip-hot mx-auto mb-8">// REALITY CHECK</div>
 
-Slidev is a slides maker and presenter designed for developers, consist of the following features
+<div class="text-3xl leading-relaxed font-light max-w-3xl mx-auto">
+Tek yapması gereken, adres çubuğundaki
+<span class="hot-text font-mono font-bold">id=75</span>'i
+<span class="neon-text font-mono font-bold">id=76</span> yapmaktı.
+</div>
 
-- 📝 **Text-based** - focus on the content with Markdown, and then style them later
-- 🎨 **Themable** - themes can be shared and re-used as npm packages
-- 🧑‍💻 **Developer Friendly** - code highlighting, live coding with autocompletion
-- 🤹 **Interactive** - embed Vue components to enhance your expressions
-- 🎥 **Recording** - built-in recording and camera view
-- 📤 **Portable** - export to PDF, PPTX, PNGs, or even a hostable SPA
-- 🛠 **Hackable** - virtually anything that's possible on a webpage is possible in Slidev
-<br>
-<br>
+<div v-click class="mt-12 text-5xl font-mono font-extrabold hot-text">
+885.000.000 belge
+</div>
+<div v-click class="text-lg text-gray-400 mt-3">
+…tek bir yetki kontrolü unutulduğu için sızdı. <span class="text-gray-600">(First American, 2019)</span>
+</div>
 
-Read more about [Why Slidev?](https://sli.dev/guide/why)
-
-<!--
-You can have `style` tag in markdown to override the style for the current page.
-Learn more: https://sli.dev/features/slide-scope-style
--->
-
-<style>
-h1 {
-  background-color: #2B90B6;
-  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-}
-</style>
+<div v-click class="mt-14 text-xl text-cyan">
+Bu sunum bittiğinde, bu hatayı <strong>asla</strong> yapmayacaksınız.
+</div>
 
 <!--
-Here is another comment.
--->
-
----
-transition: slide-up
-level: 2
----
-
-# Navigation
-
-Hover on the bottom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/ui#navigation-bar)
-
-## Keyboard Shortcuts
-
-|                                                     |                             |
-| --------------------------------------------------- | --------------------------- |
-| <kbd>right</kbd> / <kbd>space</kbd>                 | next animation or slide     |
-| <kbd>left</kbd>  / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd>                                       | previous slide              |
-| <kbd>down</kbd>                                     | next slide                  |
-
-<!-- https://sli.dev/guide/animations.html#click-animation -->
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-  alt=""
-/>
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
-
-<!--
-00000000
+Şununla başlayalım: karmaşık bir şifre kırma, sıfırıncı gün açığı değil. Sadece URL'deki bir sayı.
+Bu kadar basit bir ihmal, 885 milyon hassas belgeyi açığa çıkardı. İşte Authorization'ın gücü ve eksikliğinin bedeli.
 -->
 
 ---
 layout: two-cols
-layoutClass: gap-16
+layoutClass: gap-12
+transition: slide-up
 ---
 
-# Table of contents
+# Gündem
 
-You can use the `Toc` component to generate a table of contents for your slides:
+<div class="text-sm text-gray-400 mb-4">Giriş → Problem → Mimari → Gerçek Hayat → Sonuç</div>
 
-```html
-<Toc minDepth="1" maxDepth="1" />
-```
-
-The title will be inferred from your slide content, or you can override it with `title` and `level` in your frontmatter.
+<Toc text-sm minDepth="1" maxDepth="1" columns="1" />
 
 ::right::
 
-<Toc text-sm minDepth="1" maxDepth="2" />
+<div class="mt-20 space-y-3">
 
----
-layout: image-right
-image: https://cover.sli.dev
----
+<NeonCard icon="i-carbon:idea" title="Ana mesaj" variant="neon">
+Authentication "Sen kimsin?" sorusudur. Authorization "Ne yapabilirsin?" sorusudur — ve <strong>sadece güvenlik için vardır.</strong>
+</NeonCard>
 
-# Code
+<NeonCard icon="i-carbon:warning-alt" title="Neden önemli?" variant="hot">
+OWASP Top 10'da <strong>#1</strong> zafiyet: <em>Broken Access Control</em>. Otomatik araçlar bulamaz — çünkü bir <strong>mantık hatasıdır.</strong>
+</NeonCard>
 
-Use code snippets and get the highlighting directly, and even types hover!
-
-```ts [filename-example.ts] {all|4|6|6-7|9|all} twoslash
-// TwoSlash enables TypeScript hover information
-// and errors in markdown code blocks
-// More at https://shiki.style/packages/twoslash
-import { computed, ref } from 'vue'
-
-const count = ref(0)
-const doubled = computed(() => count.value * 2)
-
-doubled.value = 2
-```
-
-<arrow v-click="[4, 5]" x1="350" y1="310" x2="195" y2="342" color="#953" width="2" arrowSize="1" />
-
-<!-- This allow you to embed external code blocks -->
-<<< @/snippets/external.ts#snippet
-
-<!-- Footer -->
-
-[Learn more](https://sli.dev/features/line-highlighting)
-
-<!-- Inline style -->
-<style>
-.footnotes-sep {
-  @apply mt-5 opacity-10;
-}
-.footnotes {
-  @apply text-sm opacity-75;
-}
-.footnote-backref {
-  display: none;
-}
-</style>
-
-<!--
-Notes can also sync with clicks
-
-[click] This will be highlighted after the first click
-
-[click] Highlighted with `count = ref(0)`
-
-[click:3] Last click (skip two clicks)
--->
-
----
-level: 2
----
-
-# Shiki Magic Move
-
-Powered by [shiki-magic-move](https://shiki-magic-move.netlify.app/), Slidev supports animations across multiple code snippets.
-
-Add multiple code blocks and wrap them with <code>````md magic-move</code> (four backticks) to enable the magic move. For example:
-
-````md magic-move {lines: true}
-```ts {*|2|*}
-// step 1
-const author = reactive({
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-})
-```
-
-```ts {*|1-2|3-4|3-4,8}
-// step 2
-export default {
-  data() {
-    return {
-      author: {
-        name: 'John Doe',
-        books: [
-          'Vue 2 - Advanced Guide',
-          'Vue 3 - Basic Guide',
-          'Vue 4 - The Mystery'
-        ]
-      }
-    }
-  }
-}
-```
-
-```ts
-// step 3
-export default {
-  data: () => ({
-    author: {
-      name: 'John Doe',
-      books: [
-        'Vue 2 - Advanced Guide',
-        'Vue 3 - Basic Guide',
-        'Vue 4 - The Mystery'
-      ]
-    }
-  })
-}
-```
-
-Non-code blocks are ignored.
-
-```vue
-<!-- step 4 -->
-<script setup>
-const author = {
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-}
-</script>
-```
-````
-
----
-
-# Components
-
-<div grid="~ cols-2 gap-4">
-<div>
-
-You can use Vue components directly inside your slides.
-
-We have provided a few built-in components like `<Tweet/>`, `<BlueSky/>`, and `<Youtube/>` that you can use directly. And adding your custom components is also super easy.
-
-```html
-<Counter :count="10" />
-```
-
-<!-- ./components/Counter.vue -->
-<Counter :count="10" m="t-4" />
-
-Check out [the guides](https://sli.dev/builtin/components.html) for more.
-
-</div>
-<div>
-
-```html
-<Tweet id="1390115482657726468" />
-```
-
-<Tweet id="1390115482657726468" scale="0.65" />
-
-</div>
 </div>
 
 <!--
-Presenter note with **bold**, *italic*, and ~~striked~~ text.
-
-Also, HTML elements are valid:
-<div class="flex w-full">
-  <span style="flex-grow: 1;">Left content</span>
-  <span>Right content</span>
-</div>
+Bugünkü yolculuğumuz: temel kavramlardan başlayıp, modeller, protokoller, mimari, gerçek kod ve sonunda şirketleri batıran gerçek olaylara gideceğiz.
 -->
 
 ---
-class: px-20
+layout: section
+class: text-center
 ---
 
-# Themes
+<div class="chip-cyan mx-auto mb-6">// BÖLÜM 01</div>
 
-Slidev comes with powerful theming support. Themes can provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
+# Temel Kavramlar
 
-<div grid="~ cols-2 gap-2" m="t-2">
+<div class="text-gray-400 mt-4">Mutlaka bilinmesi gerekenler</div>
 
-```yaml
+<div class="scanbar mt-8 w-1/3 mx-auto" />
+
 ---
-theme: default
----
-```
 
-```yaml
----
-theme: seriph
----
-```
+# Authentication <span class="text-gray-600">vs</span> Authorization
 
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-default/01.png?raw=true" alt="">
+<div class="text-gray-400 -mt-3 mb-6">Çoğu kişi karıştırır. Bir mühendis asla karıştırmaz.</div>
 
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-seriph/01.png?raw=true" alt="">
+<div grid="~ cols-2 gap-6">
+
+<div v-click>
+<NeonCard icon="i-carbon:fingerprint-recognition" title="Authentication (AuthN)" variant="cyan">
+<div class="text-lg cyan-text font-bold mb-2">"Sen kimsin?"</div>
+Kimliğin doğrulanması. Parola, biyometrik, token…
+<div class="mt-3 text-xs text-gray-400">Hem <strong>güvenlik</strong> hem de <strong>kişiselleştirme</strong> için (profil, dil, öneriler).</div>
+</NeonCard>
+</div>
+
+<div v-click>
+<NeonCard icon="i-carbon:rule-locked" title="Authorization (AuthZ)" variant="neon">
+<div class="text-lg neon-text font-bold mb-2">"Ne yapabilirsin?"</div>
+Yetkinin kontrol edilmesi. Erişim izni var mı?
+<div class="mt-3 text-xs text-gray-400">Yalnızca ve yalnızca <strong>güvenlik</strong> içindir. Asla bir "özellik" değildir.</div>
+</NeonCard>
+</div>
 
 </div>
 
-Read more about [How to use a theme](https://sli.dev/guide/theme-addon#use-theme) and
-check out the [Awesome Themes Gallery](https://sli.dev/resources/theme-gallery).
+<div v-click class="mt-6">
+
+```mermaid {theme:'dark', scale: 0.82}
+flowchart LR
+    U([Kullanıcı]) -->|"1 · Kimsin?"| A[AuthN<br/>Kimlik Doğrulama]
+    A -->|"Kimliği doğrulandı"| Z[AuthZ<br/>Yetki Kontrolü]
+    Z -->|"2 · Bunu yapabilir misin?"| R([Kaynak])
+    Z -.->|"Hayır → 403"| X([Reddedildi])
+    style A fill:#0a2a3a,stroke:#22d3ee,color:#fff
+    style Z fill:#06281d,stroke:#00ff9c,color:#fff
+    style X fill:#2a0a14,stroke:#ff2d55,color:#fff
+```
+
+</div>
+
+<!--
+Kapı analojisi: AuthN kapıdan içeri kim girdiğini söyler. AuthZ ise o kişinin hangi odalara girebileceğini söyler.
+Kritik nokta: AuthZ her zaman AuthN üzerine inşa edilir.
+-->
 
 ---
 
-# Clicks Animations
+# AuthN vs AuthZ — İleri Seviye Bakış
 
-You can add `v-click` to elements to add a click animation.
+<div class="text-gray-400 -mt-3 mb-6">Klasik tanımı herkes biliyor. Mimari gerçek şu üç kuralda:</div>
+
+<div class="space-y-4">
+
+<div v-click class="neon-card p-4 flex items-start gap-4">
+  <span class="text-3xl font-mono font-extrabold neon-text">1</span>
+  <div>
+  <strong>AuthN yoksa AuthZ da olamaz.</strong>
+  <span class="text-gray-400">Kullanıcının kim olduğunu bilmiyorsan, neye yetkili olduğunu kontrol edemezsin. Anonim sistemin yetki sistemi olmaz.</span>
+  </div>
+</div>
+
+<div v-click class="cyan-card p-4 flex items-start gap-4">
+  <span class="text-3xl font-mono font-extrabold cyan-text">2</span>
+  <div>
+  <strong>AuthN olan bir sistemin AuthZ'si olmayabilir.</strong>
+  <span class="text-gray-400">Bu durumda herkesin rolü ve yetkisi eşittir — bir blog, bir forum gibi.</span>
+  </div>
+</div>
+
+<div v-click class="danger-card p-4 flex items-start gap-4">
+  <span class="text-3xl font-mono font-extrabold hot-text">3</span>
+  <div>
+  <strong>AuthZ <em>her zaman</em> AuthN üzerine inşa edilir.</strong>
+  <span class="text-gray-400">AuthN bir özellik katar (kişisel deneyim). AuthZ özellik katmaz — sadece arka planda korur. İşte bu yüzden <span class="hot-text">unutulur.</span></span>
+  </div>
+</div>
+
+</div>
+
+<div v-click class="mt-6 text-center text-lg">
+<span v-mark.underline.cyan="5">AuthZ "ekstra bir özellik" değildir; sistemin <strong>zorunlu temelidir.</strong></span>
+</div>
+
+<!--
+3. madde mühendislik dersidir: Authorization yeni bir buton, yeni bir ekran getirmez. Kullanıcı onu "görmez". Bu yüzden geliştiriciler "sonra ekleriz" der. Ve felaket buradan başlar.
+-->
+
+---
+
+# Sözlük: Bilmemiz Gereken 4 Terim
+
+<div class="text-gray-400 -mt-3 mb-8">Tüm yetkilendirme modelleri bu dört kavramın üzerine kurulur.</div>
+
+<div grid="~ cols-2 gap-5">
+
+<v-clicks>
+
+<NeonCard icon="i-carbon:user-profile" title="Principal" variant="cyan">
+Yetki verilen <strong>varlık</strong>. Bir kullanıcı, bir servis, bir sistem… <span class="text-gray-500 font-mono text-xs">→ "kim"</span>
+</NeonCard>
+
+<NeonCard icon="i-carbon:data-base" title="Resource" variant="neon">
+Erişilmek istenen <strong>kaynak</strong>. Dosya, API, veritabanı satırı… <span class="text-gray-500 font-mono text-xs">→ "ne"</span>
+</NeonCard>
+
+<NeonCard icon="i-carbon:checkmark-outline" title="Permission" variant="amber">
+<strong>İzin</strong>. Okuma, yazma, silme, çalıştırma… <span class="text-gray-500 font-mono text-xs">→ "hangi eylem"</span>
+</NeonCard>
+
+<NeonCard icon="i-carbon:rule" title="Policy" variant="hot">
+Yetki kurallarını tanımlayan <strong>kural seti</strong>. <span class="text-gray-500 font-mono text-xs">→ "hangi koşulda"</span>
+</NeonCard>
+
+</v-clicks>
+
+</div>
+
+<div v-click class="mt-6 text-center font-mono text-sm chip-neon mx-auto">
+Policy: <span class="cyan-text">Principal</span> → <span class="text-amber">Permission</span> → <span class="neon-text">Resource</span> ?
+</div>
+
+---
+transition: view-transition
+---
+
+# HTTP 401 <span class="text-gray-600">vs</span> 403 — Akılda Kalıcı Fark
+
+<div grid="~ cols-2 gap-6" class="mt-4">
+
+<div v-click>
+<div class="cyan-card p-5">
+<div class="font-mono text-3xl cyan-text font-extrabold">401</div>
+<div class="text-xl font-bold text-white mt-1">Unauthorized</div>
+<div class="text-sm text-gray-400 mt-2">İsim yanlış: aslında <strong>"Unauthenticated"</strong> demektir.</div>
+<div class="mt-3 text-sm">→ <em>"Seni tanımıyorum. Önce kimliğini kanıtla."</em></div>
+<div class="mt-2 font-mono text-xs text-gray-500">AuthN başarısız · Token yok/geçersiz</div>
+</div>
+</div>
+
+<div v-click>
+<div class="danger-card p-5">
+<div class="font-mono text-3xl hot-text font-extrabold">403</div>
+<div class="text-xl font-bold text-white mt-1">Forbidden</div>
+<div class="text-sm text-gray-400 mt-2">Kimliğini biliyorum — ama <strong>yetkin yok.</strong></div>
+<div class="mt-3 text-sm">→ <em>"Kim olduğunu biliyorum, ama buraya giremezsin."</em></div>
+<div class="mt-2 font-mono text-xs text-gray-500">AuthN başarılı · AuthZ başarısız</div>
+</div>
+</div>
+
+</div>
+
+<div v-click class="mt-6">
+<Terminal title="curl — 401 vs 403">
+<div class="cmd">curl /api/admin            <span class="dim"># token yok</span></div>
+<div class="err">HTTP/1.1 401 Unauthorized</div>
+<div class="dim">&nbsp;</div>
+<div class="cmd">curl /api/admin -H "Authorization: Bearer &lt;ogrenci_token&gt;"</div>
+<div class="err">HTTP/1.1 403 Forbidden   <span class="dim"># kimsin biliyorum, ama admin değilsin</span></div>
+</Terminal>
+</div>
+
+<!--
+Kısa hafıza kancası: 401 = "Sen kimsin bilmiyorum" (giriş yap). 403 = "Seni tanıyorum ama yasak". 401 authentication, 403 authorization katmanıdır.
+-->
+
+---
+layout: section
+class: text-center
+---
+
+<div class="chip-cyan mx-auto mb-6">// BÖLÜM 02</div>
+
+# Authorization Modelleri
+
+<div class="text-gray-400 mt-4">Sunumun çekirdeği — DAC · MAC · RBAC · ABAC · ReBAC</div>
+
+<div class="scanbar mt-8 w-1/3 mx-auto" />
+
+---
+
+# DAC — Discretionary Access Control
+
+<div grid="~ cols-2 gap-8">
+
+<div>
+
+<div class="chip-amber mb-4">İSTEĞE BAĞLI ERİŞİM KONTROLÜ</div>
+
+- **Kaynağın sahibi**, başkalarına izni kendi takdiriyle verir
+- Merkezî bir otorite yoktur — karar sahibindedir
+
+<div v-click class="mt-5">
+
+**Örnekler**
+<div class="flex flex-wrap gap-2 mt-2">
+<span class="chip-cyan"><span class="i-carbon:logo-linux" /> Linux dosya izinleri</span>
+<span class="chip-cyan"><span class="i-logos:google-drive" /> Google Drive paylaşımı</span>
+</div>
+
+</div>
+
+<div v-click class="mt-5 grid grid-cols-2 gap-3 text-sm">
+<div class="neon-card p-3"><span class="neon-text">✓ Avantaj</span><br/>Esneklik, kolaylık</div>
+<div class="danger-card p-3"><span class="hot-text">✗ Dezavantaj</span><br/>Merkezî kontrol yok</div>
+</div>
+
+</div>
+
+<div v-click>
+<Terminal title="linux — chmod (DAC)">
+<div class="cmd">ls -l rapor.txt</div>
+<div class="out">-rw-r--r--  ahmet  staff  rapor.txt</div>
+<div class="dim">&nbsp;</div>
+<div class="cmd">chmod g+w rapor.txt   <span class="dim"># sahip izni genişletti</span></div>
+<div class="ok">→ grup artık yazabilir</div>
+<div class="out">-rw-rw-r--  ahmet  staff  rapor.txt</div>
+</Terminal>
+
+<div class="mt-4 text-xs text-gray-500 text-center">
+Sahip "ahmet" istediğine izni verir. Sistem ona karışmaz.
+</div>
+</div>
+
+</div>
+
+---
+
+# MAC — Mandatory Access Control
+
+<div grid="~ cols-2 gap-8">
+
+<div>
+
+<div class="chip-hot mb-4">ZORUNLU ERİŞİM KONTROLÜ</div>
+
+- **Sistem politikaları** belirler; kullanıcı **değiştiremez**
+- Etiketler & güvenlik seviyeleri (Gizli, Çok Gizli…)
+
+<div v-click class="mt-5">
+
+**Örnekler**
+<div class="flex flex-wrap gap-2 mt-2">
+<span class="chip-hot"><span class="i-carbon:security" /> Askerî sistemler</span>
+<span class="chip-hot"><span class="i-carbon:logo-linux" /> SELinux</span>
+</div>
+
+</div>
+
+<div v-click class="mt-5 grid grid-cols-2 gap-3 text-sm">
+<div class="neon-card p-3"><span class="neon-text">✓ Avantaj</span><br/>Çok yüksek güvenlik</div>
+<div class="danger-card p-3"><span class="hot-text">✗ Dezavantaj</span><br/>Katı ve karmaşık</div>
+</div>
+
+</div>
 
 <div v-click>
 
-This shows up when you press <kbd>space</kbd> or <kbd>right</kbd>, or click outside the slide on the right.
-
-```html
-<div v-click>This shows up when you trigger a click animation.</div>
+```mermaid {theme:'dark', scale: 0.7}
+flowchart TD
+    P["Sistem Politikası<br/>(değiştirilemez)"] --> L1[ÇOK GİZLİ]
+    P --> L2[GİZLİ]
+    P --> L3[GENEL]
+    U([General · ÇOK GİZLİ]) -->|okur| L1
+    U -->|okur| L2
+    U -->|okur| L3
+    A([Er · GENEL]) -.->|"erişemez ✗"| L1
+    A -->|okur| L3
+    style P fill:#2a0a14,stroke:#ff2d55,color:#fff
+    style L1 fill:#1a1030,stroke:#a855f7,color:#fff
 ```
 
+<div class="mt-3 text-xs text-gray-500 text-center">
+Er, isteseniz bile "Çok Gizli" belgeyi göremez. Karar kullanıcıda değil, sistemdedir.
 </div>
 
-<p v-click>
-You can also add modifiers to change the animation:
-</p>
-
-<div class="grid gap-3 mt-4 text-sm" style="grid-template-columns: repeat(3, 1fr) 1.5fr 1fr">
-  <div v-after.up class="p-3 rounded border border-primary/20 bg-primary/10">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.up</div>
-    <div>Slide from bottom</div>
-  </div>
-  <div v-click.fade-in class="p-3 rounded border border-primary/30 bg-primary/15">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.fade-in</div>
-    <div>Fade in</div>
-  </div>
-  <div v-click.fade class="p-3 rounded border border-primary/40 bg-primary/20">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.fade</div>
-    <div>Dim (0.5 opacity)</div>
-  </div>
-  <div v-click.fade.right.scale class="p-3 rounded border border-primary/50 bg-primary/25">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.fade.right.scale</div>
-    <div>Composed</div>
-  </div>
-  <div v-click.none class="p-3 rounded border border-primary/60 bg-primary/30">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.none</div>
-    <div>No transition</div>
-  </div>
 </div>
-
-<v-click>
-
-The <span v-mark.red="7"><code>v-mark</code> directive</span>
-also allows you to add
-<span v-mark.circle.orange="8">inline marks</span>
-, powered by [Rough Notation](https://roughnotation.com/):
-
-```html
-<span v-mark.underline.orange>inline markers</span>
-```
-
-</v-click>
-
-<div v-click mt-12>
-
-[Learn more](https://sli.dev/guide/animations#click-animation)
 
 </div>
 
 ---
 
-# Motions
+# RBAC — Role-Based Access Control <span class="chip-neon align-middle">EN YAYGIN</span>
 
-Motion animations are powered by [@vueuse/motion](https://motion.vueuse.org/), triggered by `v-motion` directive.
+<div grid="~ cols-5 gap-6">
 
-```html
-<div
-  v-motion
-  :initial="{ x: -80 }"
-  :enter="{ x: 0 }"
-  :click-3="{ x: 80 }"
-  :leave="{ x: 1000 }"
->
-  Slidev
+<div class="col-span-2">
+
+- Kullanıcıya **rol** atanır → role göre **izinler**
+- Yönetim rol seviyesinde yapılır, kullanıcı tek tek değil
+
+<div v-click class="mt-4 grid grid-cols-1 gap-2 text-sm">
+<div class="neon-card p-3"><span class="neon-text">✓</span> Yönetimi kolay, denetlenebilir</div>
+<div class="danger-card p-3"><span class="hot-text">✗</span> <strong>Rol patlaması</strong> (role explosion)</div>
 </div>
+
+<div v-click class="mt-4 chip-cyan">Admin · Editor · Viewer</div>
+
+</div>
+
+<div class="col-span-3" v-click>
+
+```mermaid {theme:'dark', scale: 0.78}
+flowchart LR
+    U1([Ayşe]) --> R1[Admin]
+    U2([Mert]) --> R2[Editor]
+    U3([Zeynep]) --> R3[Viewer]
+    R1 --> P1[("yaz · sil · yönet")]
+    R2 --> P2[("yaz · düzenle")]
+    R3 --> P3[("yalnızca oku")]
+    style R1 fill:#06281d,stroke:#00ff9c,color:#fff
+    style R2 fill:#0a2a3a,stroke:#22d3ee,color:#fff
+    style R3 fill:#1a2030,stroke:#94a3b8,color:#fff
 ```
 
-<div class="w-60 relative">
-  <div class="relative w-40 h-40">
-    <img
-      v-motion
-      :initial="{ x: 800, y: -100, scale: 1.5, rotate: -50 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-square.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ y: 500, x: -100, scale: 2 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-circle.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ x: 600, y: 400, scale: 2, rotate: 100 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-triangle.png"
-      alt=""
-    />
-  </div>
-
-  <div
-    class="text-5xl absolute top-14 left-40 text-[#2B90B6] -z-1"
-    v-motion
-    :initial="{ x: -80, opacity: 0}"
-    :enter="{ x: 0, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
-    Slidev
-  </div>
 </div>
 
-<!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
-<script setup lang="ts">
-const final = {
-  x: 0,
-  y: 0,
-  rotate: 0,
-  scale: 1,
-  transition: {
-    type: 'spring',
-    damping: 10,
-    stiffness: 20,
-    mass: 2
+</div>
+
+<div v-click class="mt-4">
+
+```ts {all|2|4-6}
+// Kullanıcı → Rol → İzin
+const user = { id: 42, role: 'editor' }
+
+// Kontrol tek satır:
+if (!['admin', 'editor'].includes(user.role))
+  return res.status(403).send('Forbidden')
+```
+
+</div>
+
+<!--
+RBAC neden bu kadar yaygın? Çünkü insan zihni "rol" kavramını doğal bulur. İK'da zaten roller var. Ama dikkat: her küçük farklı yetki için yeni rol açarsan, yüzlerce role boğulursun — buna rol patlaması denir.
+-->
+
+---
+
+# ABAC — Attribute-Based Access Control
+
+<div grid="~ cols-2 gap-8">
+
+<div>
+
+<div class="chip-cyan mb-4">ÖZNİTELİK TABANLI</div>
+
+Karar; **kullanıcı + kaynak + ortam** özniteliklerine göre **dinamik** verilir.
+
+<div v-click class="mt-4">
+
+```js {monaco-run} {height:'150px'}
+const ctx = {
+  user:     { role: 'manager', country: 'TR' },
+  resource: { type: 'report', sensitivity: 'high' },
+  env:      { time: 14, ip: 'TR' },
+}
+// Politika: TR'den, mesai saatinde, yönetici
+const allow = ctx.user.role === 'manager'
+  && ctx.user.country === 'TR'
+  && ctx.env.time >= 9 && ctx.env.time <= 18
+console.log(allow ? '✅ İZİN' : '⛔ RED')
+```
+
+</div>
+
+</div>
+
+<div>
+
+<div v-click>
+<NeonCard icon="i-carbon:flow" title="Örnek politika" variant="cyan">
+<span class="font-mono text-sm">"Sadece <span class="cyan-text">TR'den</span> giriş yapan, <span class="text-amber">mesai saatindeki</span> <span class="neon-text">yöneticiler</span> erişebilir."</span>
+</NeonCard>
+</div>
+
+<div v-click class="mt-4 grid grid-cols-2 gap-3 text-sm">
+<div class="neon-card p-3"><span class="neon-text">✓</span> Aşırı esnek, ince ayar</div>
+<div class="danger-card p-3"><span class="hot-text">✗</span> Politika yönetimi karmaşık</div>
+</div>
+
+<div v-click class="mt-4 text-sm text-gray-400">
+RBAC "kim olduğuna" bakar; ABAC "<strong>hangi koşulda olduğuna</strong>" bakar.
+</div>
+
+</div>
+
+</div>
+
+---
+
+# ReBAC — Relationship-Based Access Control
+
+<div grid="~ cols-2 gap-8">
+
+<div>
+
+<div class="chip-neon mb-4">İLİŞKİ TABANLI · MODERN</div>
+
+- Yetki, **varlıklar arası ilişkiden** doğar
+- Google **Zanzibar**'ın temeli — milyarlarca kullanıcı
+
+<div v-click class="mt-4">
+
+> *"Bu dokümanı **paylaşan** kişinin, onu paylaştığı kişiler görebilir."*
+
+</div>
+
+<div v-click class="mt-4 flex flex-wrap gap-2">
+<span class="chip-neon"><span class="i-logos:google-drive" /> Google Drive</span>
+<span class="chip-cyan"><span class="i-simple-icons:notion" /> Notion</span>
+<span class="chip-cyan"><span class="i-logos:github-icon" /> GitHub</span>
+</div>
+
+</div>
+
+<div v-click>
+
+```mermaid {theme:'dark', scale: 0.8}
+flowchart TD
+    A([Ayşe]) -->|owner| D[(Doküman X)]
+    A -->|editor olarak ekledi| B([Burak])
+    B -->|viewer olarak ekledi| C([Can])
+    C -.->|"ilişki var → görebilir ✓"| D
+    E([Yabancı]) -.->|"ilişki yok → ✗"| D
+    style D fill:#06281d,stroke:#00ff9c,color:#fff
+    style E fill:#2a0a14,stroke:#ff2d55,color:#fff
+```
+
+<div class="mt-2 text-xs text-gray-500 text-center">
+"user:can <span class="neon-text">viewer</span> document:X" — Zanzibar tuple'ı
+</div>
+
+</div>
+
+</div>
+
+---
+transition: zoom
+---
+
+# Modellerin Evrimi: Bir Hikâye
+
+<div class="text-gray-400 -mt-3 mb-6">İhtiyaçlar büyüdükçe modeller gelişti.</div>
+
+```mermaid {theme:'dark', scale: 0.95}
+timeline
+    title Erişim Kontrolünün Evrimi
+    1970'ler : DAC / MAC : Sahip veya sistem karar verir
+    1990'lar : RBAC : Roller ile yönetim kolaylaştı
+    2000'ler : ABAC : Özniteliklerle dinamik & ince karar
+    2010'lar+ : ReBAC : İlişkiler · Google Zanzibar ölçeği
+```
+
+<div class="grid grid-cols-4 gap-3 mt-6 text-center text-sm">
+<div v-click class="neon-card p-3"><div class="font-bold text-amber">DAC/MAC</div><div class="text-xs text-gray-400">Kim sahip / hangi seviye</div></div>
+<div v-click class="neon-card p-3"><div class="font-bold cyan-text">RBAC</div><div class="text-xs text-gray-400">Hangi rol</div></div>
+<div v-click class="neon-card p-3"><div class="font-bold text-amber">ABAC</div><div class="text-xs text-gray-400">Hangi öznitelik/koşul</div></div>
+<div v-click class="neon-card p-3"><div class="font-bold neon-text">ReBAC</div><div class="text-xs text-gray-400">Hangi ilişki</div></div>
+</div>
+
+<div v-click class="mt-6 text-center text-cyan">
+Gerçek sistemler genellikle bunları <strong>birlikte</strong> kullanır (örn. RBAC + ABAC).
+</div>
+
+---
+layout: section
+class: text-center
+---
+
+<div class="chip-cyan mx-auto mb-6">// BÖLÜM 03</div>
+
+# Protokoller, Standartlar & Mimari
+
+<div class="text-gray-400 mt-4">Tekrar icat etme — endüstri standartlarını kullan</div>
+
+<div class="scanbar mt-8 w-1/3 mx-auto" />
+
+---
+
+# Önemli Protokoller & Standartlar
+
+| Standart | Ne işe yarar? | Örnek kullanım |
+|---|---|---|
+| <span class="neon-text font-bold">OAuth 2.0</span> | Üçüncü taraf erişim **yetkisi** (delegasyon) | "Google ile giriş yap" |
+| <span class="cyan-text font-bold">OpenID Connect</span> | OAuth üzerine **kimlik** katmanı | SSO sistemleri |
+| <span class="text-amber font-bold">JWT</span> | Yetki bilgisini taşıyan **token** | API güvenliği |
+| <span class="neon-text font-bold">SAML 2.0</span> | Kurumsal SSO (XML tabanlı) | Active Directory |
+| <span class="cyan-text font-bold">XACML</span> | ABAC için **politika dili** | Büyük kurumsal sistemler |
+
+<div v-click class="mt-6 danger-card p-4">
+<span class="i-carbon:warning-alt hot-text text-xl align-middle" />
+<strong class="hot-text">Sık karıştırılan:</strong> OAuth bir <em>authorization</em> protokolüdür (yetki delegasyonu), <em>authentication</em> değil. Kimlik için <strong>OpenID Connect</strong> gelir.
+</div>
+
+<div v-click class="mt-4 flex justify-center gap-6 text-3xl">
+<span class="i-logos:oauth" /><span class="i-simple-icons:openid text-white" /><span class="i-logos:jwt-icon" /><span class="i-logos:auth0-icon" />
+</div>
+
+---
+
+# JWT — Anatomi & Tehlike
+
+<div grid="~ cols-2 gap-6">
+
+<div>
+
+Bir JWT üç parçadan oluşur — nokta ile ayrılır:
+
+```text
+header . payload . signature
+```
+
+<div v-click>
+
+```json
+// payload — base64, ŞİFRELİ DEĞİL!
+{
+  "sub": "42",
+  "role": "student",   // ← yetki bilgisi
+  "org": "school-A",
+  "exp": 1799999999
+}
+```
+
+</div>
+
+<div v-click class="mt-3 danger-card p-3 text-sm">
+<span class="hot-text font-bold">⚠ Payload şifreli değildir</span>, sadece imzalıdır. İçindeki rolü asla "gizli" sanma — sadece <strong>imza</strong> onu korur.
+</div>
+
+</div>
+
+<div v-click>
+<Terminal title="jwt — manipülasyon denemesi">
+<div class="cmd">echo $PAYLOAD | base64 -d</div>
+<div class="out">{"role":"student"}</div>
+<div class="dim">&nbsp;</div>
+<div class="warn"># saldırgan role'ü 'admin' yapıp</div>
+<div class="warn"># yeniden kodluyor...</div>
+<div class="cmd">curl /admin -H "Authorization: Bearer $FAKE"</div>
+<div class="err">401 — invalid signature ✗</div>
+<div class="dim">&nbsp;</div>
+<div class="ok"># imza doğrulaması payload'u korudu</div>
+<div class="err"># AMA: alg:none kabul edilirse → FELAKET</div>
+</Terminal>
+
+<div class="mt-3 text-xs text-gray-500">
+Kural: <code>alg:none</code>'ı asla kabul etme, imzayı <strong>her zaman</strong> sunucuda doğrula.
+</div>
+
+</div>
+
+</div>
+
+---
+
+# Yetkilendirme Mimarisi: PEP · PDP · PAP
+
+<div class="text-gray-400 -mt-3 mb-4">Büyük sistemlerde "karar" ile "uygulama" birbirinden ayrılır.</div>
+
+```mermaid {theme:'dark', scale: 0.92}
+flowchart LR
+    U([İstek]) --> PEP
+    subgraph Sistem
+      PEP["PEP<br/>Policy Enforcement Point<br/>(kararı uygular)"]
+      PDP["PDP<br/>Policy Decision Point<br/>(kararı verir)"]
+      PAP["PAP<br/>Policy Administration Point<br/>(politikaları yönetir)"]
+      PIP["PIP<br/>(öznitelik/veri sağlar)"]
+    end
+    PEP -->|"yetki var mı?"| PDP
+    PDP -->|"izin / red"| PEP
+    PAP -.->|politikalar| PDP
+    PIP -.->|öznitelikler| PDP
+    PEP -->|izin| R([Kaynak])
+    style PEP fill:#0a2a3a,stroke:#22d3ee,color:#fff
+    style PDP fill:#06281d,stroke:#00ff9c,color:#fff
+    style PAP fill:#1a1030,stroke:#a855f7,color:#fff
+```
+
+<div class="grid grid-cols-3 gap-3 mt-5 text-sm">
+<div v-click class="cyan-card p-3"><strong class="cyan-text">PEP</strong> — Kapıdaki güvenlik görevlisi. İsteği durdurur, sorar.</div>
+<div v-click class="neon-card p-3"><strong class="neon-text">PDP</strong> — Hakim. Politikalara bakıp "evet/hayır" der.</div>
+<div v-click class="neon-card p-3" style="--tw-shadow:0;"><strong class="text-purple-300">PAP</strong> — Kanun koyucu. Kuralları yazar/günceller.</div>
+</div>
+
+---
+layout: center
+---
+
+# İki Altın İlke
+
+<div grid="~ cols-2 gap-8" class="mt-6">
+
+<div v-click>
+<NeonCard icon="i-carbon:network-4" title="Zero Trust" variant="cyan">
+<div class="text-lg cyan-text font-bold my-1">"Kimseye güvenme, her şeyi doğrula."</div>
+İç ağ da dahil hiçbir istek baştan güvenilir sayılmaz. Her erişim yeniden kontrol edilir.
+<div class="mt-3 text-xs text-gray-500">"Castle & moat" devri bitti — perimeter yok.</div>
+</NeonCard>
+</div>
+
+<div v-click>
+<NeonCard icon="i-carbon:locked" title="Least Privilege" variant="neon">
+<div class="text-lg neon-text font-bold my-1">"Sadece gerektiği kadar yetki ver."</div>
+Her principal, işini yapmak için gereken <strong>asgari</strong> izne sahip olmalı — fazlası değil.
+<div class="mt-3 text-xs text-gray-500">Capital One olayı: aşırı geniş IAM yetkisinin bedeli.</div>
+</NeonCard>
+</div>
+
+</div>
+
+<div v-click class="mt-8 text-center text-gray-400">
+Bu iki ilke, aşağıda göreceğimiz felaketlerin <strong class="neon-text">çoğunu</strong> önlerdi.
+</div>
+
+---
+layout: section
+class: text-center
+---
+
+<div class="chip-cyan mx-auto mb-6">// BÖLÜM 04</div>
+
+# Pratik: Kod ile Authorization
+
+<div class="text-gray-400 mt-4">Express.js · MVC · Basitten gelişmişe — 3 aşama</div>
+
+<div class="scanbar mt-8 w-1/3 mx-auto" />
+
+---
+
+# AuthZ Uyumlu Proje Mimarisi (MVC)
+
+<div class="text-gray-400 -mt-3 mb-4">İstek bir <strong>katman zincirinden</strong> geçer. Her katmanın tek bir sorumluluğu vardır.</div>
+
+```mermaid {theme:'dark', scale: 0.86}
+flowchart LR
+    C([Client]) --> R[Router<br/>rota eşleştirir]
+    R --> M1["Auth<b>N</b> Middleware<br/>JWT doğrula → req.user"]
+    M1 --> M2["Auth<b>Z</b> Middleware<br/>authorizeRoles(...)"]
+    M2 --> Ctrl[Controller<br/>iş mantığını çağırır]
+    Ctrl --> S[Service<br/>iş kuralları]
+    S --> DB[(Database)]
+    M1 -.->|geçersiz token| E1([401])
+    M2 -.->|yetki yok| E2([403])
+    style M1 fill:#0a2a3a,stroke:#22d3ee,color:#fff
+    style M2 fill:#06281d,stroke:#00ff9c,color:#fff
+    style E1 fill:#2a0a14,stroke:#ff2d55,color:#fff
+    style E2 fill:#2a0a14,stroke:#ff2d55,color:#fff
+```
+
+<div v-click class="mt-5 grid grid-cols-3 gap-3 text-sm">
+<div class="cyan-card p-3"><strong>Router</strong> okunabilir kalır — sadece "kim girebilir"i belirtir.</div>
+<div class="neon-card p-3"><strong>Middleware</strong> AuthN/AuthZ'yi tek noktada toplar.</div>
+<div class="neon-card p-3"><strong>Controller</strong> yalnızca iş mantığına odaklanır.</div>
+</div>
+
+---
+
+# Aşama 1 → 2 → 3: Kodun Evrimi
+
+<div class="text-gray-400 -mt-3 mb-3 text-sm">Aynı kontrol; dağınıktan → temiz mimariye. <kbd>Space</kbd> ile ilerleyin.</div>
+
+````md magic-move {lines: true}
+```js
+// AŞAMA 1 — Monolitik app.js (her endpoint'te elle kontrol)
+app.get('/admin', (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1]
+  const user = jwt.verify(token, SECRET)          // AuthN
+  if (user.role !== 'admin')                       // AuthZ
+    return res.status(403).send('Forbidden')
+  res.send('Admin paneli')
+})
+
+app.get('/teachers', (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1]
+  const user = jwt.verify(token, SECRET)          // TEKRAR
+  if (user.role !== 'teacher' && user.role !== 'admin')
+    return res.status(403).send('Forbidden')      // KOPYALA-YAPIŞTIR
+  res.send('Öğretmen paneli')
+})
+// ❌ Tekrar, tekrar, tekrar. Bir yeri unutursan → açık.
+```
+
+```js
+// AŞAMA 2 — Rotaları ayır (routes/adminRoutes.js)
+const router = require('express').Router()
+
+// Kimlik doğrulama hâlâ her handler'da tekrarlanıyor
+router.get('/', (req, res) => {
+  const user = jwt.verify(req.token, SECRET)
+  if (user.role !== 'admin')
+    return res.status(403).send('Forbidden')
+  res.send('Admin paneli')
+})
+
+module.exports = router
+// app.js → app.use('/admin', adminRoutes)
+// ✅ Daha düzenli  ❌ ama yetki mantığı hâlâ dağınık
+```
+
+```js
+// AŞAMA 3 — Modüler middleware (TEMİZ MİMARİ) ✨
+// middleware/auth.js
+function authenticate(req, res, next) {        // AuthN
+  try {
+    const token = req.headers.authorization?.split(' ')[1]
+    req.user = jwt.verify(token, SECRET)        // → req.user
+    next()
+  } catch { return res.status(401).json({ error: 'Unauthorized' }) }
+}
+
+function authorizeRoles(...roles) {             // AuthZ (dinamik)
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role))
+      return res.status(403).json({ error: 'Forbidden' })
+    next()
   }
 }
-</script>
+module.exports = { authenticate, authorizeRoles }
+```
 
-<div
-  v-motion
-  :initial="{ x:35, y: 30, opacity: 0}"
-  :enter="{ y: 0, opacity: 1, transition: { delay: 3500 } }">
+```js
+// AŞAMA 3 — routes/adminRoutes.js — artık OKUNABİLİR
+const { authenticate, authorizeRoles } = require('../middleware/auth')
 
-[Learn more](https://sli.dev/guide/animations.html#motion)
+router.get('/dashboard',
+  authenticate,                        // 1) Kimsin?
+  authorizeRoles('admin'),             // 2) Yetkin var mı?
+  adminController.dashboard            // 3) İş mantığı (sadece bu!)
+)
 
+router.get('/students',
+  authenticate,
+  authorizeRoles('admin', 'teacher'),  // çoklu rol — tek satır
+  studentController.list
+)
+// ✅ DRY  ✅ okunabilir  ✅ controller temiz  ✅ unutma riski yok
+```
+````
+
+<!--
+Bu 3 aşama, gerçek bir geliştiricinin yaşadığı yolculuktur. Başta her şey app.js'te. Sonra büyür, router'lara ayrılır. Olgunlaştığında ise yetki mantığı tek bir yere — middleware'e — toplanır. authorizeRoles gibi yüksek mertebeli bir fonksiyon, kodu hem DRY hem güvenli yapar.
+-->
+
+---
+
+# Controller: Sadece İş Mantığı
+
+<div class="text-gray-400 -mt-3 mb-4">Yetki middleware'de halledildi → controller "temiz" kalır.</div>
+
+<div grid="~ cols-2 gap-5">
+
+```js {all|3-4|6-8}
+// controllers/studentController.js
+exports.list = async (req, res) => {
+  // Yetki KONTROLÜ YOK burada — zaten geçti.
+  // Sadece iş: kullanıcının organizasyonundaki öğrenciler
+  const students = await studentService
+    .findByOrg(req.user.org)         // ← req.user middleware'den
+  res.json(students)
+}
+```
+
+<div>
+
+<v-clicks>
+
+<NeonCard icon="i-carbon:checkmark-filled" title="Tek sorumluluk" variant="neon">
+Controller "yetki" düşünmez. O işi middleware yaptı.
+</NeonCard>
+
+<NeonCard icon="i-carbon:data-1" title="Servis & DB katmanı" variant="cyan">
+Service iş kurallarını, repository/DB ise sorguları yönetir. Sorgular daima <code>req.user.org</code> ile filtrelenir.
+</NeonCard>
+
+</v-clicks>
+
+</div>
+
+</div>
+
+<div v-click class="mt-4 danger-card p-3 text-sm text-center">
+<strong class="hot-text">Dikkat:</strong> <code>findByOrg(req.user.org)</code> — bu satır birazdan göreceğimiz <strong>IDOR</strong> felaketlerini önler. Sorguyu daima kullanıcının kimliğiyle sınırla!
 </div>
 
 ---
 
-# $\LaTeX$
+# Frontend vs Backend Authorization
 
-$\LaTeX$ is supported out-of-box. Powered by [$\KaTeX$](https://katex.org/).
+<div grid="~ cols-2 gap-6">
 
-<div h-3 />
+<div v-click>
+<div class="cyan-card p-5 h-full">
+<div class="flex items-center gap-2 mb-2"><span class="i-carbon:laptop text-2xl cyan-text" /><span class="text-xl font-bold text-white">Frontend</span></div>
+<div class="cyan-text font-semibold">Amaç: Deneyim (UX)</div>
+<ul class="text-sm mt-2 space-y-1">
+<li>Admin butonunu <strong>gizle</strong></li>
+<li>Yetkisiz sayfaya yönlendirme</li>
+<li>Gereksiz isteği baştan engelle</li>
+</ul>
+<div class="mt-3 chip-cyan">Kolaylık · görsellik</div>
+</div>
+</div>
 
-Inline $\sqrt{3x-1}+(1+x)^2$
-
-Block
-$$ {1|3|all}
-\begin{aligned}
-\nabla \cdot \vec{E} &= \frac{\rho}{\varepsilon_0} \\
-\nabla \cdot \vec{B} &= 0 \\
-\nabla \times \vec{E} &= -\frac{\partial\vec{B}}{\partial t} \\
-\nabla \times \vec{B} &= \mu_0\vec{J} + \mu_0\varepsilon_0\frac{\partial\vec{E}}{\partial t}
-\end{aligned}
-$$
-
-[Learn more](https://sli.dev/features/latex)
-
----
-
-# Diagrams
-
-You can create diagrams / graphs from textual descriptions, directly in your Markdown.
-
-<div class="grid grid-cols-4 gap-5 pt-4 -mb-6">
-
-```mermaid {scale: 0.5, alt: 'A simple sequence diagram'}
-sequenceDiagram
-    Alice->John: Hello John, how are you?
-    Note over Alice,John: A typical interaction
-```
-
-```mermaid {theme: 'neutral', scale: 0.8}
-graph TD
-B[Text] --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
-
-```mermaid
-mindmap
-  root((mindmap))
-    Origins
-      Long history
-      ::icon(fa fa-book)
-      Popularisation
-        British popular psychology author Tony Buzan
-    Research
-      On effectiveness<br/>and features
-      On Automatic creation
-        Uses
-            Creative techniques
-            Strategic planning
-            Argument mapping
-    Tools
-      Pen and paper
-      Mermaid
-```
-
-```plantuml {scale: 0.7}
-@startuml
-
-package "Some Group" {
-  HTTP - [First Component]
-  [Another Component]
-}
-
-node "Other Groups" {
-  FTP - [Second Component]
-  [First Component] --> FTP
-}
-
-cloud {
-  [Example 1]
-}
-
-database "MySql" {
-  folder "This is my folder" {
-    [Folder 3]
-  }
-  frame "Foo" {
-    [Frame 4]
-  }
-}
-
-[Another Component] --> [Example 1]
-[Example 1] --> [Folder 3]
-[Folder 3] --> [Frame 4]
-
-@enduml
-```
+<div v-click>
+<div class="neon-card p-5 h-full">
+<div class="flex items-center gap-2 mb-2"><span class="i-carbon:bare-metal-server text-2xl neon-text" /><span class="text-xl font-bold text-white">Backend</span></div>
+<div class="neon-text font-semibold">Amaç: GÜVENLİK (gerçek koruma)</div>
+<ul class="text-sm mt-2 space-y-1">
+<li>Her istekte yetkiyi <strong>doğrula</strong></li>
+<li>Token + rol + sahiplik kontrolü</li>
+<li>Tek <strong>gerçek</strong> savunma hattı</li>
+</ul>
+<div class="mt-3 chip-neon">Zorunlu · pazarlıksız</div>
+</div>
+</div>
 
 </div>
 
-Learn more: [Mermaid Diagrams](https://sli.dev/features/mermaid) and [PlantUML Diagrams](https://sli.dev/features/plantuml)
+<div v-click class="mt-6 danger-card p-4 text-center text-lg">
+<span class="i-carbon:warning-alt-filled hot-text align-middle" />
+<strong class="hot-text">Altın kural:</strong> Frontend kontrolü <u>sadece kozmetiktir.</u> Saldırgan butonu görmez — ama isteği <span class="font-mono">curl</span> ile doğrudan atar. <strong>Yetki backend'de yoksa, hiç yoktur.</strong>
+</div>
+
+<!--
+Frontend'de butonu gizlemek güvenlik değildir. F12 → Network → isteği kopyala → tekrar gönder. Ya da curl. Saldırgan sizin React arayüzünüzü kullanmaz. Gerçek kontrol her zaman sunucudadır.
+-->
 
 ---
-foo: bar
-dragPos:
-  square: 691,32,167,_,-16
+layout: section
+class: text-center
 ---
 
-# Draggable Elements
+<div class="chip-cyan mx-auto mb-6">// BÖLÜM 05</div>
 
-Double-click on the draggable elements to edit their positions.
+# B2B & Çok Katmanlı Yetki
 
-<br>
+<div class="text-gray-400 mt-4">Rol kontrolü tek başına neden yetmez? — A · B · C senaryosu</div>
 
-###### Directive Usage
-
-```md
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-```
-
-<br>
-
-###### Component Usage
-
-```md
-<v-drag text-3xl>
-  <div class="i-carbon:arrow-up" />
-  Use the `v-drag` component to have a draggable container!
-</v-drag>
-```
-
-<v-drag pos="663,206,261,_,-15">
-  <div text-center text-3xl border border-main rounded>
-    Double-click me!
-  </div>
-</v-drag>
-
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-
-###### Draggable Arrow
-
-```md
-<v-drag-arrow two-way />
-```
-
-<v-drag-arrow pos="67,452,253,46" two-way op70 />
-
----
-src: ./pages/imported-slides.md
-hide: false
----
+<div class="scanbar mt-8 w-1/3 mx-auto" />
 
 ---
 
-# Monaco Editor
+# Senaryo: Bir Okul Yönetim Sistemi
 
-Slidev provides built-in Monaco Editor support.
+<div class="text-gray-400 -mt-3 mb-4">Her adımda yeni bir saldırgan çıkıyor. Kontrolümüzü katmanlamalıyız.</div>
 
-Add `{monaco}` to the code block to turn it into an editor:
+<div class="space-y-4">
 
-```ts {monaco}
-import { ref } from 'vue'
-import { emptyArray } from './external'
+<div v-click class="neon-card p-4">
+<span class="chip-neon">A · ROL KONTROLÜ</span>
+<div class="mt-2">Müdür ve öğretmenin yetkilerini ayır → <code>authorizeRoles('manager')</code></div>
+<div class="text-sm text-gray-400 mt-1">Tek kurum için yeterli görünüyor. ✓</div>
+</div>
 
-const arr = ref(emptyArray(10))
+<div v-click class="cyan-card p-4">
+<span class="chip-cyan">B · ORGANİZASYON KONTROLÜ</span>
+<div class="mt-2"><span class="hot-text">Sorun:</span> X kurumunun müdürü, Y kurumuna erişmeyi dener. Rolü "müdür" olduğu için A geçer! → <code>resource.org === req.user.org</code> kontrolü ŞART.</div>
+<div class="text-sm text-gray-400 mt-1">B2B / multi-tenant'ın kalbi: <strong>tenant izolasyonu.</strong></div>
+</div>
+
+<div v-click class="danger-card p-4">
+<span class="chip-hot">C · KAYNAK (SAHİPLİK) KONTROLÜ</span>
+<div class="mt-2"><span class="hot-text">Sorun:</span> Bir öğretmen, <em>aynı kurumdaki başka</em> bir öğretmenin öğrencisine erişir. A ✓ B ✓ ama yine de yanlış! → Bu klasik <strong class="hot-text">IDOR</strong> açığıdır. → <code>student.teacherId === req.user.id</code></div>
+</div>
+
+</div>
+
+<div v-click class="mt-4 text-center font-mono chip-neon mx-auto">
+Güvenli erişim = ROL ∧ ORGANİZASYON ∧ SAHİPLİK
+</div>
+
+<!--
+Bu, sunumun en önemli mühendislik dersi. Çoğu geliştirici A'da durur. Gerçek sistemlerde A+B+C gerekir. Her katman, bir önceki saldırganı durdurur.
+-->
+
+---
+
+# A + B + C Kodda Nasıl Görünür?
+
+<div grid="~ cols-2 gap-6">
+
+```js {all|5-7|9-12|14-17}
+// GET /students/:id  → öğrenci detayı
+exports.getStudent = async (req, res) => {
+  const student = await studentService.findById(req.params.id)
+
+  // A) ROL: öğretmen mi?  (middleware'de geçti)
+  if (!['teacher','manager'].includes(req.user.role))
+    return res.status(403).json({ e: 'rol yok' })
+
+  // B) ORGANİZASYON: aynı kurum mu?
+  if (student.org !== req.user.org)
+    return res.status(403).json({ e: 'farklı kurum' })
+
+  // C) SAHİPLİK: bu öğrenci ona mı bağlı?
+  if (req.user.role === 'teacher'
+      && student.teacherId !== req.user.id)
+    return res.status(403).json({ e: 'senin öğrencin değil' })
+
+  res.json(student)   // ✅ üç kapıdan da geçti
+}
 ```
 
-Use `{monaco-run}` to create an editor that can execute the code directly in the slide:
+<div>
 
-```ts {monaco-run}
-import { version } from 'vue'
-import { emptyArray, sayHello } from './external'
+<v-clicks>
 
-sayHello()
-console.log(`vue ${version}`)
-console.log(emptyArray<number>(10).reduce(fib => [...fib, fib.at(-1)! + fib.at(-2)!], [1, 1]))
-```
+<div class="neon-card p-3"><span class="chip-neon">A</span> <span class="text-sm">Rol middleware'i — kabaca filtreler.</span></div>
+<div class="cyan-card p-3"><span class="chip-cyan">B</span> <span class="text-sm">Tenant izolasyonu — B2B'nin olmazsa olmazı. Tek satır, devasa koruma.</span></div>
+<div class="danger-card p-3"><span class="chip-hot">C</span> <span class="text-sm">Nesne seviyesinde sahiplik (BOLA/IDOR savunması). En çok unutulan, en pahalı katman.</span></div>
+
+<div class="mt-2 text-sm text-gray-400">
+İdeal: Bu mantığı <code>can(user, 'read', student)</code> gibi tek bir <strong>policy</strong> fonksiyonunda topla.
+</div>
+
+</v-clicks>
+
+</div>
+
+</div>
+
+---
+layout: section
+class: text-center
+---
+
+<div class="chip-hot mx-auto mb-6 animate-pulse">// BÖLÜM 06 · TEHLİKE</div>
+
+# Güvenlik Açıkları & Saldırılar
+
+<div class="text-gray-400 mt-4">Authorization yapılmazsa ne olur?</div>
+
+<div class="scanbar mt-8 w-1/3 mx-auto" />
 
 ---
 layout: center
 class: text-center
 ---
 
-# Learn More
+<div class="chip-hot mx-auto mb-6">OWASP TOP 10 · 2021</div>
 
-[Documentation](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/resources/showcases)
+# <span class="hot-text">#1</span> Broken Access Control
+
+<div class="text-xl text-gray-300 mt-4 max-w-2xl mx-auto">
+Erişim Kontrolü İhlali, dünyanın <strong class="hot-text">en yaygın</strong> ve en tehlikeli zafiyetidir.
+</div>
+
+<div grid="~ cols-3 gap-5" class="mt-10 max-w-3xl mx-auto">
+<div v-click><StatBadge value="#1" label="OWASP Top 10 sıralaması" variant="hot" /></div>
+<div v-click><StatBadge value="94%" label="test edilen uygulamada görüldü" variant="amber" /></div>
+<div v-click><StatBadge value="318K+" label="kayıtlı zafiyet örneği" variant="cyan" /></div>
+</div>
+
+<div v-click class="mt-10 max-w-2xl mx-auto neon-card p-4 text-left">
+<span class="i-carbon:idea neon-text" /> <strong>Neden bu kadar yaygın?</strong> Çünkü bir <strong>mantık hatasıdır</strong> (logical flaw). Tarayıcılar, statik analiz araçları bunu kolay bulamaz — kodun "çalışması" açık olmadığı anlamına gelmez.
+</div>
+
+---
+
+# IDOR — Insecure Direct Object Reference
+
+<div grid="~ cols-2 gap-6">
+
+<div>
+
+<div class="text-gray-300">
+Sunucu "<span class="cyan-text">Ne isteniyor?</span>" sorusuna cevap verir ama "<span class="hot-text">Kim istiyor?</span>" sorusunu <strong>atlar.</strong>
+</div>
+
+<div v-click class="mt-4">
+> "Yan daireye bakıp çıkacağız" dediğinde, sistemin "Buyur, anahtara gerek yok" demesi ne kadar absürtse, IDOR da o kadar absürt — ama o kadar yaygın.
+</div>
+
+<div v-click class="mt-4 text-sm text-gray-400">
+Şifre kırmak yok, algoritma yok. Sadece URL'deki <strong>id</strong>'yi değiştir.
+</div>
+
+</div>
+
+<div v-click>
+<Terminal title="exploit — IDOR (id artırma)">
+<div class="cmd">curl site.com/document?id=000000075</div>
+<div class="out">→ KENDİ belgem ✓</div>
+<div class="dim">&nbsp;</div>
+<div class="warn"># peki ya +1 ?</div>
+<div class="cmd">curl site.com/document?id=000000076</div>
+<div class="err">→ BAŞKASININ banka belgesi 😱</div>
+<div class="cmd">for i in {1..885000000}; do ...</div>
+<div class="err">→ 885.000.000 belge dökülüyor</div>
+</Terminal>
+</div>
+
+</div>
+
+<div v-click class="mt-5 neon-card p-4 text-center">
+<strong class="neon-text">Çözüm:</strong> Her sorguyu sahiplikle bağla → <code>WHERE id = :id AND owner_id = :currentUser</code>. Ayrıca tahmin edilemez ID (UUID) kullan — ama <u>asıl koruma her zaman sunucu tarafı yetki kontrolüdür.</u>
+</div>
+
+---
+
+# Diğer Kritik Saldırılar
+
+<div grid="~ cols-2 gap-5">
+
+<v-clicks>
+
+<NeonCard icon="i-carbon:up-to-top" title="Privilege Escalation" variant="hot">
+Yetkisiz <strong>yetki yükseltme</strong>. Düşük yetkili kullanıcı/servis, kendini admin'e çıkarır.
+<div class="text-xs text-gray-500 mt-1">→ Capital One: SSRF ile yüksek IAM rolü ele geçirildi.</div>
+</NeonCard>
+
+<NeonCard icon="i-carbon:data-error" title="BOLA / IDOR" variant="hot">
+<strong>Nesne seviyesinde</strong> kırık yetki. API'lerin #1 açığı (OWASP API Top 10).
+<div class="text-xs text-gray-500 mt-1">→ Optus, T-Mobile, USPS, Parler.</div>
+</NeonCard>
+
+<NeonCard icon="i-carbon:user-multiple" title="Confused Deputy" variant="amber">
+Yetkili bir servisi kandırıp, <strong>onun adına</strong> yetkisiz işlem yaptırmak.
+<div class="text-xs text-gray-500 mt-1">→ SSRF bunun klasik bir türüdür.</div>
+</NeonCard>
+
+<NeonCard icon="i-carbon:fingerprint-recognition" title="JWT Manipülasyonu" variant="amber">
+Token üzerinde oynama: <code>alg:none</code>, zayıf secret, süresiz token.
+<div class="text-xs text-gray-500 mt-1">→ İmzayı daima doğrula, exp kontrol et.</div>
+</NeonCard>
+
+</v-clicks>
+
+</div>
+
+---
+layout: section
+class: text-center
+---
+
+<div class="chip-hot mx-auto mb-6">// BÖLÜM 07 · GERÇEK OLAYLAR</div>
+
+# Bunlar Gerçekten Oldu
+
+<div class="text-gray-400 mt-4">Milyarlarca dolar · milyarlarca kayıt · tek bir unutulan kontrol</div>
+
+<div class="scanbar mt-8 w-1/3 mx-auto" />
+
+<!--
+Şimdi teoriyi bırakıp gerçeğe dönüyoruz. Bu olayların her biri, bu sunumda anlattığımız tam olarak bir hatadan kaynaklandı.
+-->
+
+---
+
+# <span class="i-carbon:building align-middle" /> First American Financial <span class="chip-hot align-middle">IDOR</span>
+
+<div class="text-gray-400 -mt-2 mb-4 font-mono text-sm">🇺🇸 ABD · 2019 · Emlak & Mülkiyet Sigortası Devi</div>
+
+<div grid="~ cols-2 gap-6">
+
+<div>
+
+<NewsCard source="TechCrunch" date="24 May 2019" headline="First American site bug exposed 885 million sensitive records" accent="#1d9bf0">
+URL'deki belge numarasını değiştirerek, oturum açma veya yetki olmadan herkes başkasının ipotek, banka ve SGK belgelerini görüntüleyebiliyordu.
+</NewsCard>
+
+<div v-click class="mt-4">
+<TweetCard name="Brian Krebs" handle="@briankrebs" color="linear-gradient(135deg,#c00,#900)" verified date="24 May 2019" replies="1.2K" retweets="14K" likes="29K">
+First American leaked ~885 MILLION mortgage records going back to 2003. No auth needed — just change the number in the URL. This is about as bad as it gets. 🔓
+</TweetCard>
+</div>
+
+</div>
+
+<div>
+
+<div class="grid grid-cols-2 gap-3">
+<div v-click><StatBadge value="885M" label="sızdırılan belge (2003'e dek)" variant="hot" /></div>
+<div v-click><StatBadge value="$1M" label="NYDFS uzlaşması" variant="amber" /></div>
+<div v-click><StatBadge value="$487K" label="SEC para cezası" variant="amber" /></div>
+<div v-click><StatBadge value="2+ yıl" label="açık kalma süresi" variant="cyan" /></div>
+</div>
+
+<div v-click class="mt-4 danger-card p-4 text-sm">
+<strong class="hot-text">Kök neden:</strong> Backend "Bu belge gerçekten bu kullanıcının mı?" diye <u>hiç</u> sormadı. Klasik kitap örneği IDOR.
+</div>
+
+<div v-click class="mt-3 neon-card p-3 text-sm">
+<strong class="neon-text">Ders:</strong> Sahiplik kontrolü (Senaryo C) bir satırla bunu önlerdi.
+</div>
+
+</div>
+
+</div>
+
+---
+
+# <span class="i-carbon:phone align-middle" /> Optus <span class="chip-hot align-middle">UNAUTH API</span>
+
+<div class="text-gray-400 -mt-2 mb-4 font-mono text-sm">🇦🇺 Avustralya · Eylül 2022 · 2. En Büyük Telekom</div>
+
+<div grid="~ cols-2 gap-6">
+
+<div>
+
+<NewsCard source="ABC News / Wikipedia" date="22 Sep 2022" headline="Optus data breach exposes data of up to 10 million customers — a third of Australia" accent="#ff2d55">
+İnternete açık bırakılan, kimlik doğrulaması <strong>gerektirmeyen</strong> bir API. Saldırgan müşteri ID'lerini sırayla artırarak tüm verileri çekti.
+</NewsCard>
+
+<div v-click class="mt-4">
+<TweetCard name="Jeremy Kirk" handle="@Jeremy_Kirk" color="linear-gradient(135deg,#16a34a,#22d3ee)" verified date="27 Sep 2022" replies="890" retweets="6.4K" likes="11K">
+The Optus API had NO authentication. None. Customer IDs weren't even sequential-secure. You could just iterate and pull everyone's passport & licence numbers. 🤦
+</TweetCard>
+</div>
+
+</div>
+
+<div>
+
+<div class="grid grid-cols-2 gap-3">
+<div v-click><StatBadge value="~10M" label="etkilenen müşteri" variant="hot" /></div>
+<div v-click><StatBadge value="%40" label="Avustralya nüfusu" variant="amber" /></div>
+<div v-click><StatBadge value="~$95M" label="kriz maliyeti (USD)" variant="amber" /></div>
+<div v-click><StatBadge value="3 ay" label="API açık kaldığı süre" variant="cyan" /></div>
+</div>
+
+<div v-click class="mt-4 danger-card p-4 text-sm">
+<strong class="hot-text">Kök neden:</strong> AuthN bile yoktu → AuthZ imkânsızdı. Pasaport ve ehliyet numaraları herkese açıktı.
+</div>
+
+<div v-click class="mt-3 neon-card p-3 text-sm">
+<strong class="neon-text">Ders:</strong> "Test endpoint'i" diye internete açık API bırakma. Zero Trust: her endpoint korunur.
+</div>
+
+</div>
+
+</div>
+
+---
+
+# <span class="i-carbon:money align-middle" /> Capital One <span class="chip-hot align-middle">SSRF → PRIV ESC</span>
+
+<div class="text-gray-400 -mt-2 mb-4 font-mono text-sm">🇺🇸 ABD · 2019 · Büyük Banka · AWS bulutu</div>
+
+<div grid="~ cols-2 gap-6">
+
+<div>
+
+<NewsCard source="Krebs on Security" date="29 Jul 2019" headline="Capital One: 106M people affected; ex-AWS engineer charged" accent="#22d3ee">
+WAF'taki SSRF açığı → AWS metadata servisi → geniş IAM kimlik bilgileri → S3'teki müşteri verisi. Klasik yetki yükseltme zinciri.
+</NewsCard>
+
+<div v-click class="mt-4">
+<TweetCard name="Capital One" handle="@CapitalOne" color="linear-gradient(135deg,#004977,#d03027)" verified date="29 Jul 2019" replies="8.1K" retweets="5.2K" likes="3.9K">
+We've notified federal law enforcement regarding an incident involving unauthorized access to personal information of certain customers. We take our responsibility to protect your information seriously.
+</TweetCard>
+</div>
+
+</div>
+
+<div>
+
+<div class="grid grid-cols-2 gap-3">
+<div v-click><StatBadge value="106M" label="müşteri (ABD + Kanada)" variant="hot" /></div>
+<div v-click><StatBadge value="$80M" label="OCC para cezası" variant="amber" /></div>
+<div v-click><StatBadge value="$190M" label="toplu dava uzlaşması" variant="amber" /></div>
+<div v-click><StatBadge value="$300M+" label="tahmini toplam maliyet" variant="hot" /></div>
+</div>
+
+<div v-click class="mt-4 danger-card p-4 text-sm">
+<strong class="hot-text">Kök neden:</strong> Aşırı geniş IAM rolü (<em>least privilege ihlali</em>) + SSRF = confused deputy. Sunucu, saldırgan adına kendi yetkisini "ödünç verdi".
+</div>
+
+<div v-click class="mt-3 neon-card p-3 text-sm">
+<strong class="neon-text">Ders:</strong> En az yetki ilkesi. Servis sadece ihtiyacı olan S3'e erişebilseydi, hasar minimal olurdu.
+</div>
+
+</div>
+
+</div>
+
+---
+
+# <span class="i-logos:facebook align-middle" /> Facebook <span class="chip-hot align-middle">TOKEN THEFT</span>
+
+<div class="text-gray-400 -mt-2 mb-4 font-mono text-sm">🇺🇸 ABD · 2018 · "View As" özelliği</div>
+
+<div grid="~ cols-2 gap-6">
+
+<div>
+
+<NewsCard source="NPR" date="28 Sep 2018" headline="Facebook Says Security Breach Affected Almost 50 Million Accounts" accent="#1d9bf0">
+"View As" (Farklı Gör) özelliğindeki hata, saldırganların başkalarına ait <strong>erişim token'larını</strong> çıkarmasına izin verdi — yani hesapların tam kontrolü.
+</NewsCard>
+
+<div v-click class="mt-4">
+<TweetCard name="Guy Rosen" handle="@guyro" color="linear-gradient(135deg,#1877f2,#0a4db3)" verified date="28 Sep 2018" replies="2.3K" retweets="4.1K" likes="6.8K">
+We discovered a vulnerability in "View As" that let attackers steal access tokens. We've reset tokens for ~90M accounts as a precaution. Security is an arms race and we're continuing to investigate.
+</TweetCard>
+</div>
+
+</div>
+
+<div>
+
+<div class="grid grid-cols-2 gap-3">
+<div v-click><StatBadge value="50M" label="ele geçirilen hesap" variant="hot" /></div>
+<div v-click><StatBadge value="90M" label="zorla çıkış yaptırılan" variant="amber" /></div>
+<div v-click><StatBadge value="~$13B" label="saatler içinde piyasa değeri kaybı" variant="hot" /></div>
+<div v-click><StatBadge value="$5B" label="sonraki FTC cezası" variant="amber" /></div>
+</div>
+
+<div v-click class="mt-4 danger-card p-4 text-sm">
+<strong class="hot-text">Kök neden:</strong> Bir özelliğin (video yükleme) başka bir özellikle (View As) etkileşimi, access token sızıntısına yol açtı. Token = "yetkiliyim" kanıtı.
+</div>
+
+<div v-click class="mt-3 neon-card p-3 text-sm">
+<strong class="neon-text">Ders:</strong> Token'lar en hassas yetki varlığıdır. Kapsam (scope) + kısa ömür + sıkı doğrulama şart.
+</div>
+
+</div>
+
+</div>
+
+---
+
+# Daha Fazlası: Aynı Hata, Farklı İsim
+
+<div class="text-gray-400 -mt-3 mb-5">Hepsinin ortak noktası: <strong class="hot-text">kırık nesne-seviyesi yetki (BOLA/IDOR)</strong>.</div>
+
+<div grid="~ cols-3 gap-5">
+
+<div v-click>
+<div class="danger-card p-5 h-full">
+<div class="flex items-center gap-2"><span class="i-carbon:mobile text-2xl hot-text" /><span class="font-bold text-white">T-Mobile</span></div>
+<div class="text-xs text-gray-500 font-mono mt-1">🇺🇸 2023 · API BOLA</div>
+<div class="mt-3 text-sm">Yetki doğrulamayan API'den, tanımlayıcılar manipüle edilerek <strong>1+ ay</strong> sessizce veri çekildi.</div>
+<div class="mt-3"><StatBadge value="37M" label="müşteri · $350M uzlaşma" variant="hot" /></div>
+</div>
+</div>
+
+<div v-click>
+<div class="danger-card p-5 h-full">
+<div class="flex items-center gap-2"><span class="i-carbon:email text-2xl hot-text" /><span class="font-bold text-white">USPS</span></div>
+<div class="text-xs text-gray-500 font-mono mt-1">🇺🇸 2018 · Broken Access Control</div>
+<div class="mt-3 text-sm">"Informed Visibility" API'si, isteyenin veri <strong>sahibi</strong> olup olmadığını kontrol etmiyordu.</div>
+<div class="mt-3"><StatBadge value="60M" label="kullanıcı verisi açığa çıktı" variant="hot" /></div>
+</div>
+</div>
+
+<div v-click>
+<div class="danger-card p-5 h-full">
+<div class="flex items-center gap-2"><span class="i-carbon:bullhorn text-2xl hot-text" /><span class="font-bold text-white">Parler</span></div>
+<div class="text-xs text-gray-500 font-mono mt-1">🇺🇸 2021 · IDOR + no rate-limit</div>
+<div class="mt-3 text-sm">Sıralı ID + yetki kontrolü yok → terabaytlarca veri, silinen gönderilerin GPS'i dahil kazındı.</div>
+<div class="mt-3"><StatBadge value="∞" label="şirketin sonu oldu" variant="hot" /></div>
+</div>
+</div>
+
+</div>
+
+<div v-click class="mt-6 text-center text-lg">
+<span v-mark.circle.red="4">Beş farklı şirket. Aslında <strong>tek bir</strong> mühendislik hatası.</span>
+</div>
+
+---
+layout: center
+class: text-center
+---
+
+# Toplam Bilanço
+
+<div class="text-gray-400 mb-8">Yetkilendirme açıklarının yalnızca birkaç olaydaki bedeli:</div>
+
+<div grid="~ cols-4 gap-5" class="max-w-4xl mx-auto">
+<div v-click><StatBadge value="1.1B+" label="sızdırılan kayıt/belge" variant="hot" /></div>
+<div v-click><StatBadge value="$6B+" label="doğrudan ceza + uzlaşma + kayıp" variant="amber" /></div>
+<div v-click><StatBadge value="5+" label="dünya devi şirket" variant="cyan" /></div>
+<div v-click><StatBadge value="1" label="ortak kök neden: AuthZ" variant="neon" /></div>
+</div>
+
+<div v-click class="mt-12 max-w-2xl mx-auto text-xl">
+En büyük maliyet cezalar değil; <strong class="hot-text">müşteri güveninin</strong> ve <strong class="hot-text">itibarın</strong> çöküşüdür. Parler bu yüzden tamamen yok oldu.
+</div>
+
+<div v-click class="mt-6 chip-neon mx-auto text-base">
+Bu bedellerin tamamı, <strong>kodda birkaç satırlık</strong> doğru yetki kontrolüyle önlenebilirdi.
+</div>
+
+---
+layout: section
+class: text-center
+---
+
+<div class="chip-neon mx-auto mb-6">// BÖLÜM 08 · KORUNMA</div>
+
+# Best Practices & Modern Trendler
+
+<div class="text-gray-400 mt-4">Staj veya ilk projende doğrudan kullanabileceğin kurallar</div>
+
+<div class="scanbar mt-8 w-1/3 mx-auto" />
+
+---
+
+# Mühendislik Checklist'i ✅
+
+<div grid="~ cols-2 gap-x-8 gap-y-3" class="mt-4">
+
+<v-clicks>
+
+<div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Backend'de doğrula.</strong> Frontend kontrolü sadece UX'tir.</div></div>
+
+<div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Deny by default.</strong> Açıkça izin verilmeyen her şey yasaktır.</div></div>
+
+<div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Sahiplik kontrol et.</strong> Sorguyu daima <code>req.user</code> ile sınırla (IDOR).</div></div>
+
+<div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Least privilege.</strong> En az yetki — hem kullanıcı hem servis.</div></div>
+
+<div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Tenant izolasyonu.</strong> B2B'de <code>org</code> kontrolünü asla atlama.</div></div>
+
+<div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Merkezîleştir.</strong> Yetki mantığı tek yerde (middleware/policy).</div></div>
+
+<div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Token'ları sıkılaştır.</strong> Kısa exp, imza doğrula, <code>alg:none</code> yasak.</div></div>
+
+<div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Logla & denetle.</strong> Her yetki reddini izle (anomali tespiti).</div></div>
+
+</v-clicks>
+
+</div>
+
+---
+
+# Modern Trendler
+
+<div grid="~ cols-2 gap-5" class="mt-4">
+
+<v-clicks>
+
+<NeonCard icon="i-carbon:document-security" title="Policy as Code" variant="neon">
+Yetki kuralları <strong>kod olarak</strong> yazılır, versiyonlanır, test edilir. <span class="chip-cyan ml-1"><span class="i-carbon:rule" /> OPA / Rego</span>
+</NeonCard>
+
+<NeonCard icon="i-carbon:fade" title="Fine-Grained Authorization" variant="cyan">
+Satır/sütun, hatta hücre bazında yetki. Google Zanzibar, <strong>OpenFGA</strong>, AuthZed/SpiceDB.
+</NeonCard>
+
+<NeonCard icon="i-carbon:machine-learning-model" title="AI Destekli Anomali Tespiti" variant="amber">
+Yetkisiz/olağandışı erişim örüntülerini gerçek zamanlı yakalama.
+</NeonCard>
+
+<NeonCard icon="i-carbon:blockchain" title="Decentralized Identity" variant="cyan">
+Blockchain tabanlı, kullanıcının sahip olduğu kimlik & yetki (SSI, DID).
+</NeonCard>
+
+</v-clicks>
+
+</div>
+
+<div v-click class="mt-6 text-center">
+<span class="chip-neon">Policy as Code</span> + <span class="chip-cyan">Zero Trust</span> + <span class="chip-amber">FGA</span> = modern yetkilendirmenin yönü
+</div>
+
+---
+layout: center
+class: text-center
+---
+
+# Özet: 5 Cümlede Authorization
+
+<div class="max-w-3xl mx-auto mt-6 space-y-3 text-left">
+
+<div v-click class="neon-card p-3"><span class="font-mono neon-text">01</span> &nbsp; AuthN "kimsin", AuthZ "ne yapabilirsin" — ve AuthZ <strong>her zaman</strong> AuthN üzerine kurulur.</div>
+
+<div v-click class="cyan-card p-3"><span class="font-mono cyan-text">02</span> &nbsp; AuthZ bir özellik değil, sistemin <strong>zorunlu temelidir</strong> — bu yüzden unutulur, bu yüzden tehlikelidir.</div>
+
+<div v-click class="neon-card p-3"><span class="font-mono neon-text">03</span> &nbsp; Model seç (çoğunlukla <strong>RBAC + ABAC</strong>), ama her zaman <strong>rol ∧ org ∧ sahiplik</strong> kontrol et.</div>
+
+<div v-click class="cyan-card p-3"><span class="font-mono cyan-text">04</span> &nbsp; Gerçek kontrol <strong>backend'dedir</strong>; deny-by-default ve least-privilege uygula.</div>
+
+<div v-click class="danger-card p-3"><span class="font-mono hot-text">05</span> &nbsp; Tek bir unutulan kontrol = <strong class="hot-text">885M belge, milyarlarca dolar.</strong> Sen yapma.</div>
+
+</div>
+
+---
+layout: center
+class: text-center
+---
+
+<div class="chip-neon mx-auto mb-6">// END OF TRANSMISSION</div>
+
+# <span class="glitch">Teşekkürler</span>
+
+<div class="text-xl text-cyan mt-4 font-light">Sorular & Tartışma</div>
+
+<div class="scanbar my-8 w-1/2 mx-auto" />
+
+<div class="text-gray-400 max-w-xl mx-auto">
+Authorization, kullanıcının <strong>görmediği</strong> ama varlığını borçlu olduğu katmandır.<br/>
+Bir mühendis olarak, görünmeyeni inşa et.
+</div>
+
+<div class="mt-10 flex items-center justify-center gap-6 text-3xl text-gray-500">
+<span class="i-carbon:locked hover:text-neon transition" />
+<span class="i-carbon:security hover:text-cyan transition" />
+<span class="i-carbon:user-admin hover:text-amber transition" />
+</div>
 
 <PoweredBySlidev mt-10 />
+
+<!--
+Bitirirken: Authorization'ı bir "sonra ekleriz" işi olarak görmeyin. İlk satırdan itibaren mimarinizin parçası olsun. Sorularınızı alalım.
+-->

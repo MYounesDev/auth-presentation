@@ -1,0 +1,16 @@
+
+
+  ●■▲
+  Slidev  v52.6.0 
+
+  theme       @slidev/theme-default
+  css engine  unocss
+  entry       C:\Users\merve\auth-presentation\slides.md
+
+  public slide show   > http://localhost:3033/
+  presenter mode      > http://localhost:3033/presenter/
+  slides overview     > http://localhost:3033/overview/
+  export slides       > http://localhost:3033/export/
+  remote control      > pass --remote to enable
+
+  shortcuts           > restart | open | edit | quit
