@@ -21,7 +21,6 @@ class: text-center
 
 <div class="absolute inset-0 flex flex-col items-center justify-center">
 
-<div class="chip-neon mb-6 animate-pulse">// SYSTEM SECURITY LAYER · 2026</div>
 
 # <span class="glitch">AUTHORIZATION</span>
 
@@ -636,36 +635,7 @@ Kural: <code>alg:none</code>'ı asla kabul etme, imzayı <strong>her zaman</stro
 
 </div>
 
----
 
-# Yetkilendirme Mimarisi: PEP · PDP · PAP
-
-<div class="text-gray-400 -mt-3 mb-4">Büyük sistemlerde "karar" ile "uygulama" birbirinden ayrılır.</div>
-
-```mermaid {theme:'dark', scale: 0.92}
-flowchart LR
-    U([İstek]) --> PEP
-    subgraph Sistem
-      PEP["PEP<br/>Policy Enforcement Point<br/>(kararı uygular)"]
-      PDP["PDP<br/>Policy Decision Point<br/>(kararı verir)"]
-      PAP["PAP<br/>Policy Administration Point<br/>(politikaları yönetir)"]
-      PIP["PIP<br/>(öznitelik/veri sağlar)"]
-    end
-    PEP -->|"yetki var mı?"| PDP
-    PDP -->|"izin / red"| PEP
-    PAP -.->|politikalar| PDP
-    PIP -.->|öznitelikler| PDP
-    PEP -->|izin| R([Kaynak])
-    style PEP fill:#0a2a3a,stroke:#22d3ee,color:#fff
-    style PDP fill:#06281d,stroke:#00ff9c,color:#fff
-    style PAP fill:#1a1030,stroke:#a855f7,color:#fff
-```
-
-<div class="grid grid-cols-3 gap-3 mt-5 text-sm">
-<div v-click class="cyan-card p-3"><strong class="cyan-text">PEP</strong> — Kapıdaki güvenlik görevlisi. İsteği durdurur, sorar.</div>
-<div v-click class="neon-card p-3"><strong class="neon-text">PDP</strong> — Hakim. Politikalara bakıp "evet/hayır" der.</div>
-<div v-click class="neon-card p-3" style="--tw-shadow:0;"><strong class="text-purple-300">PAP</strong> — Kanun koyucu. Kuralları yazar/günceller.</div>
-</div>
 
 ---
 layout: center
@@ -675,7 +645,7 @@ layout: center
 
 <div grid="~ cols-2 gap-8" class="mt-6">
 
-<div v-click>
+<div>
 <NeonCard icon="i-carbon:network-4" title="Zero Trust" variant="cyan">
 <div class="text-lg cyan-text font-bold my-1">"Kimseye güvenme, her şeyi doğrula."</div>
 İç ağ da dahil hiçbir istek baştan güvenilir sayılmaz. Her erişim yeniden kontrol edilir.
@@ -683,7 +653,7 @@ layout: center
 </NeonCard>
 </div>
 
-<div v-click>
+<div>
 <NeonCard icon="i-carbon:locked" title="Least Privilege" variant="neon">
 <div class="text-lg neon-text font-bold my-1">"Sadece gerektiği kadar yetki ver."</div>
 Her principal, işini yapmak için gereken <strong>asgari</strong> izne sahip olmalı — fazlası değil.
@@ -693,7 +663,7 @@ Her principal, işini yapmak için gereken <strong>asgari</strong> izne sahip ol
 
 </div>
 
-<div v-click class="mt-8 text-center text-gray-400">
+<div class="mt-8 text-center text-gray-400">
 Bu iki ilke, aşağıda göreceğimiz felaketlerin <strong class="neon-text">çoğunu</strong> önlerdi.
 </div>
 
@@ -716,7 +686,7 @@ class: text-center
 
 <div class="text-gray-400 -mt-3 mb-4">İstek bir <strong>katman zincirinden</strong> geçer. Her katmanın tek bir sorumluluğu vardır.</div>
 
-```mermaid {theme:'dark', scale: 0.86}
+```mermaid {theme:'dark', scale: 0.65}
 flowchart LR
     C([Client]) --> R[Router<br/>rota eşleştirir]
     R --> M1["Auth<b>N</b> Middleware<br/>JWT doğrula → req.user"]
@@ -732,7 +702,7 @@ flowchart LR
     style E2 fill:#2a0a14,stroke:#ff2d55,color:#fff
 ```
 
-<div v-click class="mt-5 grid grid-cols-3 gap-3 text-sm">
+<div class="mt-5 grid grid-cols-3 gap-3 text-sm">
 <div class="cyan-card p-3"><strong>Router</strong> okunabilir kalır — sadece "kim girebilir"i belirtir.</div>
 <div class="neon-card p-3"><strong>Middleware</strong> AuthN/AuthZ'yi tek noktada toplar.</div>
 <div class="neon-card p-3"><strong>Controller</strong> yalnızca iş mantığına odaklanır.</div>
@@ -834,37 +804,33 @@ Bu 3 aşama, gerçek bir geliştiricinin yaşadığı yolculuktur. Başta her ş
 
 <div grid="~ cols-2 gap-5">
 
-```js {all|3-4|6-8}
+```js {all|3-4|5-8}
 // controllers/studentController.js
 exports.list = async (req, res) => {
   // Yetki KONTROLÜ YOK burada — zaten geçti.
-  // Sadece iş: kullanıcının organizasyonundaki öğrenciler
+  // Sadece iş
   const students = await studentService
-    .findByOrg(req.user.org)         // ← req.user middleware'den
+    .findByOrg(req.user.org)  
   res.json(students)
 }
 ```
 
 <div>
 
-<v-clicks>
-
 <NeonCard icon="i-carbon:checkmark-filled" title="Tek sorumluluk" variant="neon">
-Controller "yetki" düşünmez. O işi middleware yaptı.
+Yetki kontrolü middleware'de halledildi.
 </NeonCard>
 
-<NeonCard icon="i-carbon:data-1" title="Servis & DB katmanı" variant="cyan">
+<NeonCard icon="i-carbon:data-1" title="Servis & DB katmanı" variant="cyan" class="mt-2">
 Service iş kurallarını, repository/DB ise sorguları yönetir. Sorgular daima <code>req.user.org</code> ile filtrelenir.
 </NeonCard>
 
-</v-clicks>
-
-</div>
-
-</div>
-
-<div v-click class="mt-4 danger-card p-3 text-sm text-center">
+<div class="mt-3 danger-card p-3 text-sm text-center">
 <strong class="hot-text">Dikkat:</strong> <code>findByOrg(req.user.org)</code> — bu satır birazdan göreceğimiz <strong>IDOR</strong> felaketlerini önler. Sorguyu daima kullanıcının kimliğiyle sınırla!
+</div>
+
+</div>
+
 </div>
 
 ---
@@ -873,7 +839,7 @@ Service iş kurallarını, repository/DB ise sorguları yönetir. Sorgular daima
 
 <div grid="~ cols-2 gap-6">
 
-<div v-click>
+<div>
 <div class="cyan-card p-5 h-full">
 <div class="flex items-center gap-2 mb-2"><span class="i-carbon:laptop text-2xl cyan-text" /><span class="text-xl font-bold text-white">Frontend</span></div>
 <div class="cyan-text font-semibold">Amaç: Deneyim (UX)</div>
@@ -886,7 +852,7 @@ Service iş kurallarını, repository/DB ise sorguları yönetir. Sorgular daima
 </div>
 </div>
 
-<div v-click>
+<div>
 <div class="neon-card p-5 h-full">
 <div class="flex items-center gap-2 mb-2"><span class="i-carbon:bare-metal-server text-2xl neon-text" /><span class="text-xl font-bold text-white">Backend</span></div>
 <div class="neon-text font-semibold">Amaç: GÜVENLİK (gerçek koruma)</div>
@@ -901,7 +867,7 @@ Service iş kurallarını, repository/DB ise sorguları yönetir. Sorgular daima
 
 </div>
 
-<div v-click class="mt-6 danger-card p-4 text-center text-lg">
+<div class="mt-6 danger-card p-4 text-center text-lg">
 <span class="i-carbon:warning-alt-filled hot-text align-middle" />
 <strong class="hot-text">Altın kural:</strong> Frontend kontrolü <u>sadece kozmetiktir.</u> Saldırgan butonu görmez — ama isteği <span class="font-mono">curl</span> ile doğrudan atar. <strong>Yetki backend'de yoksa, hiç yoktur.</strong>
 </div>
@@ -931,26 +897,26 @@ class: text-center
 
 <div class="space-y-4">
 
-<div v-click class="neon-card p-4">
+<div class="neon-card p-4">
 <span class="chip-neon">A · ROL KONTROLÜ</span>
 <div class="mt-2">Müdür ve öğretmenin yetkilerini ayır → <code>authorizeRoles('manager')</code></div>
 <div class="text-sm text-gray-400 mt-1">Tek kurum için yeterli görünüyor. ✓</div>
 </div>
 
-<div v-click class="cyan-card p-4">
+<div class="cyan-card p-4">
 <span class="chip-cyan">B · ORGANİZASYON KONTROLÜ</span>
 <div class="mt-2"><span class="hot-text">Sorun:</span> X kurumunun müdürü, Y kurumuna erişmeyi dener. Rolü "müdür" olduğu için A geçer! → <code>resource.org === req.user.org</code> kontrolü ŞART.</div>
 <div class="text-sm text-gray-400 mt-1">B2B / multi-tenant'ın kalbi: <strong>tenant izolasyonu.</strong></div>
 </div>
 
-<div v-click class="danger-card p-4">
+<div class="danger-card p-4">
 <span class="chip-hot">C · KAYNAK (SAHİPLİK) KONTROLÜ</span>
 <div class="mt-2"><span class="hot-text">Sorun:</span> Bir öğretmen, <em>aynı kurumdaki başka</em> bir öğretmenin öğrencisine erişir. A ✓ B ✓ ama yine de yanlış! → Bu klasik <strong class="hot-text">IDOR</strong> açığıdır. → <code>student.teacherId === req.user.id</code></div>
 </div>
 
 </div>
 
-<div v-click class="mt-4 text-center font-mono chip-neon mx-auto">
+<div class="mt-4 text-center font-mono chip-neon mx-auto">
 Güvenli erişim = ROL ∧ ORGANİZASYON ∧ SAHİPLİK
 </div>
 
@@ -988,7 +954,7 @@ exports.getStudent = async (req, res) => {
 
 <div>
 
-<v-clicks>
+<div>
 
 <div class="neon-card p-3"><span class="chip-neon">A</span> <span class="text-sm">Rol middleware'i — kabaca filtreler.</span></div>
 <div class="cyan-card p-3"><span class="chip-cyan">B</span> <span class="text-sm">Tenant izolasyonu — B2B'nin olmazsa olmazı. Tek satır, devasa koruma.</span></div>
@@ -998,7 +964,7 @@ exports.getStudent = async (req, res) => {
 İdeal: Bu mantığı <code>can(user, 'read', student)</code> gibi tek bir <strong>policy</strong> fonksiyonunda topla.
 </div>
 
-</v-clicks>
+</div>
 
 </div>
 
@@ -1031,12 +997,12 @@ Erişim Kontrolü İhlali, dünyanın <strong class="hot-text">en yaygın</stron
 </div>
 
 <div grid="~ cols-3 gap-5" class="mt-10 max-w-3xl mx-auto">
-<div v-click><StatBadge value="#1" label="OWASP Top 10 sıralaması" variant="hot" /></div>
-<div v-click><StatBadge value="94%" label="test edilen uygulamada görüldü" variant="amber" /></div>
-<div v-click><StatBadge value="318K+" label="kayıtlı zafiyet örneği" variant="cyan" /></div>
+<div><StatBadge value="#1" label="OWASP Top 10 sıralaması" variant="hot" /></div>
+<div><StatBadge value="94%" label="test edilen uygulamada görüldü" variant="amber" /></div>
+<div><StatBadge value="318K+" label="kayıtlı zafiyet örneği" variant="cyan" /></div>
 </div>
 
-<div v-click class="mt-10 max-w-2xl mx-auto neon-card p-4 text-left">
+<div class="mt-10 max-w-2xl mx-auto neon-card p-4 text-left">
 <span class="i-carbon:idea neon-text" /> <strong>Neden bu kadar yaygın?</strong> Çünkü bir <strong>mantık hatasıdır</strong> (logical flaw). Tarayıcılar, statik analiz araçları bunu kolay bulamaz — kodun "çalışması" açık olmadığı anlamına gelmez.
 </div>
 
@@ -1052,17 +1018,17 @@ Erişim Kontrolü İhlali, dünyanın <strong class="hot-text">en yaygın</stron
 Sunucu "<span class="cyan-text">Ne isteniyor?</span>" sorusuna cevap verir ama "<span class="hot-text">Kim istiyor?</span>" sorusunu <strong>atlar.</strong>
 </div>
 
-<div v-click class="mt-4">
+<div class="mt-4">
 > "Yan daireye bakıp çıkacağız" dediğinde, sistemin "Buyur, anahtara gerek yok" demesi ne kadar absürtse, IDOR da o kadar absürt — ama o kadar yaygın.
 </div>
 
-<div v-click class="mt-4 text-sm text-gray-400">
+<div class="mt-4 text-sm text-gray-400">
 Şifre kırmak yok, algoritma yok. Sadece URL'deki <strong>id</strong>'yi değiştir.
 </div>
 
 </div>
 
-<div v-click>
+<div>
 <Terminal title="exploit — IDOR (id artırma)">
 <div class="cmd">curl site.com/document?id=000000075</div>
 <div class="out">→ KENDİ belgem ✓</div>
@@ -1077,7 +1043,7 @@ Sunucu "<span class="cyan-text">Ne isteniyor?</span>" sorusuna cevap verir ama "
 
 </div>
 
-<div v-click class="mt-5 neon-card p-4 text-center">
+<div class="mt-5 neon-card p-4 text-center">
 <strong class="neon-text">Çözüm:</strong> Her sorguyu sahiplikle bağla → <code>WHERE id = :id AND owner_id = :currentUser</code>. Ayrıca tahmin edilemez ID (UUID) kullan — ama <u>asıl koruma her zaman sunucu tarafı yetki kontrolüdür.</u>
 </div>
 
@@ -1087,7 +1053,7 @@ Sunucu "<span class="cyan-text">Ne isteniyor?</span>" sorusuna cevap verir ama "
 
 <div grid="~ cols-2 gap-5">
 
-<v-clicks>
+<div>
 
 <NeonCard icon="i-carbon:up-to-top" title="Privilege Escalation" variant="hot">
 Yetkisiz <strong>yetki yükseltme</strong>. Düşük yetkili kullanıcı/servis, kendini admin'e çıkarır.
@@ -1109,7 +1075,7 @@ Token üzerinde oynama: <code>alg:none</code>, zayıf secret, süresiz token.
 <div class="text-xs text-gray-500 mt-1">→ İmzayı daima doğrula, exp kontrol et.</div>
 </NeonCard>
 
-</v-clicks>
+</div>
 
 </div>
 
@@ -1178,7 +1144,7 @@ class: text-center
 URL'deki belge numarasını değiştirerek, oturum açma veya yetki olmadan herkes başkasının ipotek, banka ve SGK belgelerini görüntüleyebiliyordu.
 </NewsCard>
 
-<div v-click class="mt-4">
+<div class="mt-4">
 <TweetCard name="Brian Krebs" handle="@briankrebs" color="linear-gradient(135deg,#c00,#900)" verified date="24 May 2019" replies="1.2K" retweets="14K" likes="29K">
 First American leaked ~885 MILLION mortgage records going back to 2003. No auth needed — just change the number in the URL. This is about as bad as it gets. 🔓
 </TweetCard>
@@ -1189,17 +1155,17 @@ First American leaked ~885 MILLION mortgage records going back to 2003. No auth 
 <div>
 
 <div class="grid grid-cols-2 gap-3">
-<div v-click><StatBadge value="885M" label="sızdırılan belge (2003'e dek)" variant="hot" /></div>
-<div v-click><StatBadge value="$1M" label="NYDFS uzlaşması" variant="amber" /></div>
-<div v-click><StatBadge value="$487K" label="SEC para cezası" variant="amber" /></div>
-<div v-click><StatBadge value="2+ yıl" label="açık kalma süresi" variant="cyan" /></div>
+<div><StatBadge value="885M" label="sızdırılan belge (2003'e dek)" variant="hot" /></div>
+<div><StatBadge value="$1M" label="NYDFS uzlaşması" variant="amber" /></div>
+<div><StatBadge value="$487K" label="SEC para cezası" variant="amber" /></div>
+<div><StatBadge value="2+ yıl" label="açık kalma süresi" variant="cyan" /></div>
 </div>
 
-<div v-click class="mt-4 danger-card p-4 text-sm">
+<div class="mt-4 danger-card p-4 text-sm">
 <strong class="hot-text">Kök neden:</strong> Backend "Bu belge gerçekten bu kullanıcının mı?" diye <u>hiç</u> sormadı. Klasik kitap örneği IDOR.
 </div>
 
-<div v-click class="mt-3 neon-card p-3 text-sm">
+<div class="mt-3 neon-card p-3 text-sm">
 <strong class="neon-text">Ders:</strong> Sahiplik kontrolü (Senaryo C) bir satırla bunu önlerdi.
 </div>
 
@@ -1221,7 +1187,7 @@ First American leaked ~885 MILLION mortgage records going back to 2003. No auth 
 İnternete açık bırakılan, kimlik doğrulaması <strong>gerektirmeyen</strong> bir API. Saldırgan müşteri ID'lerini sırayla artırarak tüm verileri çekti.
 </NewsCard>
 
-<div v-click class="mt-4">
+<div class="mt-4">
 <TweetCard name="Jeremy Kirk" handle="@Jeremy_Kirk" color="linear-gradient(135deg,#16a34a,#22d3ee)" verified date="27 Sep 2022" replies="890" retweets="6.4K" likes="11K">
 The Optus API had NO authentication. None. Customer IDs weren't even sequential-secure. You could just iterate and pull everyone's passport & licence numbers. 🤦
 </TweetCard>
@@ -1232,17 +1198,17 @@ The Optus API had NO authentication. None. Customer IDs weren't even sequential-
 <div>
 
 <div class="grid grid-cols-2 gap-3">
-<div v-click><StatBadge value="~10M" label="etkilenen müşteri" variant="hot" /></div>
-<div v-click><StatBadge value="%40" label="Avustralya nüfusu" variant="amber" /></div>
-<div v-click><StatBadge value="~$95M" label="kriz maliyeti (USD)" variant="amber" /></div>
-<div v-click><StatBadge value="3 ay" label="API açık kaldığı süre" variant="cyan" /></div>
+<div><StatBadge value="~10M" label="etkilenen müşteri" variant="hot" /></div>
+<div><StatBadge value="%40" label="Avustralya nüfusu" variant="amber" /></div>
+<div><StatBadge value="~$95M" label="kriz maliyeti (USD)" variant="amber" /></div>
+<div><StatBadge value="3 ay" label="API açık kaldığı süre" variant="cyan" /></div>
 </div>
 
-<div v-click class="mt-4 danger-card p-4 text-sm">
+<div class="mt-4 danger-card p-4 text-sm">
 <strong class="hot-text">Kök neden:</strong> AuthN bile yoktu → AuthZ imkânsızdı. Pasaport ve ehliyet numaraları herkese açıktı.
 </div>
 
-<div v-click class="mt-3 neon-card p-3 text-sm">
+<div class="mt-3 neon-card p-3 text-sm">
 <strong class="neon-text">Ders:</strong> "Test endpoint'i" diye internete açık API bırakma. Zero Trust: her endpoint korunur.
 </div>
 
@@ -1264,7 +1230,7 @@ The Optus API had NO authentication. None. Customer IDs weren't even sequential-
 WAF'taki SSRF açığı → AWS metadata servisi → geniş IAM kimlik bilgileri → S3'teki müşteri verisi. Klasik yetki yükseltme zinciri.
 </NewsCard>
 
-<div v-click class="mt-4">
+<div class="mt-4">
 <TweetCard name="Capital One" handle="@CapitalOne" color="linear-gradient(135deg,#004977,#d03027)" verified date="29 Jul 2019" replies="8.1K" retweets="5.2K" likes="3.9K">
 We've notified federal law enforcement regarding an incident involving unauthorized access to personal information of certain customers. We take our responsibility to protect your information seriously.
 </TweetCard>
@@ -1275,17 +1241,17 @@ We've notified federal law enforcement regarding an incident involving unauthori
 <div>
 
 <div class="grid grid-cols-2 gap-3">
-<div v-click><StatBadge value="106M" label="müşteri (ABD + Kanada)" variant="hot" /></div>
-<div v-click><StatBadge value="$80M" label="OCC para cezası" variant="amber" /></div>
-<div v-click><StatBadge value="$190M" label="toplu dava uzlaşması" variant="amber" /></div>
-<div v-click><StatBadge value="$300M+" label="tahmini toplam maliyet" variant="hot" /></div>
+<div><StatBadge value="106M" label="müşteri (ABD + Kanada)" variant="hot" /></div>
+<div><StatBadge value="$80M" label="OCC para cezası" variant="amber" /></div>
+<div><StatBadge value="$190M" label="toplu dava uzlaşması" variant="amber" /></div>
+<div><StatBadge value="$300M+" label="tahmini toplam maliyet" variant="hot" /></div>
 </div>
 
-<div v-click class="mt-4 danger-card p-4 text-sm">
+<div class="mt-4 danger-card p-4 text-sm">
 <strong class="hot-text">Kök neden:</strong> Aşırı geniş IAM rolü (<em>least privilege ihlali</em>) + SSRF = confused deputy. Sunucu, saldırgan adına kendi yetkisini "ödünç verdi".
 </div>
 
-<div v-click class="mt-3 neon-card p-3 text-sm">
+<div class="mt-3 neon-card p-3 text-sm">
 <strong class="neon-text">Ders:</strong> En az yetki ilkesi. Servis sadece ihtiyacı olan S3'e erişebilseydi, hasar minimal olurdu.
 </div>
 
@@ -1307,7 +1273,7 @@ We've notified federal law enforcement regarding an incident involving unauthori
 "View As" (Farklı Gör) özelliğindeki hata, saldırganların başkalarına ait <strong>erişim token'larını</strong> çıkarmasına izin verdi — yani hesapların tam kontrolü.
 </NewsCard>
 
-<div v-click class="mt-4">
+<div class="mt-4">
 <TweetCard name="Guy Rosen" handle="@guyro" color="linear-gradient(135deg,#1877f2,#0a4db3)" verified date="28 Sep 2018" replies="2.3K" retweets="4.1K" likes="6.8K">
 We discovered a vulnerability in "View As" that let attackers steal access tokens. We've reset tokens for ~90M accounts as a precaution. Security is an arms race and we're continuing to investigate.
 </TweetCard>
@@ -1318,17 +1284,17 @@ We discovered a vulnerability in "View As" that let attackers steal access token
 <div>
 
 <div class="grid grid-cols-2 gap-3">
-<div v-click><StatBadge value="50M" label="ele geçirilen hesap" variant="hot" /></div>
-<div v-click><StatBadge value="90M" label="zorla çıkış yaptırılan" variant="amber" /></div>
-<div v-click><StatBadge value="~$13B" label="saatler içinde piyasa değeri kaybı" variant="hot" /></div>
-<div v-click><StatBadge value="$5B" label="sonraki FTC cezası" variant="amber" /></div>
+<div><StatBadge value="50M" label="ele geçirilen hesap" variant="hot" /></div>
+<div><StatBadge value="90M" label="zorla çıkış yaptırılan" variant="amber" /></div>
+<div><StatBadge value="~$13B" label="saatler içinde piyasa değeri kaybı" variant="hot" /></div>
+<div><StatBadge value="$5B" label="sonraki FTC cezası" variant="amber" /></div>
 </div>
 
-<div v-click class="mt-4 danger-card p-4 text-sm">
+<div class="mt-4 danger-card p-4 text-sm">
 <strong class="hot-text">Kök neden:</strong> Bir özelliğin (video yükleme) başka bir özellikle (View As) etkileşimi, access token sızıntısına yol açtı. Token = "yetkiliyim" kanıtı.
 </div>
 
-<div v-click class="mt-3 neon-card p-3 text-sm">
+<div class="mt-3 neon-card p-3 text-sm">
 <strong class="neon-text">Ders:</strong> Token'lar en hassas yetki varlığıdır. Kapsam (scope) + kısa ömür + sıkı doğrulama şart.
 </div>
 
@@ -1344,7 +1310,7 @@ We discovered a vulnerability in "View As" that let attackers steal access token
 
 <div grid="~ cols-3 gap-5">
 
-<div v-click>
+<div>
 <div class="danger-card p-5 h-full">
 <div class="flex items-center gap-2"><span class="i-carbon:mobile text-2xl hot-text" /><span class="font-bold text-white">T-Mobile</span></div>
 <div class="text-xs text-gray-500 font-mono mt-1">🇺🇸 2023 · API BOLA</div>
@@ -1353,7 +1319,7 @@ We discovered a vulnerability in "View As" that let attackers steal access token
 </div>
 </div>
 
-<div v-click>
+<div>
 <div class="danger-card p-5 h-full">
 <div class="flex items-center gap-2"><span class="i-carbon:email text-2xl hot-text" /><span class="font-bold text-white">USPS</span></div>
 <div class="text-xs text-gray-500 font-mono mt-1">🇺🇸 2018 · Broken Access Control</div>
@@ -1362,7 +1328,7 @@ We discovered a vulnerability in "View As" that let attackers steal access token
 </div>
 </div>
 
-<div v-click>
+<div>
 <div class="danger-card p-5 h-full">
 <div class="flex items-center gap-2"><span class="i-carbon:bullhorn text-2xl hot-text" /><span class="font-bold text-white">Parler</span></div>
 <div class="text-xs text-gray-500 font-mono mt-1">🇺🇸 2021 · IDOR + no rate-limit</div>
@@ -1373,8 +1339,8 @@ We discovered a vulnerability in "View As" that let attackers steal access token
 
 </div>
 
-<div v-click class="mt-6 text-center text-lg">
-<span v-mark.circle.red="4">Beş farklı şirket. Aslında <strong>tek bir</strong> mühendislik hatası.</span>
+<div class="mt-6 text-center text-lg">
+<span>Beş farklı şirket. Aslında <strong>tek bir</strong> mühendislik hatası.</span>
 </div>
 
 ---
@@ -1420,7 +1386,7 @@ class: text-center
 
 <div grid="~ cols-2 gap-x-8 gap-y-3" class="mt-4">
 
-<v-clicks>
+<div>
 
 <div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Backend'de doğrula.</strong> Frontend kontrolü sadece UX'tir.</div></div>
 
@@ -1438,7 +1404,7 @@ class: text-center
 
 <div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Logla & denetle.</strong> Her yetki reddini izle (anomali tespiti).</div></div>
 
-</v-clicks>
+</div>
 
 </div>
 
@@ -1448,7 +1414,7 @@ class: text-center
 
 <div grid="~ cols-2 gap-5" class="mt-4">
 
-<v-clicks>
+<div>
 
 <NeonCard icon="i-carbon:document-security" title="Policy as Code" variant="neon">
 Yetki kuralları <strong>kod olarak</strong> yazılır, versiyonlanır, test edilir. <span class="chip-cyan ml-1"><span class="i-carbon:rule" /> OPA / Rego</span>
@@ -1466,11 +1432,11 @@ Yetkisiz/olağandışı erişim örüntülerini gerçek zamanlı yakalama.
 Blockchain tabanlı, kullanıcının sahip olduğu kimlik & yetki (SSI, DID).
 </NeonCard>
 
-</v-clicks>
+</div>
 
 </div>
 
-<div v-click class="mt-6 text-center">
+<div class="mt-6 text-center">
 <span class="chip-neon">Policy as Code</span> + <span class="chip-cyan">Zero Trust</span> + <span class="chip-amber">FGA</span> = modern yetkilendirmenin yönü
 </div>
 
