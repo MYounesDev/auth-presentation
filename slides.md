@@ -999,37 +999,6 @@ Sunucu "<span class="cyan-text">Ne isteniyor?</span>" sorusuna cevap verir ama "
 <strong class="neon-text">Çözüm:</strong> Her sorguyu sahiplikle bağla → <code>WHERE id = :id AND owner_id = :currentUser</code>. Ayrıca tahmin edilemez ID (UUID) kullan — ama <u>asıl koruma her zaman sunucu tarafı yetki kontrolüdür.</u>
 </div>
 
----
-
-# Diğer Kritik Saldırılar
-
-<div grid="~ cols-2 gap-5">
-
-<div>
-
-<NeonCard icon="i-carbon:up-to-top" title="Privilege Escalation" variant="hot">
-Yetkisiz <strong>yetki yükseltme</strong>. Düşük yetkili kullanıcı/servis, kendini admin'e çıkarır.
-<div class="text-xs text-gray-500 mt-1">→ Capital One: SSRF ile yüksek IAM rolü ele geçirildi.</div>
-</NeonCard>
-
-<NeonCard icon="i-carbon:data-error" title="BOLA / IDOR" variant="hot">
-<strong>Nesne seviyesinde</strong> kırık yetki. API'lerin #1 açığı (OWASP API Top 10).
-<div class="text-xs text-gray-500 mt-1">→ Optus, T-Mobile, USPS, Parler.</div>
-</NeonCard>
-
-<NeonCard icon="i-carbon:user-multiple" title="Confused Deputy" variant="amber">
-Yetkili bir servisi kandırıp, <strong>onun adına</strong> yetkisiz işlem yaptırmak.
-<div class="text-xs text-gray-500 mt-1">→ SSRF bunun klasik bir türüdür.</div>
-</NeonCard>
-
-<NeonCard icon="i-carbon:fingerprint-recognition" title="JWT Manipülasyonu" variant="amber">
-Token üzerinde oynama: <code>alg:none</code>, zayıf secret, süresiz token.
-<div class="text-xs text-gray-500 mt-1">→ İmzayı daima doğrula, exp kontrol et.</div>
-</NeonCard>
-
-</div>
-
-</div>
 
 ---
 transition: fade-out
@@ -1254,46 +1223,6 @@ We discovered a vulnerability in "View As" that let attackers steal access token
 
 </div>
 
----
-
-# Daha Fazlası: Aynı Hata, Farklı İsim
-
-<div class="text-gray-400 -mt-3 mb-5">Hepsinin ortak noktası: <strong class="hot-text">kırık nesne-seviyesi yetki (BOLA/IDOR)</strong>.</div>
-
-<div grid="~ cols-3 gap-5">
-
-<div>
-<div class="danger-card p-5 h-full">
-<div class="flex items-center gap-2"><span class="i-carbon:mobile text-2xl hot-text" /><span class="font-bold text-white">T-Mobile</span></div>
-<div class="text-xs text-gray-500 font-mono mt-1">🇺🇸 2023 · API BOLA</div>
-<div class="mt-3 text-sm">Yetki doğrulamayan API'den, tanımlayıcılar manipüle edilerek <strong>1+ ay</strong> sessizce veri çekildi.</div>
-<div class="mt-3"><StatBadge value="37M" label="müşteri · $350M uzlaşma" variant="hot" /></div>
-</div>
-</div>
-
-<div>
-<div class="danger-card p-5 h-full">
-<div class="flex items-center gap-2"><span class="i-carbon:email text-2xl hot-text" /><span class="font-bold text-white">USPS</span></div>
-<div class="text-xs text-gray-500 font-mono mt-1">🇺🇸 2018 · Broken Access Control</div>
-<div class="mt-3 text-sm">"Informed Visibility" API'si, isteyenin veri <strong>sahibi</strong> olup olmadığını kontrol etmiyordu.</div>
-<div class="mt-3"><StatBadge value="60M" label="kullanıcı verisi açığa çıktı" variant="hot" /></div>
-</div>
-</div>
-
-<div>
-<div class="danger-card p-5 h-full">
-<div class="flex items-center gap-2"><span class="i-carbon:bullhorn text-2xl hot-text" /><span class="font-bold text-white">Parler</span></div>
-<div class="text-xs text-gray-500 font-mono mt-1">🇺🇸 2021 · IDOR + no rate-limit</div>
-<div class="mt-3 text-sm">Sıralı ID + yetki kontrolü yok → terabaytlarca veri, silinen gönderilerin GPS'i dahil kazındı.</div>
-<div class="mt-3"><StatBadge value="∞" label="şirketin sonu oldu" variant="hot" /></div>
-</div>
-</div>
-
-</div>
-
-<div class="mt-6 text-center text-lg">
-<span>Beş farklı şirket. Aslında <strong>tek bir</strong> mühendislik hatası.</span>
-</div>
 
 ---
 layout: center
