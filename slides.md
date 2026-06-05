@@ -899,48 +899,6 @@ The Optus API had NO authentication. None. Customer IDs weren't even sequential-
 
 </div>
 
----
-
-# <span class="i-carbon:money align-middle" /> Capital One <span class="chip-hot align-middle">SSRF → PRIV ESC</span>
-
-<div class="text-gray-400 -mt-2 mb-4 font-mono text-sm">🇺🇸 ABD · 2019 · Büyük Banka · AWS bulutu</div>
-
-<div grid="~ cols-2 gap-6">
-
-<div>
-
-<NewsCard source="Krebs on Security" date="29 Jul 2019" headline="Capital One: 106M people affected; ex-AWS engineer charged" accent="#22d3ee">
-WAF'taki SSRF açığı → AWS metadata servisi → geniş IAM kimlik bilgileri → S3'teki müşteri verisi. Klasik yetki yükseltme zinciri.
-</NewsCard>
-
-<div class="mt-4">
-<TweetCard name="Capital One" handle="@CapitalOne" color="linear-gradient(135deg,#004977,#d03027)" verified date="29 Jul 2019" replies="8.1K" retweets="5.2K" likes="3.9K">
-We've notified federal law enforcement regarding an incident involving unauthorized access to personal information of certain customers. We take our responsibility to protect your information seriously.
-</TweetCard>
-</div>
-
-</div>
-
-<div>
-
-<div class="grid grid-cols-2 gap-3">
-<div><StatBadge value="106M" label="müşteri (ABD + Kanada)" variant="hot" /></div>
-<div><StatBadge value="$80M" label="OCC para cezası" variant="amber" /></div>
-<div><StatBadge value="$190M" label="toplu dava uzlaşması" variant="amber" /></div>
-<div><StatBadge value="$300M+" label="tahmini toplam maliyet" variant="hot" /></div>
-</div>
-
-<div class="mt-4 danger-card p-4 text-sm">
-<strong class="hot-text">Kök neden:</strong> Aşırı geniş IAM rolü (<em>least privilege ihlali</em>) + SSRF = confused deputy. Sunucu, saldırgan adına kendi yetkisini "ödünç verdi".
-</div>
-
-<div class="mt-3 neon-card p-3 text-sm">
-<strong class="neon-text">Ders:</strong> En az yetki ilkesi. Servis sadece ihtiyacı olan S3'e erişebilseydi, hasar minimal olurdu.
-</div>
-
-</div>
-
-</div>
 
 ---
 
@@ -1064,7 +1022,6 @@ class: text-center
 
 <div  class="cyan-card p-3"><span class="font-mono cyan-text">04</span> &nbsp; Gerçek kontrol <strong>backend'dedir</strong>; deny-by-default ve least-privilege uygula.</div>
 
-<div class="danger-card p-3"><span class="font-mono hot-text">05</span> &nbsp; Tek bir unutulan kontrol = <strong class="hot-text">885M belge, milyarlarca dolar.</strong> Sen yapma.</div>
 
 </div>
 
