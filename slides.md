@@ -1234,17 +1234,17 @@ class: text-center
 <div class="text-gray-400 mb-8">Yetkilendirme açıklarının yalnızca birkaç olaydaki bedeli:</div>
 
 <div grid="~ cols-4 gap-5" class="max-w-4xl mx-auto">
-<div v-click><StatBadge value="1.1B+" label="sızdırılan kayıt/belge" variant="hot" /></div>
-<div v-click><StatBadge value="$6B+" label="doğrudan ceza + uzlaşma + kayıp" variant="amber" /></div>
-<div v-click><StatBadge value="5+" label="dünya devi şirket" variant="cyan" /></div>
-<div v-click><StatBadge value="1" label="ortak kök neden: AuthZ" variant="neon" /></div>
+<div ><StatBadge value="1.1B+" label="sızdırılan kayıt/belge" variant="hot" /></div>
+<div ><StatBadge value="$6B+" label="doğrudan ceza + uzlaşma + kayıp" variant="amber" /></div>
+<div ><StatBadge value="5+" label="dünya devi şirket" variant="cyan" /></div>
+<div ><StatBadge value="1" label="ortak kök neden: AuthZ" variant="neon" /></div>
 </div>
 
-<div v-click class="mt-12 max-w-2xl mx-auto text-xl">
+<div class="mt-12 max-w-2xl mx-auto text-xl">
 En büyük maliyet cezalar değil; <strong class="hot-text">müşteri güveninin</strong> ve <strong class="hot-text">itibarın</strong> çöküşüdür. Parler bu yüzden tamamen yok oldu.
 </div>
 
-<div v-click class="mt-6 chip-neon mx-auto text-base">
+<div class="mt-6 chip-neon mx-auto text-base">
 Bu bedellerin tamamı, <strong>kodda birkaç satırlık</strong> doğru yetki kontrolüyle önlenebilirdi.
 </div>
 
@@ -1265,26 +1265,20 @@ class: text-center
 
 # Mühendislik Checklist'i ✅
 
-<div grid="~ cols-2 gap-x-8 gap-y-3" class="mt-4">
+<div grid="~ cols-2 gap-4" class="mt-4">
 
-<div>
+<div class="space-y-2">
+  <div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Backend'de doğrula.</strong> Frontend kontrolü sadece UX'tir.</div></div>
+  <div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Deny by default.</strong> Açıkça izin verilmeyen her şey yasaktır.</div></div>
+  <div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Sahiplik kontrol et.</strong> Sorguyu daima <code>req.user</code> ile sınırla (IDOR).</div></div>
+  <div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Least privilege.</strong> En az yetki — hem kullanıcı hem servis.</div></div>
+</div>
 
-<div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Backend'de doğrula.</strong> Frontend kontrolü sadece UX'tir.</div></div>
-
-<div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Deny by default.</strong> Açıkça izin verilmeyen her şey yasaktır.</div></div>
-
-<div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Sahiplik kontrol et.</strong> Sorguyu daima <code>req.user</code> ile sınırla (IDOR).</div></div>
-
-<div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Least privilege.</strong> En az yetki — hem kullanıcı hem servis.</div></div>
-
-<div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Tenant izolasyonu.</strong> B2B'de <code>org</code> kontrolünü asla atlama.</div></div>
-
-<div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Merkezîleştir.</strong> Yetki mantığı tek yerde (middleware/policy).</div></div>
-
-<div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Token'ları sıkılaştır.</strong> Kısa exp, imza doğrula, <code>alg:none</code> yasak.</div></div>
-
-<div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Logla & denetle.</strong> Her yetki reddini izle (anomali tespiti).</div></div>
-
+<div class="space-y-2">
+  <div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Tenant izolasyonu.</strong> B2B'de <code>org</code> kontrolünü asla atlama.</div></div>
+  <div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Merkezileştir.</strong> Yetki mantığı tek yerde (middleware/policy).</div></div>
+  <div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Token'ları sıkılaştır.</strong> Kısa exp, imza doğrula, <code>alg:none</code> yasak.</div></div>
+  <div class="neon-card p-3 flex gap-3 items-start"><span class="i-carbon:checkmark-filled neon-text mt-1" /><div><strong>Logla & denetle.</strong> Her yetki reddini izle (anomali tespiti).</div></div>
 </div>
 
 </div>
