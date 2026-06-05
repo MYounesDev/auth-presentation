@@ -290,52 +290,7 @@ class: text-center
 
 <div class="scanbar mt-8 w-1/3 mx-auto" />
 
----
 
-# DAC — Discretionary Access Control
-
-<div grid="~ cols-2 gap-8">
-
-<div>
-
-<div class="chip-amber mb-4">İSTEĞE BAĞLI ERİŞİM KONTROLÜ</div>
-
-- **Kaynağın sahibi**, başkalarına izni kendi takdiriyle verir
-- Merkezî bir otorite yoktur — karar sahibindedir
-
-<div  class="mt-5">
-
-**Örnekler**
-<div class="flex flex-wrap gap-2 mt-2">
-<span class="chip-cyan"><span class="i-carbon:logo-linux" /> Linux dosya izinleri</span>
-<span class="chip-cyan"><span class="i-logos:google-drive" /> Google Drive paylaşımı</span>
-</div>
-
-</div>
-
-<div  class="mt-5 grid grid-cols-2 gap-3 text-sm">
-<div class="neon-card p-3"><span class="neon-text">✓ Avantaj</span><br/>Esneklik, kolaylık</div>
-<div class="danger-card p-3"><span class="hot-text">✗ Dezavantaj</span><br/>Merkezî kontrol yok</div>
-</div>
-
-</div>
-
-<div >
-<Terminal title="linux — chmod (DAC)">
-<div class="cmd">ls -l rapor.txt</div>
-<div class="out">-rw-r--r--  ahmet  staff  rapor.txt</div>
-<div class="dim">&nbsp;</div>
-<div class="cmd">chmod g+w rapor.txt   <span class="dim"># sahip izni genişletti</span></div>
-<div class="ok">→ grup artık yazabilir</div>
-<div class="out">-rw-rw-r--  ahmet  staff  rapor.txt</div>
-</Terminal>
-
-<div class="mt-4 text-xs text-gray-500 text-center">
-Sahip "ahmet" istediğine izni verir. Sistem ona karışmaz.
-</div>
-</div>
-
-</div>
 
 ---
 
@@ -818,16 +773,13 @@ exports.list = async (req, res) => {
 <div>
 
 <NeonCard icon="i-carbon:checkmark-filled" title="Tek sorumluluk" variant="neon">
-Yetki kontrolü middleware'de halledildi.
+Controller "yetki" düşünmez. O işi middleware yaptı.
 </NeonCard>
 
 <NeonCard icon="i-carbon:data-1" title="Servis & DB katmanı" variant="cyan" class="mt-2">
 Service iş kurallarını, repository/DB ise sorguları yönetir. Sorgular daima <code>req.user.org</code> ile filtrelenir.
 </NeonCard>
 
-<div class="mt-3 danger-card p-3 text-sm text-center">
-<strong class="hot-text">Dikkat:</strong> <code>findByOrg(req.user.org)</code> — bu satır birazdan göreceğimiz <strong>IDOR</strong> felaketlerini önler. Sorguyu daima kullanıcının kimliğiyle sınırla!
-</div>
 
 </div>
 
