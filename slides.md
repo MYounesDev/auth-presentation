@@ -1283,37 +1283,7 @@ class: text-center
 
 </div>
 
----
 
-# Modern Trendler
-
-<div grid="~ cols-2 gap-5" class="mt-4">
-
-<div>
-
-<NeonCard icon="i-carbon:document-security" title="Policy as Code" variant="neon">
-Yetki kuralları <strong>kod olarak</strong> yazılır, versiyonlanır, test edilir. <span class="chip-cyan ml-1"><span class="i-carbon:rule" /> OPA / Rego</span>
-</NeonCard>
-
-<NeonCard icon="i-carbon:fade" title="Fine-Grained Authorization" variant="cyan">
-Satır/sütun, hatta hücre bazında yetki. Google Zanzibar, <strong>OpenFGA</strong>, AuthZed/SpiceDB.
-</NeonCard>
-
-<NeonCard icon="i-carbon:machine-learning-model" title="AI Destekli Anomali Tespiti" variant="amber">
-Yetkisiz/olağandışı erişim örüntülerini gerçek zamanlı yakalama.
-</NeonCard>
-
-<NeonCard icon="i-carbon:blockchain" title="Decentralized Identity" variant="cyan">
-Blockchain tabanlı, kullanıcının sahip olduğu kimlik & yetki (SSI, DID).
-</NeonCard>
-
-</div>
-
-</div>
-
-<div class="mt-6 text-center">
-<span class="chip-neon">Policy as Code</span> + <span class="chip-cyan">Zero Trust</span> + <span class="chip-amber">FGA</span> = modern yetkilendirmenin yönü
-</div>
 
 ---
 layout: center
@@ -1324,15 +1294,15 @@ class: text-center
 
 <div class="max-w-3xl mx-auto mt-6 space-y-3 text-left">
 
-<div v-click class="neon-card p-3"><span class="font-mono neon-text">01</span> &nbsp; AuthN "kimsin", AuthZ "ne yapabilirsin" — ve AuthZ <strong>her zaman</strong> AuthN üzerine kurulur.</div>
+<div class="neon-card p-3"><span class="font-mono neon-text">01</span> &nbsp; AuthN "kimsin", AuthZ "ne yapabilirsin" — ve AuthZ <strong>her zaman</strong> AuthN üzerine kurulur.</div>
 
-<div v-click class="cyan-card p-3"><span class="font-mono cyan-text">02</span> &nbsp; AuthZ bir özellik değil, sistemin <strong>zorunlu temelidir</strong> — bu yüzden unutulur, bu yüzden tehlikelidir.</div>
+<div class="cyan-card p-3"><span class="font-mono cyan-text">02</span> &nbsp; AuthZ bir özellik değil, sistemin <strong>zorunlu temelidir</strong> — bu yüzden unutulur, bu yüzden tehlikelidir.</div>
 
-<div v-click class="neon-card p-3"><span class="font-mono neon-text">03</span> &nbsp; Model seç (çoğunlukla <strong>RBAC + ABAC</strong>), ama her zaman <strong>rol ∧ org ∧ sahiplik</strong> kontrol et.</div>
+<div  class="neon-card p-3"><span class="font-mono neon-text">03</span> &nbsp; Model seç (çoğunlukla <strong>RBAC + ABAC</strong>), ama her zaman <strong>rol ∧ org ∧ sahiplik</strong> kontrol et.</div>
 
-<div v-click class="cyan-card p-3"><span class="font-mono cyan-text">04</span> &nbsp; Gerçek kontrol <strong>backend'dedir</strong>; deny-by-default ve least-privilege uygula.</div>
+<div  class="cyan-card p-3"><span class="font-mono cyan-text">04</span> &nbsp; Gerçek kontrol <strong>backend'dedir</strong>; deny-by-default ve least-privilege uygula.</div>
 
-<div v-click class="danger-card p-3"><span class="font-mono hot-text">05</span> &nbsp; Tek bir unutulan kontrol = <strong class="hot-text">885M belge, milyarlarca dolar.</strong> Sen yapma.</div>
+<div class="danger-card p-3"><span class="font-mono hot-text">05</span> &nbsp; Tek bir unutulan kontrol = <strong class="hot-text">885M belge, milyarlarca dolar.</strong> Sen yapma.</div>
 
 </div>
 
