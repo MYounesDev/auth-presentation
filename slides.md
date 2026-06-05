@@ -157,47 +157,6 @@ Kapı analojisi: AuthN kapıdan içeri kim girdiğini söyler. AuthZ ise o kişi
 Kritik nokta: AuthZ her zaman AuthN üzerine inşa edilir.
 -->
 
----
-
-# AuthN vs AuthZ — İleri Seviye Bakış
-
-<div class="text-gray-400 -mt-3 mb-6">Klasik tanımı herkes biliyor. Mimari gerçek şu üç kuralda:</div>
-
-<div class="space-y-4">
-
-<div  class="neon-card p-4 flex items-start gap-4">
-  <span class="text-3xl font-mono font-extrabold neon-text">1</span>
-  <div>
-  <strong>AuthN yoksa AuthZ da olamaz.</strong>
-  <span class="text-gray-400">Kullanıcının kim olduğunu bilmiyorsan, neye yetkili olduğunu kontrol edemezsin. Anonim sistemin yetki sistemi olmaz.</span>
-  </div>
-</div>
-
-<div class="cyan-card p-4 flex items-start gap-4">
-  <span class="text-3xl font-mono font-extrabold cyan-text">2</span>
-  <div>
-  <strong>AuthN olan bir sistemin AuthZ'si olmayabilir.</strong>
-  <span class="text-gray-400">Bu durumda herkesin rolü ve yetkisi eşittir — bir blog, bir forum gibi.</span>
-  </div>
-</div>
-
-<div class="danger-card p-4 flex items-start gap-4">
-  <span class="text-3xl font-mono font-extrabold hot-text">3</span>
-  <div>
-  <strong>AuthZ <em>her zaman</em> AuthN üzerine inşa edilir.</strong>
-  <span class="text-gray-400">AuthN bir özellik katar (kişisel deneyim). AuthZ özellik katmaz — sadece arka planda korur. İşte bu yüzden <span class="hot-text">unutulur.</span></span>
-  </div>
-</div>
-
-</div>
-
-<div class="mt-6 text-center text-lg">
-<span v-mark.underline.cyan>AuthZ "ekstra bir özellik" değildir; sistemin <strong>zorunlu temelidir.</strong></span>
-</div>
-
-<!--
-3. madde mühendislik dersidir: Authorization yeni bir buton, yeni bir ekran getirmez. Kullanıcı onu "görmez". Bu yüzden geliştiriciler "sonra ekleriz" der. Ve felaket buradan başlar.
--->
 
 ---
 
@@ -294,60 +253,6 @@ class: text-center
 
 ---
 
-# MAC — Mandatory Access Control
-
-<div grid="~ cols-2 gap-8">
-
-<div>
-
-<div class="chip-hot mb-4">ZORUNLU ERİŞİM KONTROLÜ</div>
-
-- **Sistem politikaları** belirler; kullanıcı **değiştiremez**
-- Etiketler & güvenlik seviyeleri (Gizli, Çok Gizli…)
-
-<div  class="mt-5">
-
-**Örnekler**
-<div class="flex flex-wrap gap-2 mt-2">
-<span class="chip-hot"><span class="i-carbon:security" /> Askerî sistemler</span>
-<span class="chip-hot"><span class="i-carbon:logo-linux" /> SELinux</span>
-</div>
-
-</div>
-
-<div  class="mt-5 grid grid-cols-2 gap-3 text-sm">
-<div class="neon-card p-3"><span class="neon-text">✓ Avantaj</span><br/>Çok yüksek güvenlik</div>
-<div class="danger-card p-3"><span class="hot-text">✗ Dezavantaj</span><br/>Katı ve karmaşık</div>
-</div>
-
-</div>
-
-<div >
-
-```mermaid {theme:'dark', scale: 0.7}
-flowchart TD
-    P["Sistem Politikası<br/>(değiştirilemez)"] --> L1[ÇOK GİZLİ]
-    P --> L2[GİZLİ]
-    P --> L3[GENEL]
-    U([General · ÇOK GİZLİ]) -->|okur| L1
-    U -->|okur| L2
-    U -->|okur| L3
-    A([Er · GENEL]) -.->|"erişemez ✗"| L1
-    A -->|okur| L3
-    style P fill:#2a0a14,stroke:#ff2d55,color:#fff
-    style L1 fill:#1a1030,stroke:#a855f7,color:#fff
-```
-
-<div class="mt-3 text-xs text-gray-500 text-center">
-Er, isteseniz bile "Çok Gizli" belgeyi göremez. Karar kullanıcıda değil, sistemdedir.
-</div>
-
-</div>
-
-</div>
-
----
-
 # RBAC — Role-Based Access Control <span class="chip-neon align-middle">EN YAYGIN</span>
 
 <div grid="~ cols-5 gap-6">
@@ -402,193 +307,7 @@ if (!['admin', 'editor'].includes(user.role))
 RBAC neden bu kadar yaygın? Çünkü insan zihni "rol" kavramını doğal bulur. İK'da zaten roller var. Ama dikkat: her küçük farklı yetki için yeni rol açarsan, yüzlerce role boğulursun — buna rol patlaması denir.
 -->
 
----
 
-# ABAC — Attribute-Based Access Control
-
-<div grid="~ cols-2 gap-8">
-
-<div>
-
-<div class="chip-cyan mb-4">ÖZNİTELİK TABANLI</div>
-
-Karar; **kullanıcı + kaynak + ortam** özniteliklerine göre **dinamik** verilir.
-
-<div  class="mt-4">
-
-```js {monaco-run} {height:'150px'}
-const ctx = {
-  user:     { role: 'manager', country: 'TR' },
-  resource: { type: 'report', sensitivity: 'high' },
-  env:      { time: 14, ip: 'TR' },
-}
-// Politika: TR'den, mesai saatinde, yönetici
-const allow = ctx.user.role === 'manager'
-  && ctx.user.country === 'TR'
-  && ctx.env.time >= 9 && ctx.env.time <= 18
-console.log(allow ? '✅ İZİN' : '⛔ RED')
-```
-
-</div>
-
-</div>
-
-<div>
-
-<div >
-<NeonCard icon="i-carbon:flow" title="Örnek politika" variant="cyan">
-<span class="font-mono text-sm">"Sadece <span class="cyan-text">TR'den</span> giriş yapan, <span class="text-amber">mesai saatindeki</span> <span class="neon-text">yöneticiler</span> erişebilir."</span>
-</NeonCard>
-</div>
-
-<div  class="mt-4 grid grid-cols-2 gap-3 text-sm">
-<div class="neon-card p-3"><span class="neon-text">✓</span> Aşırı esnek, ince ayar</div>
-<div class="danger-card p-3"><span class="hot-text">✗</span> Politika yönetimi karmaşık</div>
-</div>
-
-<div  class="mt-4 text-sm text-gray-400">
-RBAC "kim olduğuna" bakar; ABAC "<strong>hangi koşulda olduğuna</strong>" bakar.
-</div>
-
-</div>
-
-</div>
-
----
-
-# ReBAC — Relationship-Based Access Control
-
-<div grid="~ cols-2 gap-8">
-
-<div>
-
-<div class="chip-neon mb-4">İLİŞKİ TABANLI · MODERN</div>
-
-- Yetki, **varlıklar arası ilişkiden** doğar
-- Google **Zanzibar**'ın temeli — milyarlarca kullanıcı
-
-<div  class="mt-4">
-
-> *"Bu dokümanı **paylaşan** kişinin, onu paylaştığı kişiler görebilir."*
-
-</div>
-
-<div  class="mt-4 flex flex-wrap gap-2">
-<span class="chip-neon"><span class="i-logos:google-drive" /> Google Drive</span>
-<span class="chip-cyan"><span class="i-simple-icons:notion" /> Notion</span>
-<span class="chip-cyan"><span class="i-logos:github-icon" /> GitHub</span>
-</div>
-
-</div>
-
-<div >
-
-```mermaid {theme:'dark', scale: 0.8}
-flowchart TD
-    A([Ayşe]) -->|owner| D[(Doküman X)]
-    A -->|editor olarak ekledi| B([Burak])
-    B -->|viewer olarak ekledi| C([Can])
-    C -.->|"ilişki var → görebilir ✓"| D
-    E([Yabancı]) -.->|"ilişki yok → ✗"| D
-    style D fill:#06281d,stroke:#00ff9c,color:#fff
-    style E fill:#2a0a14,stroke:#ff2d55,color:#fff
-```
-
-<div class="mt-2 text-xs text-gray-500 text-center">
-"user:can <span class="neon-text">viewer</span> document:X" — Zanzibar tuple'ı
-</div>
-
-</div>
-
-</div>
-
-
----
-layout: section
-class: text-center
----
-
-<div class="chip-cyan mx-auto mb-6">// BÖLÜM 03</div>
-
-# Protokoller, Standartlar & Mimari
-
-<div class="text-gray-400 mt-4">Tekrar icat etme — endüstri standartlarını kullan</div>
-
-<div class="scanbar mt-8 w-1/3 mx-auto" />
-
----
-
-# Önemli Protokoller & Standartlar
-
-| Standart | Ne işe yarar? | Örnek kullanım |
-|---|---|---|
-| <span class="neon-text font-bold">OAuth 2.0</span> | Üçüncü taraf erişim **yetkisi** (delegasyon) | "Google ile giriş yap" |
-| <span class="cyan-text font-bold">OpenID Connect</span> | OAuth üzerine **kimlik** katmanı | SSO sistemleri |
-| <span class="text-amber font-bold">JWT</span> | Yetki bilgisini taşıyan **token** | API güvenliği |
-| <span class="neon-text font-bold">SAML 2.0</span> | Kurumsal SSO (XML tabanlı) | Active Directory |
-| <span class="cyan-text font-bold">XACML</span> | ABAC için **politika dili** | Büyük kurumsal sistemler |
-
-<div v-click class="mt-6 danger-card p-4">
-<span class="i-carbon:warning-alt hot-text text-xl align-middle" />
-<strong class="hot-text">Sık karıştırılan:</strong> OAuth bir <em>authorization</em> protokolüdür (yetki delegasyonu), <em>authentication</em> değil. Kimlik için <strong>OpenID Connect</strong> gelir.
-</div>
-
-
----
-
-# JWT — Anatomi & Tehlike
-
-<div grid="~ cols-2 gap-6">
-
-<div>
-
-Bir JWT üç parçadan oluşur — nokta ile ayrılır:
-
-```text
-header . payload . signature
-```
-
-<div>
-
-```json
-// payload — base64, ŞİFRELİ DEĞİL!
-{
-  "sub": "42",
-  "role": "student",   // ← yetki bilgisi
-  "org": "school-A",
-  "exp": 1799999999
-}
-```
-
-</div>
-
-<div class="mt-3 danger-card p-3 text-sm">
-<span class="hot-text font-bold">⚠ Payload şifreli değildir</span>, sadece imzalıdır. İçindeki rolü asla "gizli" sanma — sadece <strong>imza</strong> onu korur.
-</div>
-
-</div>
-
-<div>
-<Terminal title="jwt — manipülasyon denemesi">
-<div class="cmd">echo $PAYLOAD | base64 -d</div>
-<div class="out">{"role":"student"}</div>
-<div class="dim">&nbsp;</div>
-<div class="warn"># saldırgan role'ü 'admin' yapıp</div>
-<div class="warn"># yeniden kodluyor...</div>
-<div class="cmd">curl /admin -H "Authorization: Bearer $FAKE"</div>
-<div class="err">401 — invalid signature ✗</div>
-<div class="dim">&nbsp;</div>
-<div class="ok"># imza doğrulaması payload'u korudu</div>
-<div class="err"># AMA: alg:none kabul edilirse → FELAKET</div>
-</Terminal>
-
-<div class="mt-3 text-xs text-gray-500">
-Kural: <code>alg:none</code>'ı asla kabul etme, imzayı <strong>her zaman</strong> sunucuda doğrula.
-</div>
-
-</div>
-
-</div>
 
 
 
@@ -935,6 +654,49 @@ class: text-center
 
 <div class="scanbar mt-8 w-1/3 mx-auto" />
 
+
+---
+
+# AuthN vs AuthZ — İleri Seviye Bakış
+
+<div class="text-gray-400 -mt-3 mb-6">Klasik tanımı herkes biliyor. Mimari gerçek şu üç kuralda:</div>
+
+<div class="space-y-4">
+
+<div  class="neon-card p-4 flex items-start gap-4">
+  <span class="text-3xl font-mono font-extrabold neon-text">1</span>
+  <div>
+  <strong>AuthN yoksa AuthZ da olamaz.</strong>
+  <span class="text-gray-400">Kullanıcının kim olduğunu bilmiyorsan, neye yetkili olduğunu kontrol edemezsin. Anonim sistemin yetki sistemi olmaz.</span>
+  </div>
+</div>
+
+<div class="cyan-card p-4 flex items-start gap-4">
+  <span class="text-3xl font-mono font-extrabold cyan-text">2</span>
+  <div>
+  <strong>AuthN olan bir sistemin AuthZ'si olmayabilir.</strong>
+  <span class="text-gray-400">Bu durumda herkesin rolü ve yetkisi eşittir — bir blog, bir forum gibi.</span>
+  </div>
+</div>
+
+<div class="danger-card p-4 flex items-start gap-4">
+  <span class="text-3xl font-mono font-extrabold hot-text">3</span>
+  <div>
+  <strong>AuthZ <em>her zaman</em> AuthN üzerine inşa edilir.</strong>
+  <span class="text-gray-400">AuthN bir özellik katar (kişisel deneyim). AuthZ özellik katmaz — sadece arka planda korur. İşte bu yüzden <span class="hot-text">unutulur.</span></span>
+  </div>
+</div>
+
+</div>
+
+<div class="mt-6 text-center text-lg">
+<span v-mark.underline.cyan>AuthZ "ekstra bir özellik" değildir; sistemin <strong>zorunlu temelidir.</strong></span>
+</div>
+
+<!--
+3. madde mühendislik dersidir: Authorization yeni bir buton, yeni bir ekran getirmez. Kullanıcı onu "görmez". Bu yüzden geliştiriciler "sonra ekleriz" der. Ve felaket buradan başlar.
+-->
+
 ---
 layout: center
 class: text-center
@@ -1263,7 +1025,7 @@ class: text-center
 
 ---
 
-# Mühendislik Checklist'i ✅
+# Mühendislik Checklist'i ✔
 
 <div grid="~ cols-2 gap-4" class="mt-4">
 
