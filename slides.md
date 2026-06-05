@@ -13,7 +13,7 @@ fonts:
   weights: '400,600,700,800'
 mdc: true
 drawings:
-  persist: false
+  persist: falseı
 transition: slide-left
 duration: 35min
 class: text-center
@@ -29,59 +29,23 @@ class: text-center
 
 <div class="scanbar my-8 w-2/3 mx-auto" />
 
-<p class="text-base text-gray-400 max-w-xl mx-auto">
-Bir kod parçası değil — bir mühendisin sistem mimarisinde kurması gereken
-<strong>en kritik savunma hattı.</strong>
-</p>
+
 
 <div class="mt-10 flex items-center justify-center gap-3 text-sm text-gray-500 font-mono">
   <span class="i-carbon:circle-solid text-neon text-[8px] animate-ping" />
-  <span>Bilgisayar Mühendisliği · Güvenlik Semineri</span>
+Bir kod parçası değil — bir mühendisin sistem mimarisinde kurması gereken
+<strong>en kritik savunma hattı.</strong>
 </div>
 
 </div>
 
-<div class="abs-br m-6 flex gap-2 text-xl">
-  <span class="i-logos:aws" />
-  <span class="i-logos:google-icon" />
-  <span class="i-logos:facebook" />
-  <span class="i-logos:kubernetes" />
-</div>
 
 <!--
 Hoş geldiniz. Bugün yazılım dünyasının en çok ihmal edilen ama en çok bedel ödeten konusunu konuşacağız: Authorization.
 Bu sunum boyunca sadece teoriyi değil, gerçekten yaşanmış, milyarlarca dolarlık olayları da göreceğiz.
 -->
 
----
-transition: fade-out
-layout: center
-class: text-center
----
 
-<div class="chip-hot mx-auto mb-8">// REALITY CHECK</div>
-
-<div class="text-3xl leading-relaxed font-light max-w-3xl mx-auto">
-Tek yapması gereken, adres çubuğundaki
-<span class="hot-text font-mono font-bold">id=75</span>'i
-<span class="neon-text font-mono font-bold">id=76</span> yapmaktı.
-</div>
-
-<div v-click class="mt-12 text-5xl font-mono font-extrabold hot-text">
-885.000.000 belge
-</div>
-<div v-click class="text-lg text-gray-400 mt-3">
-…tek bir yetki kontrolü unutulduğu için sızdı. <span class="text-gray-600">(First American, 2019)</span>
-</div>
-
-<div v-click class="mt-14 text-xl text-cyan">
-Bu sunum bittiğinde, bu hatayı <strong>asla</strong> yapmayacaksınız.
-</div>
-
-<!--
-Şununla başlayalım: karmaşık bir şifre kırma, sıfırıncı gün açığı değil. Sadece URL'deki bir sayı.
-Bu kadar basit bir ihmal, 885 milyon hassas belgeyi açığa çıkardı. İşte Authorization'ın gücü ve eksikliğinin bedeli.
--->
 
 ---
 layout: two-cols
@@ -93,7 +57,28 @@ transition: slide-up
 
 <div class="text-sm text-gray-400 mb-4">Giriş → Problem → Mimari → Gerçek Hayat → Sonuç</div>
 
-<Toc text-sm minDepth="1" maxDepth="1" columns="1" />
+<div class="space-y-3 mt-10">
+  <div class="flex items-center gap-3">
+    <span class="w-8 h-8 flex items-center justify-center rounded bg-cyan/10 text-cyan font-mono text-xs">01</span>
+    <span class="font-medium">Temel Kavramlar</span>
+  </div>
+  <div class="flex items-center gap-3">
+    <span class="w-8 h-8 flex items-center justify-center rounded bg-neon/10 text-neon font-mono text-xs">02</span>
+    <span class="font-medium">AuthZ Modelleri</span>
+  </div>
+  <div class="flex items-center gap-3">
+    <span class="w-8 h-8 flex items-center justify-center rounded bg-purple/10 text-purple font-mono text-xs">03</span>
+    <span class="font-medium">Standartlar & Mimari</span>
+  </div>
+  <div class="flex items-center gap-3">
+    <span class="w-8 h-8 flex items-center justify-center rounded bg-amber/10 text-amber font-mono text-xs">04</span>
+    <span class="font-medium">Kod Uygulamaları</span>
+  </div>
+  <div class="flex items-center gap-3">
+    <span class="w-8 h-8 flex items-center justify-center rounded bg-hot/10 text-hot font-mono text-xs">05</span>
+    <span class="font-medium">Vaka Analizleri</span>
+  </div>
+</div>
 
 ::right::
 
@@ -134,7 +119,7 @@ class: text-center
 
 <div grid="~ cols-2 gap-6">
 
-<div v-click>
+<div >
 <NeonCard icon="i-carbon:fingerprint-recognition" title="Authentication (AuthN)" variant="cyan">
 <div class="text-lg cyan-text font-bold mb-2">"Sen kimsin?"</div>
 Kimliğin doğrulanması. Parola, biyometrik, token…
@@ -142,7 +127,7 @@ Kimliğin doğrulanması. Parola, biyometrik, token…
 </NeonCard>
 </div>
 
-<div v-click>
+<div >
 <NeonCard icon="i-carbon:rule-locked" title="Authorization (AuthZ)" variant="neon">
 <div class="text-lg neon-text font-bold mb-2">"Ne yapabilirsin?"</div>
 Yetkinin kontrol edilmesi. Erişim izni var mı?
@@ -152,12 +137,13 @@ Yetkinin kontrol edilmesi. Erişim izni var mı?
 
 </div>
 
-<div v-click class="mt-6">
+<div  class="mt-6">
 
 ```mermaid {theme:'dark', scale: 0.82}
 flowchart LR
     U([Kullanıcı]) -->|"1 · Kimsin?"| A[AuthN<br/>Kimlik Doğrulama]
     A -->|"Kimliği doğrulandı"| Z[AuthZ<br/>Yetki Kontrolü]
+    A -.->|"Başarısız → 401"| Y([Yetkisiz/Hatalı])
     Z -->|"2 · Bunu yapabilir misin?"| R([Kaynak])
     Z -.->|"Hayır → 403"| X([Reddedildi])
     style A fill:#0a2a3a,stroke:#22d3ee,color:#fff
@@ -180,7 +166,7 @@ Kritik nokta: AuthZ her zaman AuthN üzerine inşa edilir.
 
 <div class="space-y-4">
 
-<div v-click class="neon-card p-4 flex items-start gap-4">
+<div  class="neon-card p-4 flex items-start gap-4">
   <span class="text-3xl font-mono font-extrabold neon-text">1</span>
   <div>
   <strong>AuthN yoksa AuthZ da olamaz.</strong>
@@ -188,7 +174,7 @@ Kritik nokta: AuthZ her zaman AuthN üzerine inşa edilir.
   </div>
 </div>
 
-<div v-click class="cyan-card p-4 flex items-start gap-4">
+<div class="cyan-card p-4 flex items-start gap-4">
   <span class="text-3xl font-mono font-extrabold cyan-text">2</span>
   <div>
   <strong>AuthN olan bir sistemin AuthZ'si olmayabilir.</strong>
@@ -196,7 +182,7 @@ Kritik nokta: AuthZ her zaman AuthN üzerine inşa edilir.
   </div>
 </div>
 
-<div v-click class="danger-card p-4 flex items-start gap-4">
+<div class="danger-card p-4 flex items-start gap-4">
   <span class="text-3xl font-mono font-extrabold hot-text">3</span>
   <div>
   <strong>AuthZ <em>her zaman</em> AuthN üzerine inşa edilir.</strong>
@@ -206,8 +192,8 @@ Kritik nokta: AuthZ her zaman AuthN üzerine inşa edilir.
 
 </div>
 
-<div v-click class="mt-6 text-center text-lg">
-<span v-mark.underline.cyan="5">AuthZ "ekstra bir özellik" değildir; sistemin <strong>zorunlu temelidir.</strong></span>
+<div class="mt-6 text-center text-lg">
+<span v-mark.underline.cyan>AuthZ "ekstra bir özellik" değildir; sistemin <strong>zorunlu temelidir.</strong></span>
 </div>
 
 <!--
@@ -222,7 +208,7 @@ Kritik nokta: AuthZ her zaman AuthN üzerine inşa edilir.
 
 <div grid="~ cols-2 gap-5">
 
-<v-clicks>
+
 
 <NeonCard icon="i-carbon:user-profile" title="Principal" variant="cyan">
 Yetki verilen <strong>varlık</strong>. Bir kullanıcı, bir servis, bir sistem… <span class="text-gray-500 font-mono text-xs">→ "kim"</span>
@@ -240,11 +226,11 @@ Erişilmek istenen <strong>kaynak</strong>. Dosya, API, veritabanı satırı… 
 Yetki kurallarını tanımlayan <strong>kural seti</strong>. <span class="text-gray-500 font-mono text-xs">→ "hangi koşulda"</span>
 </NeonCard>
 
-</v-clicks>
+
 
 </div>
 
-<div v-click class="mt-6 text-center font-mono text-sm chip-neon mx-auto">
+<div class="mt-6 text-center font-mono text-sm chip-neon mx-auto">
 Policy: <span class="cyan-text">Principal</span> → <span class="text-amber">Permission</span> → <span class="neon-text">Resource</span> ?
 </div>
 
@@ -256,7 +242,7 @@ transition: view-transition
 
 <div grid="~ cols-2 gap-6" class="mt-4">
 
-<div v-click>
+<div >
 <div class="cyan-card p-5">
 <div class="font-mono text-3xl cyan-text font-extrabold">401</div>
 <div class="text-xl font-bold text-white mt-1">Unauthorized</div>
@@ -266,7 +252,7 @@ transition: view-transition
 </div>
 </div>
 
-<div v-click>
+<div >
 <div class="danger-card p-5">
 <div class="font-mono text-3xl hot-text font-extrabold">403</div>
 <div class="text-xl font-bold text-white mt-1">Forbidden</div>
@@ -278,7 +264,7 @@ transition: view-transition
 
 </div>
 
-<div v-click class="mt-6">
+<div  class="mt-6">
 <Terminal title="curl — 401 vs 403">
 <div class="cmd">curl /api/admin            <span class="dim"># token yok</span></div>
 <div class="err">HTTP/1.1 401 Unauthorized</div>
@@ -318,7 +304,7 @@ class: text-center
 - **Kaynağın sahibi**, başkalarına izni kendi takdiriyle verir
 - Merkezî bir otorite yoktur — karar sahibindedir
 
-<div v-click class="mt-5">
+<div  class="mt-5">
 
 **Örnekler**
 <div class="flex flex-wrap gap-2 mt-2">
@@ -328,14 +314,14 @@ class: text-center
 
 </div>
 
-<div v-click class="mt-5 grid grid-cols-2 gap-3 text-sm">
+<div  class="mt-5 grid grid-cols-2 gap-3 text-sm">
 <div class="neon-card p-3"><span class="neon-text">✓ Avantaj</span><br/>Esneklik, kolaylık</div>
 <div class="danger-card p-3"><span class="hot-text">✗ Dezavantaj</span><br/>Merkezî kontrol yok</div>
 </div>
 
 </div>
 
-<div v-click>
+<div >
 <Terminal title="linux — chmod (DAC)">
 <div class="cmd">ls -l rapor.txt</div>
 <div class="out">-rw-r--r--  ahmet  staff  rapor.txt</div>
@@ -365,7 +351,7 @@ Sahip "ahmet" istediğine izni verir. Sistem ona karışmaz.
 - **Sistem politikaları** belirler; kullanıcı **değiştiremez**
 - Etiketler & güvenlik seviyeleri (Gizli, Çok Gizli…)
 
-<div v-click class="mt-5">
+<div  class="mt-5">
 
 **Örnekler**
 <div class="flex flex-wrap gap-2 mt-2">
@@ -375,14 +361,14 @@ Sahip "ahmet" istediğine izni verir. Sistem ona karışmaz.
 
 </div>
 
-<div v-click class="mt-5 grid grid-cols-2 gap-3 text-sm">
+<div  class="mt-5 grid grid-cols-2 gap-3 text-sm">
 <div class="neon-card p-3"><span class="neon-text">✓ Avantaj</span><br/>Çok yüksek güvenlik</div>
 <div class="danger-card p-3"><span class="hot-text">✗ Dezavantaj</span><br/>Katı ve karmaşık</div>
 </div>
 
 </div>
 
-<div v-click>
+<div >
 
 ```mermaid {theme:'dark', scale: 0.7}
 flowchart TD
@@ -417,16 +403,16 @@ Er, isteseniz bile "Çok Gizli" belgeyi göremez. Karar kullanıcıda değil, si
 - Kullanıcıya **rol** atanır → role göre **izinler**
 - Yönetim rol seviyesinde yapılır, kullanıcı tek tek değil
 
-<div v-click class="mt-4 grid grid-cols-1 gap-2 text-sm">
+<div  class="mt-4 grid grid-cols-1 gap-2 text-sm">
 <div class="neon-card p-3"><span class="neon-text">✓</span> Yönetimi kolay, denetlenebilir</div>
 <div class="danger-card p-3"><span class="hot-text">✗</span> <strong>Rol patlaması</strong> (role explosion)</div>
 </div>
 
-<div v-click class="mt-4 chip-cyan">Admin · Editor · Viewer</div>
+<div  class="mt-4 chip-cyan">Admin · Editor · Viewer</div>
 
 </div>
 
-<div class="col-span-3" v-click>
+<div class="col-span-3" >
 
 ```mermaid {theme:'dark', scale: 0.78}
 flowchart LR
@@ -445,7 +431,7 @@ flowchart LR
 
 </div>
 
-<div v-click class="mt-4">
+<div  class="mt-4">
 
 ```ts {all|2|4-6}
 // Kullanıcı → Rol → İzin
@@ -474,7 +460,7 @@ RBAC neden bu kadar yaygın? Çünkü insan zihni "rol" kavramını doğal bulur
 
 Karar; **kullanıcı + kaynak + ortam** özniteliklerine göre **dinamik** verilir.
 
-<div v-click class="mt-4">
+<div  class="mt-4">
 
 ```js {monaco-run} {height:'150px'}
 const ctx = {
@@ -495,18 +481,18 @@ console.log(allow ? '✅ İZİN' : '⛔ RED')
 
 <div>
 
-<div v-click>
+<div >
 <NeonCard icon="i-carbon:flow" title="Örnek politika" variant="cyan">
 <span class="font-mono text-sm">"Sadece <span class="cyan-text">TR'den</span> giriş yapan, <span class="text-amber">mesai saatindeki</span> <span class="neon-text">yöneticiler</span> erişebilir."</span>
 </NeonCard>
 </div>
 
-<div v-click class="mt-4 grid grid-cols-2 gap-3 text-sm">
+<div  class="mt-4 grid grid-cols-2 gap-3 text-sm">
 <div class="neon-card p-3"><span class="neon-text">✓</span> Aşırı esnek, ince ayar</div>
 <div class="danger-card p-3"><span class="hot-text">✗</span> Politika yönetimi karmaşık</div>
 </div>
 
-<div v-click class="mt-4 text-sm text-gray-400">
+<div  class="mt-4 text-sm text-gray-400">
 RBAC "kim olduğuna" bakar; ABAC "<strong>hangi koşulda olduğuna</strong>" bakar.
 </div>
 
@@ -527,13 +513,13 @@ RBAC "kim olduğuna" bakar; ABAC "<strong>hangi koşulda olduğuna</strong>" bak
 - Yetki, **varlıklar arası ilişkiden** doğar
 - Google **Zanzibar**'ın temeli — milyarlarca kullanıcı
 
-<div v-click class="mt-4">
+<div  class="mt-4">
 
 > *"Bu dokümanı **paylaşan** kişinin, onu paylaştığı kişiler görebilir."*
 
 </div>
 
-<div v-click class="mt-4 flex flex-wrap gap-2">
+<div  class="mt-4 flex flex-wrap gap-2">
 <span class="chip-neon"><span class="i-logos:google-drive" /> Google Drive</span>
 <span class="chip-cyan"><span class="i-simple-icons:notion" /> Notion</span>
 <span class="chip-cyan"><span class="i-logos:github-icon" /> GitHub</span>
@@ -541,7 +527,7 @@ RBAC "kim olduğuna" bakar; ABAC "<strong>hangi koşulda olduğuna</strong>" bak
 
 </div>
 
-<div v-click>
+<div >
 
 ```mermaid {theme:'dark', scale: 0.8}
 flowchart TD
@@ -562,33 +548,6 @@ flowchart TD
 
 </div>
 
----
-transition: zoom
----
-
-# Modellerin Evrimi: Bir Hikâye
-
-<div class="text-gray-400 -mt-3 mb-6">İhtiyaçlar büyüdükçe modeller gelişti.</div>
-
-```mermaid {theme:'dark', scale: 0.95}
-timeline
-    title Erişim Kontrolünün Evrimi
-    1970'ler : DAC / MAC : Sahip veya sistem karar verir
-    1990'lar : RBAC : Roller ile yönetim kolaylaştı
-    2000'ler : ABAC : Özniteliklerle dinamik & ince karar
-    2010'lar+ : ReBAC : İlişkiler · Google Zanzibar ölçeği
-```
-
-<div class="grid grid-cols-4 gap-3 mt-6 text-center text-sm">
-<div v-click class="neon-card p-3"><div class="font-bold text-amber">DAC/MAC</div><div class="text-xs text-gray-400">Kim sahip / hangi seviye</div></div>
-<div v-click class="neon-card p-3"><div class="font-bold cyan-text">RBAC</div><div class="text-xs text-gray-400">Hangi rol</div></div>
-<div v-click class="neon-card p-3"><div class="font-bold text-amber">ABAC</div><div class="text-xs text-gray-400">Hangi öznitelik/koşul</div></div>
-<div v-click class="neon-card p-3"><div class="font-bold neon-text">ReBAC</div><div class="text-xs text-gray-400">Hangi ilişki</div></div>
-</div>
-
-<div v-click class="mt-6 text-center text-cyan">
-Gerçek sistemler genellikle bunları <strong>birlikte</strong> kullanır (örn. RBAC + ABAC).
-</div>
 
 ---
 layout: section
@@ -620,9 +579,6 @@ class: text-center
 <strong class="hot-text">Sık karıştırılan:</strong> OAuth bir <em>authorization</em> protokolüdür (yetki delegasyonu), <em>authentication</em> değil. Kimlik için <strong>OpenID Connect</strong> gelir.
 </div>
 
-<div v-click class="mt-4 flex justify-center gap-6 text-3xl">
-<span class="i-logos:oauth" /><span class="i-simple-icons:openid text-white" /><span class="i-logos:jwt-icon" /><span class="i-logos:auth0-icon" />
-</div>
 
 ---
 
@@ -638,7 +594,7 @@ Bir JWT üç parçadan oluşur — nokta ile ayrılır:
 header . payload . signature
 ```
 
-<div v-click>
+<div>
 
 ```json
 // payload — base64, ŞİFRELİ DEĞİL!
@@ -652,13 +608,13 @@ header . payload . signature
 
 </div>
 
-<div v-click class="mt-3 danger-card p-3 text-sm">
+<div class="mt-3 danger-card p-3 text-sm">
 <span class="hot-text font-bold">⚠ Payload şifreli değildir</span>, sadece imzalıdır. İçindeki rolü asla "gizli" sanma — sadece <strong>imza</strong> onu korur.
 </div>
 
 </div>
 
-<div v-click>
+<div>
 <Terminal title="jwt — manipülasyon denemesi">
 <div class="cmd">echo $PAYLOAD | base64 -d</div>
 <div class="out">{"role":"student"}</div>
@@ -1158,6 +1114,36 @@ Token üzerinde oynama: <code>alg:none</code>, zayıf secret, süresiz token.
 </div>
 
 ---
+transition: fade-out
+layout: center
+class: text-center
+---
+
+<div class="chip-hot mx-auto mb-8">// REALITY CHECK</div>
+
+<div class="text-3xl leading-relaxed font-light max-w-3xl mx-auto">
+Tek yapması gereken, adres çubuğundaki
+<span class="hot-text font-mono font-bold">id=75</span>'i
+<span class="neon-text font-mono font-bold">id=76</span> yapmaktı.
+</div>
+
+<div v-click>
+<div  class="mt-12 text-5xl font-mono font-extrabold hot-text">
+885.000.000 belge
+</div>
+<div  class="text-lg text-gray-400 mt-3">
+…tek bir yetki kontrolü unutulduğu için sızdı. <span class="text-gray-600">(First American, 2019)</span>
+</div></div>
+
+
+
+<!--
+Şununla başlayalım: karmaşık bir şifre kırma, sıfırıncı gün açığı değil. Sadece URL'deki bir sayı.
+Bu kadar basit bir ihmal, 885 milyon hassas belgeyi açığa çıkardı. İşte Authorization'ın gücü ve eksikliğinin bedeli.
+-->
+
+
+---
 layout: section
 class: text-center
 ---
@@ -1173,6 +1159,10 @@ class: text-center
 <!--
 Şimdi teoriyi bırakıp gerçeğe dönüyoruz. Bu olayların her biri, bu sunumda anlattığımız tam olarak bir hatadan kaynaklandı.
 -->
+
+
+
+
 
 ---
 
@@ -1529,8 +1519,17 @@ Bir mühendis olarak, görünmeyeni inşa et.
 <span class="i-carbon:user-admin hover:text-amber transition" />
 </div>
 
-<PoweredBySlidev mt-10 />
+
 
 <!--
 Bitirirken: Authorization'ı bir "sonra ekleriz" işi olarak görmeyin. İlk satırdan itibaren mimarinizin parçası olsun. Sorularınızı alalım.
 -->
+
+<style>
+  /* Target the dialog ONLY when it contains the hidden "-top-20" class */
+  :global(#slidev-goto-dialog[class*="-top-20"]) {
+    overflow: hidden !important;
+    max-height: 80px !important;
+    pointer-events: none !important;
+  }
+</style>

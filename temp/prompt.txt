@@ -1,0 +1,20 @@
+bizim mevcut olan slidev projesini kullanarak bizim bilgisyar mühendisiliği öğrencilerine bir Authorization (Yetkilendirme) sunumu hazırla (türkçe)
+kurulmuş olan slidev skilli kullan 
+
+sunumu hazırlarken bütün slidev özelliklerini kullan 
+çok güzel animasyonlar ve geçişler olsun ve temelar ve effectler çok güzel olsun 
+belli güzel bir tema üzerinden yürü
+foğtoraflar olsun graflar olsun diagramlar olsun kodlar olsun iconlar olsun arkaplanlar olsun
+konun hakkında yaptığım araştırmalar [resources](file;file:///d%3A/github/auth-presentation/resources) klasöründe mevcut o konuları anlatmanı istiyorum
+
+şirketlerin olaylarıyla ilgili araştırmanı istiyorum ve onunla ilgili Tweetler ve haber paylaşımlarını bul onlari da sunumda koy
+
+sormak istediğin bir şey olursa sor
+fazla ekstra kaynak istiyorsan söyle sana getiririm (mesela şirketlerin logo fotoğrafları) yada herhangi bir şey sunumda yardımcı olabilircek (veri/bilgi, fotoğraf, icon, vs...)
+
+
+
+
+
+`3. **Ek konular:** Kubernetes RBAC, AWS IAM, GitHub permissions gibi ek konuları da dahil edeceğim. Bunların detay seviyesi yeterli mi?`
+çok fazla ek konulara girmeye gerek yok bu ek konulardan sadece RBAC, AWS IAM kullan

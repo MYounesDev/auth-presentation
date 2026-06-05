@@ -102,13 +102,16 @@
   text-shadow: 0 0 14px rgba(255, 45, 85, 0.55);
 }
 
-/* Glow heading on cover */
 .glitch {
   position: relative;
-  color: #f3f7ff;
+  color: #ffffff;
+  font-size: 85px;
+  font-weight: 900;
   text-shadow:
-    0 0 8px rgba(0, 255, 156, 0.65),
-    0 0 28px rgba(34, 211, 238, 0.45);
+  
+    -5.25px -2.5px 0 rgba(0,255,156,0.75);
+  
+    animation: glitch 2.4s infinite;
 }
 
 /* Cover layout darkening */
