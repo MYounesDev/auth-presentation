@@ -1,7 +1,7 @@
 #  Authorization Presentation
 
 
-**Visit here to see the presentation** [https://auth-presentation.vercel.app/](auth-presentation.vercel.app/)
+**Visit here to see the presentation** ([auth-presentation.vercel.app/](https://auth-presentation.vercel.app/))
 
 > Comprehensive and technical presentation designed for **Computer Engineering** students.
 > Concepts · Models · Architecture · Code Implementations · Real-world Case Studies.
